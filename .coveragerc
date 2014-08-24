@@ -1,0 +1,6 @@
+[run]
+branch = True
+source = cloudkittydashboard
+
+[report]
+ignore-errors = True

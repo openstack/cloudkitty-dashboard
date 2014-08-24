@@ -1,0 +1,15 @@
+*.pyc
+*.egg-info
+*.log
+build
+.coverage
+.coverage.*
+.tox
+cover
+htmlcov
+.secret_key_store
+.testrepository
+.venv
+dist
+*.egg
+*.sw?
