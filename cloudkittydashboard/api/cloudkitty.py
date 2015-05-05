@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2014 Objectif Libre
+# Copyright 2015 Objectif Libre
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -13,36 +13,36 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 #
-# @author: François Magimel (linkid)
+import collections
 
-"""
-The API for the CloudKitty Horizon plugin.
-"""
+from django.conf import settings
+from horizon.utils.memoized import memoized  # noqa
 
-import logging
-
-from cloudkittyclient import client as cloudkitty_client
-
+from cloudkittyclient import client as ck_client
 from openstack_dashboard.api import base
 
 
-LOG = logging.getLogger(__name__)
-
-
+@memoized
 def cloudkittyclient(request):
-    """Initialization of CloudKitty client."""
-    username = request.user.username
-    token = request.user.token.id
-    tenant_name = request.user.tenant_id
-    endpoint = base.url_for(request, 'billing')
-    auth_url = base.url_for(request, 'identity')
+    """Initialization of Cloudkitty client."""
 
-    LOG.debug('cloudkittyclient connection created using token "%s" '
-              'and endpoint "%s"' % (request.user.token.id, endpoint))
+    endpoint = base.url_for(request, 'rating')
+    insecure = getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False)
+    cacert = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
+    return ck_client.Client('1', endpoint,
+                            token=(lambda: request.user.token.id),
+                            insecure=insecure,
+                            cacert=cacert)
 
-    return cloudkitty_client.Client('1',
-                                    username=username,
-                                    token=token,
-                                    tenant_name=tenant_name,
-                                    auth_url=auth_url,
-                                    endpoint=endpoint)
+
+def identify(what, name=False, key=None):
+    if isinstance(what, collections.Iterable):
+        for i in what:
+            i.id = getattr(i, key or "%s_id" % i.key)
+            if name:
+                i.name = getattr(i, key or "%s_id" % i.key)
+    else:
+        what.id = getattr(what, key or "%s_id" % what.key)
+        if name:
+            what.name = getattr(what, key or "%s_id" % what.key)
+    return what

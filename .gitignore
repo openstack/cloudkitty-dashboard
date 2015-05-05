@@ -13,3 +13,4 @@ htmlcov
 dist
 *.egg
 *.sw?
+.ropeproject

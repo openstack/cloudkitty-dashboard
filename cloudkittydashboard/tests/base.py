@@ -1,5 +1,7 @@
-#!/usr/bin/env python
-# Copyright 2014 Objectif Libre
+# -*- coding: utf-8 -*-
+
+# Copyright 2010-2011 OpenStack Foundation
+# Copyright (c) 2013 Hewlett-Packard Development Company, L.P.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -13,13 +15,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import os
-import sys
-
-from django.core.management import execute_from_command_line  # noqa
+from oslotest import base
 
 
-if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                          "openstack_dashboard.settings")
-    execute_from_command_line(sys.argv)
+class TestCase(base.BaseTestCase):
+
+    """Test case base class for all unit tests."""

@@ -1,5 +1,2 @@
 pbr>=0.6,!=0.7,<1.0
-http://tarballs.openstack.org/python-cloudkittyclient/python-cloudkittyclient-master.tar.gz
-
-# Horizon Core Requirements
-Django>=1.4.2,<1.7
+Babel>=1.3

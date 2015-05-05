@@ -1,0 +1,15 @@
+{% include 'project/instances/_launch_details_help.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block price %}
+<table class="flavor_table table-striped">
+  <tbody>
+  <tr>
+    <td class="price">{% trans "Price" %}</td><td><span id="price"></span> {% trans "$" %}</td>
+  </tr>
+  </tbody>
+</table>
+{% endblock %}
+
+<script src='{% static "cloudkitty/js/pricing.js" %}' type='text/javascript' charset='utf-8'></script>
