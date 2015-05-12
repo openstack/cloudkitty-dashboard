@@ -50,14 +50,56 @@ class CreateMappingForm(forms.SelfHandlingForm):
     cost = forms.DecimalField(label=_("Cost"))
     type = forms.ChoiceField(label=_("Type"),
                              choices=(("flat", _("Flat")),
-                                      ("rate", _("Rate")),
-                                      ("threshold", _("Threshold"))))
+                                      ("rate", _("Rate"))))
     group_id = forms.CharField(label=_("Group"), required=False)
 
     def handle(self, request, data):
         mapping_client = api.cloudkittyclient(request).hashmap.mappings
         mapping = {k: v for k, v in data.items() if v and v != ''}
         return mapping_client.create(**mapping)
+
+
+class CreateGroupForm(forms.SelfHandlingForm):
+    name = forms.CharField(label=_("Name"))
+
+    def handle(self, request, data):
+        name = data['name']
+        LOG.info('Creating group with name %s' % (name))
+        return api.cloudkittyclient(request).hashmap.groups.create(name=name)
+
+
+class CreateServiceThresholdForm(forms.SelfHandlingForm):
+    level = forms.DecimalField(label=_("Level"))
+    cost = forms.DecimalField(label=_("Cost"))
+    type = forms.ChoiceField(label=_("Type"),
+                             choices=(("flat", _("Flat")),
+                                      ("rate", _("Rate"))))
+    group_id = forms.CharField(label=_("Group"), required=False)
+    service_id = forms.CharField(label=_("Service ID"),
+                                 widget=forms.TextInput(
+                                     attrs={'readonly': 'readonly'}))
+
+    def handle(self, request, data):
+        client = api.cloudkittyclient(request).hashmap.thresholds
+        threshold = {k: v for k, v in data.items() if v and v != ''}
+        return client.create(**threshold)
+
+
+class CreateFieldThresholdForm(forms.SelfHandlingForm):
+    level = forms.DecimalField(label=_("Level"))
+    cost = forms.DecimalField(label=_("Cost"))
+    type = forms.ChoiceField(label=_("Type"),
+                             choices=(("flat", _("Flat")),
+                                      ("rate", _("Rate"))))
+    group_id = forms.CharField(label=_("Group"), required=False)
+    field_id = forms.CharField(label=_("Field"),
+                               widget=forms.TextInput(
+                                   attrs={'readonly': 'readonly'}))
+
+    def handle(self, request, data):
+        client = api.cloudkittyclient(request).hashmap.thresholds
+        threshold = {k: v for k, v in data.items() if v and v != ''}
+        return client.create(**threshold)
 
 
 class CreateFieldMappingForm(CreateMappingForm):
@@ -105,3 +147,27 @@ class EditFieldMappingForm(CreateFieldMappingForm):
         mapping = {k: v for k, v in data.items() if v and v != ''}
         mapping['mapping_id'] = self.initial['mapping_id']
         return mapping_client.update(**mapping)
+
+
+class EditServiceThresholdForm(CreateServiceThresholdForm):
+    threshold_id = forms.CharField(label=_("Threshold ID"),
+                                   widget=forms.TextInput(
+                                   attrs={'readonly': 'readonly'}))
+
+    def handle(self, request, data):
+        threshold_client = api.cloudkittyclient(request).hashmap.thresholds
+        threshold = {k: v for k, v in data.items() if v and v != ''}
+        threshold['threshold_id'] = self.initial['threshold_id']
+        return threshold_client.update(**threshold)
+
+
+class EditFieldThresholdForm(CreateFieldThresholdForm):
+    threshold_id = forms.CharField(label=_("Threshold ID"),
+                                   widget=forms.TextInput(
+                                   attrs={'readonly': 'readonly'}))
+
+    def handle(self, request, data):
+        threshold_client = api.cloudkittyclient(request).hashmap.thresholds
+        threshold = {k: v for k, v in data.items() if v and v != ''}
+        threshold['threshold_id'] = self.initial['threshold_id']
+        return threshold_client.update(**threshold)

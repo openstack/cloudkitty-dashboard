@@ -59,6 +59,201 @@ class ServicesTable(tables.DataTable):
         row_actions = (DeleteService,)
 
 
+class CreateGroup(tables.LinkAction):
+    name = "creategroup"
+    verbose_name = _("Create new Group")
+    url = 'horizon:admin:hashmap:group_create'
+    icon = "create"
+    ajax = True
+    classes = ("ajax-modal",)
+
+
+class DeleteGroup(tables.BatchAction):
+    name = "deletegroup"
+    verbose_name = _("Delete Group")
+    action_present = _("Delete")
+    action_past = _("Deleted")
+    data_type_singular = _("Group")
+    data_type_plural = _("Groups")
+    icon = "remove"
+
+    def action(self, request, group_id):
+        api.cloudkittyclient(request).hashmap.groups.delete(
+            group_id=group_id
+        )
+
+
+class GroupsTable(tables.DataTable):
+    """This table list the available groups.
+
+    Clicking on a group name sends you to a GroupsTab page.
+    """
+    name = tables.Column('name', verbose_name=_("Name"))
+
+    class Meta(object):
+        name = "groups"
+        verbose_name = _("Groups")
+        table_actions = (CreateGroup,)
+        row_actions = (DeleteGroup,)
+
+
+class GroupsTab(tabs.TableTab):
+    name = _("Groups")
+    slug = "hashmap_groups"
+    table_classes = (GroupsTable,)
+    template_name = "horizon/common/_detail_table.html"
+    preload = True
+
+    def get_groups_data(self):
+        client = api.cloudkittyclient(self.request)
+        groups = client.hashmap.groups.list()
+        return api.identify(groups)
+
+
+class CreateServiceThreshold(tables.LinkAction):
+    name = "createservicethreshold"
+    verbose_name = _("Create new Service Threshold")
+    icon = "create"
+    ajax = False
+    classes = ("ajax-modal",)
+
+    def get_link_url(self, datum=None):
+        url = 'horizon:admin:hashmap:service_threshold_create'
+        service_id = self.table.request.service_id
+        return reverse(url, args=[service_id])
+
+
+class CreateFieldThreshold(tables.LinkAction):
+    name = "createfieldthreshold"
+    verbose_name = _("Create new Field Threshold")
+    icon = "create"
+    ajax = False
+    classes = ("ajax-modal",)
+
+    def get_link_url(self, datum=None):
+        url = 'horizon:admin:hashmap:field_threshold_create'
+        field_id = self.table.request.field_id
+        return reverse(url, args=[field_id])
+
+
+class DeleteServiceThreshold(tables.BatchAction):
+    name = "deletetservicehreshold"
+    verbose_name = _("Delete Service Threshold")
+    action_present = _("Delete")
+    action_past = _("Deleted")
+    data_type_singular = _("Service Threshold")
+    data_type_plural = _("Service Thresholds")
+    icon = "remove"
+
+    def action(self, request, threshold_id):
+        api.cloudkittyclient(request).hashmap.thresholds.delete(
+            threshold_id=threshold_id
+        )
+
+
+class DeleteFieldThreshold(tables.BatchAction):
+    name = "deletefieldthreshold"
+    verbose_name = _("Delete Field Threshold")
+    action_present = _("Delete")
+    action_past = _("Deleted")
+    data_type_singular = _("Field Threshold")
+    data_type_plural = _("Field Thresholds")
+    icon = "remove"
+
+    def action(self, request, threshold_id):
+        api.cloudkittyclient(request).hashmap.thresholds.delete(
+            threshold_id=threshold_id
+        )
+
+
+class EditServiceThreshold(tables.LinkAction):
+    name = "editservicethreshold"
+    verbose_name = _("Edit Service Threshold")
+    icon = "edit"
+    ajax = True
+    classes = ("ajax-modal",)
+
+    def get_link_url(self, datum=None):
+        url = 'horizon:admin:hashmap:service_threshold_edit'
+        return reverse(url, args=[datum.threshold_id])
+
+
+class ServiceThresholdsTable(tables.DataTable):
+    """This table list the available groups.
+
+    Clicking on a group name sends you to a GroupsTab page.
+    """
+    threshold_id = tables.Column('id', verbose_name=_("Id"))
+    level = tables.Column('level', verbose_name=_("Level"))
+    cost = tables.Column('cost', verbose_name=_("Cost"))
+    type = tables.Column('type', verbose_name=_("Type"))
+    group_id = tables.Column('group_id', verbose_name=_("Group"))
+
+    class Meta(object):
+        name = "service_thresholds"
+        verbose_name = _("Service Threshold")
+        table_actions = (CreateServiceThreshold,)
+        row_actions = (EditServiceThreshold, DeleteServiceThreshold)
+
+
+class ServiceThresholdsTab(tabs.TableTab):
+    name = _("Service Thresholds")
+    slug = "hashmap_service_thresholds"
+    table_classes = (ServiceThresholdsTable,)
+    template_name = "horizon/common/_detail_table.html"
+    preload = True
+
+    def get_service_thresholds_data(self):
+        client = api.cloudkittyclient(self.request)
+        thresholds = client.hashmap.thresholds.list(
+            service_id=self.request.service_id)
+        return api.identify(thresholds)
+
+
+class EditFieldThreshold(tables.LinkAction):
+    name = "editfieldthreshold"
+    verbose_name = _("Edit Field Threshold")
+    icon = "edit"
+    ajax = True
+    classes = ("ajax-modal",)
+
+    def get_link_url(self, datum=None):
+        url = 'horizon:admin:hashmap:field_threshold_edit'
+        return reverse(url, args=[datum.threshold_id])
+
+
+class FieldThresholdsTable(tables.DataTable):
+    """This table list the available groups.
+
+    Clicking on a group name sends you to a GroupsTab page.
+    """
+    threshold_id = tables.Column('id', verbose_name=_("Id"))
+    level = tables.Column('level', verbose_name=_("Level"))
+    cost = tables.Column('cost', verbose_name=_("Cost"))
+    type = tables.Column('type', verbose_name=_("Type"))
+    group_id = tables.Column('group_id', verbose_name=_("Group"))
+
+    class Meta(object):
+        name = "field_thresholds"
+        verbose_name = _("Field Threshold")
+        table_actions = (CreateFieldThreshold,)
+        row_actions = (EditFieldThreshold, DeleteFieldThreshold)
+
+
+class FieldThresholdsTab(tabs.TableTab):
+    name = _("Field Thresholds")
+    slug = "hashmap_field_thresholds"
+    table_classes = (FieldThresholdsTable,)
+    template_name = "horizon/common/_detail_table.html"
+    preload = True
+
+    def get_field_thresholds_data(self):
+        client = api.cloudkittyclient(self.request)
+        thresholds = client.hashmap.thresholds.list(
+            field_id=self.request.field_id)
+        return api.identify(thresholds)
+
+
 class DeleteField(tables.BatchAction):
     name = "deletefield"
     verbose_name = _("Delete Field")
@@ -206,6 +401,21 @@ class FieldMappingsTable(tables.DataTable):
         table_actions = (CreateFieldMapping,)
 
 
+class FieldMappingsTab(tabs.TableTab):
+    name = _("Field Mappings")
+    slug = "hashmap_field_mappings"
+    table_classes = (FieldMappingsTable,)
+    template_name = "horizon/common/_detail_table.html"
+    preload = True
+
+    def get_mappings_data(self):
+        client = api.cloudkittyclient(self.request)
+        mappings = client.hashmap.mappings.list(
+            field_id=self.request.field_id
+        )
+        return api.identify(mappings)
+
+
 class MappingsTab(tabs.TableTab):
     name = _("Mappings")
     slug = "hashmap_mappings"
@@ -221,7 +431,13 @@ class MappingsTab(tabs.TableTab):
         return api.identify(mappings)
 
 
+class FieldTabs(tabs.TabGroup):
+    slug = "field_tabs"
+    tabs = (FieldThresholdsTab, FieldMappingsTab)
+    sticky = True
+
+
 class ServiceTabs(tabs.TabGroup):
     slug = "services_tabs"
-    tabs = (FieldsTab, MappingsTab)
+    tabs = (FieldsTab, MappingsTab, GroupsTab, ServiceThresholdsTab)
     sticky = True

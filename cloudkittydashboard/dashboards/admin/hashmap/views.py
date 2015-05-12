@@ -57,8 +57,8 @@ class ServiceCreateView(forms.ModalFormView):
         return obj.service_id
 
 
-class FieldView(tables.DataTableView):
-    table_class = hashmap_tables.FieldMappingsTable
+class FieldView(tabs.TabbedTableView):
+    tab_group_class = hashmap_tables.FieldTabs
     template_name = 'admin/hashmap/field_details.html'
 
     def get(self, *args, **kwargs):
@@ -68,12 +68,6 @@ class FieldView(tables.DataTableView):
         self.request.field_id = field.field_id
         self.page_title = "Hashmap Field : %s" % field.name
         return super(FieldView, self).get(*args, **kwargs)
-
-    def get_data(self):
-        out = api.cloudkittyclient(self.request).hashmap.mappings.list(
-            field_id=self.kwargs['field_id']
-        )
-        return api.identify(out)
 
 
 class FieldCreateView(forms.ModalFormView):
@@ -192,3 +186,167 @@ class FieldMappingEditView(FieldMappingCreateView):
     def get_success_url(self, **kwargs):
         return reverse('horizon:admin:hashmap:field',
                        args=(self.initial['field_id'], ))
+
+
+class GroupCreateView(forms.ModalFormView):
+    form_class = hashmap_forms.CreateGroupForm
+    template_name = 'horizon/common/modal_form.html'
+    success_url = reverse_lazy('horizon:admin:hashmap:index')
+    submit_url = reverse_lazy('horizon:admin:hashmap:group_create')
+
+    def get_object_id(self, obj):
+        return obj.group_id
+
+    '''
+    def get_success_url(self, **kwargs):
+        return reverse('horizon:admin:hashmap:group',
+                       args=(kwargs['group_id'], ))
+    '''
+
+
+class ServiceThresholdCreateView(forms.ModalFormView):
+    form_class = hashmap_forms.CreateServiceThresholdForm
+    template_name = 'horizon/common/modal_form.html'
+    success_url = 'horizon:admin:hashmap:service'
+    submit_url = 'horizon:admin:hashmap:service_threshold_create'
+
+    def get_object_id(self, obj):
+        return obj.field_id
+
+    def get_success_url(self, **kwargs):
+        return reverse('horizon:admin:hashmap:service',
+                       args=(self.kwargs['service_id'],))
+
+    def get_context_data(self, **kwargs):
+        context = super(ServiceThresholdCreateView,
+                        self).get_context_data(**kwargs)
+        context["service_id"] = self.kwargs.get('service_id')
+        args = (context['service_id'],)
+        context['submit_url'] = reverse_lazy(self.submit_url, args=args)
+        return context
+
+    def get_initial(self):
+        return {"service_id": self.kwargs["service_id"]}
+
+
+class ServiceThresholdEditView(ServiceThresholdCreateView):
+    form_class = hashmap_forms.EditServiceThresholdForm
+    submit_url = 'horizon:admin:hashmap:service_threshold_edit'
+
+    def get_initial(self):
+        out = api.cloudkittyclient(self.request).hashmap.thresholds.get(
+            threshold_id=self.kwargs['threshold_id'])
+        self.initial = out.to_dict()
+        return self.initial
+
+    def get_context_data(self, **kwargs):
+        context = super(ServiceThresholdEditView,
+                        self).get_context_data(**kwargs)
+        context["threshold_id"] = self.kwargs.get('threshold_id')
+        context['submit_url'] = reverse_lazy(self.submit_url,
+                                             args=(context['threshold_id'], ))
+        return context
+
+    def get_success_url(self, **kwargs):
+        return reverse('horizon:admin:hashmap:service',
+                       args=(self.initial['service_id'], ))
+
+
+class ServiceThresholdView(tabs.TabbedTableView):
+    tab_group_class = hashmap_tables.ServiceThresholdsTab
+
+    def get(self, *args, **kwargs):
+        threshold = api.cloudkittyclient(self.request).hashmap.thresholds.get(
+            threshold_id=kwargs['threshold_id']
+        )
+        self.request.threshold_id = threshold.threshold_id
+        self.page_title = "Hashmap Threshold : %s" % threshold.threshold_id
+        return super(ServiceThresholdView, self).get(*args, **kwargs)
+
+    def get_data(self):
+        out = api.cloudkittyclient(self.request).hashmaps.thresholds.list(
+            threshold_id=self.kwargs['threshold_id'])
+        return api.identify(out)
+
+
+class FieldThresholdCreateView(forms.ModalFormView):
+    form_class = hashmap_forms.CreateFieldThresholdForm
+    template_name = 'horizon/common/modal_form.html'
+    success_url = 'horizon:admin:hashmap:field'
+    submit_url = 'horizon:admin:hashmap:field_threshold_create'
+
+    def get_object_id(self, obj):
+        return obj.field_id
+
+    def get_success_url(self, **kwargs):
+        return reverse('horizon:admin:hashmap:field',
+                       args=(self.kwargs['field_id'],))
+
+    def get_context_data(self, **kwargs):
+        context = super(FieldThresholdCreateView,
+                        self).get_context_data(**kwargs)
+        context["field_id"] = self.kwargs.get('field_id')
+        args = (context['field_id'],)
+        context['submit_url'] = reverse_lazy(self.submit_url, args=args)
+        return context
+
+    def get_initial(self):
+        return {"field_id": self.kwargs["field_id"]}
+
+
+class FieldThresholdEditView(FieldThresholdCreateView):
+    form_class = hashmap_forms.EditFieldThresholdForm
+    submit_url = 'horizon:admin:hashmap:field_threshold_edit'
+
+    def get_initial(self):
+        out = api.cloudkittyclient(self.request).hashmap.thresholds.get(
+            threshold_id=self.kwargs['threshold_id'])
+        self.initial = out.to_dict()
+        return self.initial
+
+    def get_context_data(self, **kwargs):
+        context = super(FieldThresholdEditView,
+                        self).get_context_data(**kwargs)
+        context["threshold_id"] = self.kwargs.get('threshold_id')
+        context['submit_url'] = reverse_lazy(self.submit_url,
+                                             args=(context['threshold_id'], ))
+        return context
+
+    def get_success_url(self, **kwargs):
+        return reverse('horizon:admin:hashmap:field',
+                       args=(self.initial['field_id'], ))
+
+
+class FieldThresholdView(tabs.TabbedTableView):
+    tab_group_class = hashmap_tables.FieldThresholdsTab
+
+    def get(self, *args, **kwargs):
+        threshold = api.cloudkittyclient(self.request).hashmap.thresholds.get(
+            threshold_id=kwargs['threshold_id']
+        )
+        self.request.threshold_id = threshold.threshold_id
+        self.page_title = "Hashmap Threshold : %s" % threshold.threshold_id
+        return super(FieldThresholdView, self).get(*args, **kwargs)
+
+    def get_data(self):
+        out = api.cloudkittyclient(self.request).hashmaps.thresholds.list(
+            threshold_id=self.kwargs['threshold_id'])
+        return api.identify(out)
+
+
+class GroupView(tabs.TabbedTableView):
+    tab_group_class = hashmap_tables.GroupsTab
+    template_name = 'admin/hashmap/group_details.html'
+
+    def get(self, *args, **kwargs):
+        group = api.cloudkittyclient(self.request).hashmap.groups.get(
+            group_id=kwargs['group_id']
+        )
+        self.request.group_id = group.group_id
+        self.page_title = "Hashmap Group : %s" % group.name
+        return super(GroupView, self).get(*args, **kwargs)
+
+    def get_data(self):
+        out = api.cloudkittyclient(self.request).hashmap.groups.list(
+        )
+        return api.identify(out)
