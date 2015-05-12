@@ -89,6 +89,7 @@ class GroupsTable(tables.DataTable):
     Clicking on a group name sends you to a GroupsTab page.
     """
     name = tables.Column('name', verbose_name=_("Name"))
+    group_id = tables.Column('group_id', verbose_name=_("Group"))
 
     class Meta(object):
         name = "groups"
@@ -183,10 +184,9 @@ class ServiceThresholdsTable(tables.DataTable):
 
     Clicking on a group name sends you to a GroupsTab page.
     """
-    threshold_id = tables.Column('id', verbose_name=_("Id"))
     level = tables.Column('level', verbose_name=_("Level"))
-    cost = tables.Column('cost', verbose_name=_("Cost"))
     type = tables.Column('type', verbose_name=_("Type"))
+    cost = tables.Column('cost', verbose_name=_("Cost"))
     group_id = tables.Column('group_id', verbose_name=_("Group"))
 
     class Meta(object):
@@ -227,10 +227,9 @@ class FieldThresholdsTable(tables.DataTable):
 
     Clicking on a group name sends you to a GroupsTab page.
     """
-    threshold_id = tables.Column('id', verbose_name=_("Id"))
     level = tables.Column('level', verbose_name=_("Level"))
-    cost = tables.Column('cost', verbose_name=_("Cost"))
     type = tables.Column('type', verbose_name=_("Type"))
+    cost = tables.Column('cost', verbose_name=_("Cost"))
     group_id = tables.Column('group_id', verbose_name=_("Group"))
 
     class Meta(object):
@@ -352,8 +351,8 @@ class EditServiceMapping(tables.LinkAction):
 
 
 class ServiceMappingsTable(tables.DataTable):
-    cost = tables.Column('cost', verbose_name=_("Cost"))
     type = tables.Column('type', verbose_name=_("Type"))
+    cost = tables.Column('cost', verbose_name=_("Cost"))
     group_id = tables.Column('group_id', verbose_name=_("Group"))
 
     class Meta(object):
@@ -390,8 +389,8 @@ class EditFieldMapping(tables.LinkAction):
 
 class FieldMappingsTable(tables.DataTable):
     value = tables.Column('value', verbose_name=_("Value"))
-    cost = tables.Column('cost', verbose_name=_("Cost"))
     type = tables.Column('type', verbose_name=_("Type"))
+    cost = tables.Column('cost', verbose_name=_("Cost"))
     group_id = tables.Column('group_id', verbose_name=_("Group"))
 
     class Meta(object):
