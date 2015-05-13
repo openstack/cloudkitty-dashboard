@@ -52,13 +52,12 @@ def _do_this_month(data):
 
     service_names = services.keys()
     t = start_timestamp
-    while True:
-        if t > end_timestamp:
-            break
-        for service in service_names:
-            hourly_d = services[service]['hourly']
-            hourly_d.setdefault(t, 0)
-        t += 3600
+    if end_timestamp:
+        while t <= end_timestamp:
+            for service in service_names:
+                hourly_d = services[service]['hourly']
+                hourly_d.setdefault(t, 0)
+            t += 3600
 
     # now sort the dicts
     for service in service_names:
@@ -88,7 +87,7 @@ class CostRepartitionTab(tabs.Tab):
 
 class ReportingTabs(tabs.TabGroup):
     slug = "reporting_tabs"
-    tabs = (CostRepartitionTab)
+    tabs = (CostRepartitionTab, )
     sticky = True
 
 
