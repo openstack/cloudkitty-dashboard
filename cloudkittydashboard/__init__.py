@@ -15,5 +15,4 @@
 import pbr.version
 
 
-__version__ = pbr.version.VersionInfo(
-    'cloudkittydashboard').version_string()
+__version__ = pbr.version.VersionInfo('cloudkitty-dashboard').version_string()
