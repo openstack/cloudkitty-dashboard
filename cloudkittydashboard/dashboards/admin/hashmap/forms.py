@@ -68,7 +68,10 @@ class CreateServiceThresholdForm(forms.SelfHandlingForm):
 
     def handle(self, request, data):
         client = api.cloudkittyclient(request).hashmap.thresholds
-        threshold = {k: v for k, v in data.items() if v and v != ''}
+        threshold = {}
+        for k, v in data.items():
+            if v:
+                threshold[k] = v
         return client.create(**threshold)
 
 
@@ -85,7 +88,10 @@ class CreateFieldThresholdForm(forms.SelfHandlingForm):
 
     def handle(self, request, data):
         client = api.cloudkittyclient(request).hashmap.thresholds
-        threshold = {k: v for k, v in data.items() if v and v != ''}
+        threshold = {}
+        for k, v in data.items():
+            if v:
+                threshold[k] = v
         return client.create(**threshold)
 
 
@@ -103,7 +109,10 @@ class CreateFieldMappingForm(forms.SelfHandlingForm):
 
     def handle(self, request, data):
         mapping_client = api.cloudkittyclient(request).hashmap.mappings
-        mapping = {k: v for k, v in data.items() if v and v != ''}
+        mapping = {}
+        for k, v in data.items():
+            if v:
+                mapping[k] = v
         return mapping_client.create(**mapping)
 
 
@@ -120,7 +129,10 @@ class CreateServiceMappingForm(forms.SelfHandlingForm):
 
     def handle(self, request, data):
         mapping_client = api.cloudkittyclient(request).hashmap.mappings
-        mapping = {k: v for k, v in data.items() if v and v != ''}
+        mapping = {}
+        for k, v in data.items():
+            if v:
+                mapping[k] = v
         return mapping_client.create(**mapping)
 
 
@@ -131,7 +143,10 @@ class EditServiceMappingForm(CreateServiceMappingForm):
 
     def handle(self, request, data):
         mapping_client = api.cloudkittyclient(request).hashmap.mappings
-        mapping = {k: v for k, v in data.items() if v and v != ''}
+        mapping = {}
+        for k, v in data.items():
+            if v:
+                mapping[k] = v
         mapping['mapping_id'] = self.initial['mapping_id']
         return mapping_client.update(**mapping)
 
@@ -143,7 +158,10 @@ class EditFieldMappingForm(CreateFieldMappingForm):
 
     def handle(self, request, data):
         mapping_client = api.cloudkittyclient(request).hashmap.mappings
-        mapping = {k: v for k, v in data.items() if v and v != ''}
+        mapping = {}
+        for k, v in data.items():
+            if v:
+                mapping[k] = v
         mapping['mapping_id'] = self.initial['mapping_id']
         return mapping_client.update(**mapping)
 
@@ -155,7 +173,10 @@ class EditServiceThresholdForm(CreateServiceThresholdForm):
 
     def handle(self, request, data):
         threshold_client = api.cloudkittyclient(request).hashmap.thresholds
-        threshold = {k: v for k, v in data.items() if v and v != ''}
+        threshold = {}
+        for k, v in data.items():
+            if v:
+                threshold[k] = v
         threshold['threshold_id'] = self.initial['threshold_id']
         return threshold_client.update(**threshold)
 
@@ -167,6 +188,9 @@ class EditFieldThresholdForm(CreateFieldThresholdForm):
 
     def handle(self, request, data):
         threshold_client = api.cloudkittyclient(request).hashmap.thresholds
-        threshold = {k: v for k, v in data.items() if v and v != ''}
+        threshold = {}
+        for k, v in data.items():
+            if v:
+                threshold[k] = v
         threshold['threshold_id'] = self.initial['threshold_id']
         return threshold_client.update(**threshold)
