@@ -62,10 +62,14 @@ class ServicesTable(tables.DataTable):
 class CreateGroup(tables.LinkAction):
     name = "creategroup"
     verbose_name = _("Create new Group")
-    url = 'horizon:admin:hashmap:group_create'
     icon = "create"
     ajax = True
     classes = ("ajax-modal",)
+
+    def get_link_url(self, datum=None):
+        url = 'horizon:admin:hashmap:group_create'
+        service_id = self.table.request.service_id
+        return reverse(url, args=[service_id])
 
 
 class DeleteGroup(tables.BatchAction):
@@ -416,7 +420,7 @@ class FieldMappingsTab(tabs.TableTab):
 
 
 class MappingsTab(tabs.TableTab):
-    name = _("Mappings")
+    name = _("Service Mappings")
     slug = "hashmap_mappings"
     table_classes = (ServiceMappingsTable,)
     template_name = "horizon/common/_detail_table.html"
@@ -432,11 +436,11 @@ class MappingsTab(tabs.TableTab):
 
 class FieldTabs(tabs.TabGroup):
     slug = "field_tabs"
-    tabs = (FieldThresholdsTab, FieldMappingsTab)
+    tabs = (FieldMappingsTab, FieldThresholdsTab)
     sticky = True
 
 
 class ServiceTabs(tabs.TabGroup):
     slug = "services_tabs"
-    tabs = (FieldsTab, MappingsTab, GroupsTab, ServiceThresholdsTab)
+    tabs = (FieldsTab, MappingsTab, ServiceThresholdsTab, GroupsTab)
     sticky = True

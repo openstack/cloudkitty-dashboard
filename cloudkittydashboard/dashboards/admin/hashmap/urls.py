@@ -41,7 +41,7 @@ urlpatterns = patterns(
     url(r'^create_field/service/(?P<service_id>[^/]+)/?$',
         views.FieldCreateView.as_view(),
         name='field_create'),
-    url(r'^create_group/?$',
+    url(r'^create_group/(?P<service_id>[^/]+)/?$',
         views.GroupCreateView.as_view(),
         name='group_create'),
     url(r'^create_threshold/service/(?P<service_id>[^/]+)/?$',

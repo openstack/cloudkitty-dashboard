@@ -191,11 +191,22 @@ class FieldMappingEditView(FieldMappingCreateView):
 class GroupCreateView(forms.ModalFormView):
     form_class = hashmap_forms.CreateGroupForm
     template_name = 'horizon/common/modal_form.html'
-    success_url = reverse_lazy('horizon:admin:hashmap:index')
-    submit_url = reverse_lazy('horizon:admin:hashmap:group_create')
+    submit_url = 'horizon:admin:hashmap:group_create'
+
+    def get_success_url(self, **kwargs):
+        return reverse('horizon:admin:hashmap:service',
+                       args=(self.kwargs['service_id'],))
 
     def get_object_id(self, obj):
         return obj.group_id
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupCreateView,
+                        self).get_context_data(**kwargs)
+        context["service_id"] = self.kwargs.get('service_id')
+        context['submit_url'] = reverse_lazy(self.submit_url,
+                                             args=(context['service_id'], ))
+        return context
 
     '''
     def get_success_url(self, **kwargs):

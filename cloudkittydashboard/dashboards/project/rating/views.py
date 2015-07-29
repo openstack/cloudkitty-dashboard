@@ -12,6 +12,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+import decimal
 import json
 
 from django import http
@@ -39,8 +40,9 @@ def quote(request):
         if request.method == 'POST':
             json_data = json.loads(request.body)
             try:
-                pricing = (api.cloudkittyclient(request)
-                           .quotations.quote(json_data))
+                pricing = decimal.Decimal(api.cloudkittyclient(request)
+                                          .quotations.quote(json_data))
+                pricing = pricing.normalize().to_eng_string()
             except Exception:
                 exceptions.handle(request,
                                   _('Unable to retrieve price.'))
