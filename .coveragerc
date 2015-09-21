@@ -3,4 +3,4 @@ branch = True
 source = cloudkittydashboard
 
 [report]
-ignore-errors = True
+ignore_errors = True
