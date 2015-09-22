@@ -61,7 +61,7 @@ pricing = {
             var ram = horizon.Quota.selected_flavor.ram;
             var source_type = $('#id_source_type option:selected').val();
             var source_val = $('#id_' + source_type + ' option:selected').val();
-	    var instance_count = parseInt($("#id_count").val());
+            var instance_count = parseInt($("#id_count").val());
 
             // make the json data form
             desc_form = {
