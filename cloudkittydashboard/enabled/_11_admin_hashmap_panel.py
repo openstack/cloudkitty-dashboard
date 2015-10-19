@@ -12,6 +12,8 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+ADD_INSTALLED_APPS = ['cloudkittydashboard']
+
 PANEL_GROUP = 'rating'
 PANEL_DASHBOARD = 'admin'
 PANEL = 'hashmap'
