@@ -36,16 +36,18 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 %install
 %{__python} setup.py install -O1 --skip-build --root=%{buildroot}
 mkdir -p %{buildroot}/usr/share/openstack-dashboard/openstack_dashboard/enabled/
-ln -s %{python_sitelib}/cloudkittydashboard/_90_enable_ck.py \
-    %{buildroot}/usr/share/openstack-dashboard/openstack_dashboard/enabled/_90_enable_ck.py
+ln -s %{python_sitelib}/cloudkittydashboard/enabled/_[0-9]*.py \
+    %{buildroot}/usr/share/openstack-dashboard/openstack_dashboard/enabled/
 
 %files
 %{python_sitelib}/*
-/usr/share/openstack-dashboard/openstack_dashboard/enabled/_90_enable_ck.py
+/usr/share/openstack-dashboard/openstack_dashboard/enabled/*
 
 %description
 OpenStack Rating-as-a-Service - Dashboard
 
 %changelog
+* Mon Oct 19 2015 Stéphane Albert <stephane.albert@objectif-libre.com> - @VERSION@
+- Updated with new enabled files
 * Wed May 20 2015 Gauvain Pocentek <gauvain.pocentek@objectif-libre.com> - @VERSION@
 - Initial release
