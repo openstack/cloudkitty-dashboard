@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load i18n sizeformat %}
+{% block title %}{% trans "Script Details" %}{% endblock %}
+
+{% block main %}
+<div class="row">
+  <div class="col-sm-12">
+      <div class="detail">
+          <dl>
+              <dt>{{ _("Id") }}</dt>
+              <dd>{{ script.script_id }}</dd>
+              <dt>{{ _("Name") }}</dt>
+              <dd>{{ script.name }}</dd>
+              <dt>{{ _("Data") }}</dt>
+              <dd>{{ script.data|linebreaksbr }}</dd>
+          </dl>
+      </div>
+  </div>
+</div>
+{% endblock %}
+
