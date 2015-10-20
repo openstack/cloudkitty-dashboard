@@ -12,6 +12,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from horizon import tables
 
@@ -48,8 +49,14 @@ class ToggleEnabledModule(tables.BatchAction):
             self.current_past_action = ENABLE
 
 
+def get_details_link(datum):
+    if datum.module_id:
+        url = "horizon:admin:rating_modules:module_details"
+        return reverse(url, kwargs={'module_id': datum.module_id})
+
+
 class ModulesTable(tables.DataTable):
-    name = tables.Column('name', verbose_name=_("Name"))
+    name = tables.Column('name', verbose_name=_("Name"), link=get_details_link)
     description = tables.Column('description', verbose_name=_("Description"))
     hot_config = tables.Column('hot-config', verbose_name=_("Configurable"))
     enabled = tables.Column('enabled', verbose_name=_("Enabled"))
