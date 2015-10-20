@@ -14,11 +14,11 @@
 
 import logging
 
-
 from django.utils.translation import ugettext_lazy as _
 from horizon import forms
 
 from cloudkittydashboard.api import cloudkitty as api
+from cloudkittydashboard.dashboards import common
 
 LOG = logging.getLogger(__name__)
 
@@ -32,18 +32,18 @@ class CreateServiceForm(forms.SelfHandlingForm):
         return api.cloudkittyclient(request).hashmap.services.create(name=name)
 
 
-class CreateFieldForm(forms.SelfHandlingForm):
-    name = forms.CharField(label=_("Name"))
+class CreateFieldForm(forms.SelfHandlingForm, common.OrderFieldsMixin):
     service_id = forms.CharField(label=_("Service ID"),
                                  widget=forms.TextInput(
                                  attrs={'readonly': 'readonly'}))
+    name = forms.CharField(label=_("Name"))
 
     def handle(self, request, data):
         name = data['name']
         service_id = data['service_id']
         LOG.info('Creating field with name %s' % (name))
-        field_client = api.cloudkittyclient(request).hashmap.fields
-        return field_client.create(name=name, service_id=service_id)
+        fields_mgr = api.cloudkittyclient(request).hashmap.fields
+        return fields_mgr.create(name=name, service_id=service_id)
 
 
 class CreateGroupForm(forms.SelfHandlingForm):
@@ -55,142 +55,143 @@ class CreateGroupForm(forms.SelfHandlingForm):
         return api.cloudkittyclient(request).hashmap.groups.create(name=name)
 
 
-class CreateServiceThresholdForm(forms.SelfHandlingForm):
-    level = forms.DecimalField(label=_("Level"))
+class BaseForm(forms.SelfHandlingForm, common.OrderFieldsMixin):
     type = forms.ChoiceField(label=_("Type"),
                              choices=(("flat", _("Flat")),
                                       ("rate", _("Rate"))))
     cost = forms.DecimalField(label=_("Cost"))
-    group_id = forms.CharField(label=_("Group"), required=False)
+    url = "horizon:admin:hashmap:group_create"
+    group_id = forms.DynamicChoiceField(label=_("Group"),
+                                        required=False,
+                                        add_item_link=url)
+    fields_order = ['type', 'cost', 'group_id']
+
+    def __init__(self, request, *args, **kwargs):
+        super(BaseForm, self).__init__(request, *args, **kwargs)
+        self.order_fields()
+        groups = api.cloudkittyclient(request).hashmap.groups.list()
+        groups = api.identify(groups)
+        choices = [(group.id, group.name) for group in groups]
+        choices.insert(0, (None, ' '))
+        self.fields['group_id'].choices = choices
+
+
+class BaseThresholdForm(BaseForm):
+    level = forms.DecimalField(label=_("Level"))
+    fields_order = ['level', 'type', 'cost', 'group_id']
+
+    def handle(self, request, data):
+        thresholds_mgr = api.cloudkittyclient(request).hashmap.thresholds
+        threshold = {}
+        for k, v in data.items():
+            if v:
+                threshold[k] = v
+        return thresholds_mgr.create(**threshold)
+
+
+class CreateServiceThresholdForm(BaseThresholdForm):
     service_id = forms.CharField(label=_("Service ID"),
+                                 widget=forms.TextInput(
+                                     attrs={'readonly': 'readonly'}))
+    fields_order = ['service_id', 'level', 'type', 'cost', 'group_id']
+
+
+class CreateFieldThresholdForm(BaseThresholdForm):
+    field_id = forms.CharField(label=_("Field"),
+                               widget=forms.TextInput(
+                                   attrs={'readonly': 'readonly'}))
+    fields_order = ['field_id', 'level', 'type', 'cost', 'group_id']
+
+
+class BaseMappingForm(BaseForm):
+
+    def handle(self, request, data):
+        mapping_mgr = api.cloudkittyclient(request).hashmap.mappings
+        mapping = {}
+        for k, v in data.items():
+            if v:
+                mapping[k] = v
+        return mapping_mgr.create(**mapping)
+
+
+class CreateFieldMappingForm(BaseMappingForm):
+    value = forms.CharField(label=_("Value"))
+    field_id = forms.CharField(label=_("Field ID"),
+                               widget=forms.TextInput(
+                                   attrs={'readonly': 'readonly'}),
+                               required=False)
+    fields_order = ['field_id', 'value', 'type', 'cost', 'group_id']
+
+
+class CreateServiceMappingForm(BaseMappingForm):
+    service_id = forms.CharField(label=_("Service ID"),
+                                 widget=forms.TextInput(
+                                     attrs={'readonly': 'readonly'}),
+                                 required=False)
+    fields_order = ['service_id', 'type', 'cost', 'group_id']
+
+
+class BaseEditMappingForm(BaseMappingForm):
+    mapping_id = forms.CharField(label=_("Mapping ID"),
                                  widget=forms.TextInput(
                                      attrs={'readonly': 'readonly'}))
 
     def handle(self, request, data):
-        client = api.cloudkittyclient(request).hashmap.thresholds
-        threshold = {}
-        for k, v in data.items():
-            if v:
-                threshold[k] = v
-        return client.create(**threshold)
-
-
-class CreateFieldThresholdForm(forms.SelfHandlingForm):
-    level = forms.DecimalField(label=_("Level"))
-    type = forms.ChoiceField(label=_("Type"),
-                             choices=(("flat", _("Flat")),
-                                      ("rate", _("Rate"))))
-    cost = forms.DecimalField(label=_("Cost"))
-    group_id = forms.CharField(label=_("Group"), required=False)
-    field_id = forms.CharField(label=_("Field"),
-                               widget=forms.TextInput(
-                                   attrs={'readonly': 'readonly'}))
-
-    def handle(self, request, data):
-        client = api.cloudkittyclient(request).hashmap.thresholds
-        threshold = {}
-        for k, v in data.items():
-            if v:
-                threshold[k] = v
-        return client.create(**threshold)
-
-
-class CreateFieldMappingForm(forms.SelfHandlingForm):
-    value = forms.CharField(label=_("Value"))
-    type = forms.ChoiceField(label=_("Type"),
-                             choices=(("flat", _("Flat")),
-                                      ("rate", _("Rate"))))
-    cost = forms.DecimalField(label=_("Cost"))
-    group_id = forms.CharField(label=_("Group"), required=False)
-    field_id = forms.CharField(label=_("Field ID"),
-                               widget=forms.TextInput(
-                               attrs={'readonly': 'readonly'}),
-                               required=False)
-
-    def handle(self, request, data):
-        mapping_client = api.cloudkittyclient(request).hashmap.mappings
-        mapping = {}
-        for k, v in data.items():
-            if v:
-                mapping[k] = v
-        return mapping_client.create(**mapping)
-
-
-class CreateServiceMappingForm(forms.SelfHandlingForm):
-    type = forms.ChoiceField(label=_("Type"),
-                             choices=(("flat", _("Flat")),
-                                      ("rate", _("Rate"))))
-    cost = forms.DecimalField(label=_("Cost"))
-    group_id = forms.CharField(label=_("Group"), required=False)
-    service_id = forms.CharField(label=_("Service ID"),
-                                 widget=forms.TextInput(
-                                 attrs={'readonly': 'readonly'}),
-                                 required=False)
-
-    def handle(self, request, data):
-        mapping_client = api.cloudkittyclient(request).hashmap.mappings
-        mapping = {}
-        for k, v in data.items():
-            if v:
-                mapping[k] = v
-        return mapping_client.create(**mapping)
-
-
-class EditServiceMappingForm(CreateServiceMappingForm):
-    mapping_id = forms.CharField(label=_("Mapping ID"),
-                                 widget=forms.TextInput(
-                                 attrs={'readonly': 'readonly'}))
-
-    def handle(self, request, data):
-        mapping_client = api.cloudkittyclient(request).hashmap.mappings
+        mapping_mgr = api.cloudkittyclient(request).hashmap.mappings
         mapping = {}
         for k, v in data.items():
             if v:
                 mapping[k] = v
         mapping['mapping_id'] = self.initial['mapping_id']
-        return mapping_client.update(**mapping)
+        return mapping_mgr.update(**mapping)
 
 
-class EditFieldMappingForm(CreateFieldMappingForm):
-    mapping_id = forms.CharField(label=_("Mapping ID"),
-                                 widget=forms.TextInput(
-                                 attrs={'readonly': 'readonly'}))
-
-    def handle(self, request, data):
-        mapping_client = api.cloudkittyclient(request).hashmap.mappings
-        mapping = {}
-        for k, v in data.items():
-            if v:
-                mapping[k] = v
-        mapping['mapping_id'] = self.initial['mapping_id']
-        return mapping_client.update(**mapping)
+class EditServiceMappingForm(BaseEditMappingForm, CreateServiceMappingForm):
+    fields_order = ['service_id', 'mapping_id', 'type', 'cost', 'group_id']
 
 
-class EditServiceThresholdForm(CreateServiceThresholdForm):
+class EditFieldMappingForm(BaseEditMappingForm, CreateFieldMappingForm):
+    fields_order = [
+        'field_id',
+        'mapping_id',
+        'value',
+        'type',
+        'cost',
+        'group_id']
+
+
+class BaseEditThresholdForm(BaseThresholdForm):
     threshold_id = forms.CharField(label=_("Threshold ID"),
                                    widget=forms.TextInput(
-                                   attrs={'readonly': 'readonly'}))
+                                       attrs={'readonly': 'readonly'}))
 
     def handle(self, request, data):
-        threshold_client = api.cloudkittyclient(request).hashmap.thresholds
+        threshold_mgr = api.cloudkittyclient(request).hashmap.thresholds
         threshold = {}
         for k, v in data.items():
             if v:
                 threshold[k] = v
         threshold['threshold_id'] = self.initial['threshold_id']
-        return threshold_client.update(**threshold)
+        return threshold_mgr.update(**threshold)
 
 
-class EditFieldThresholdForm(CreateFieldThresholdForm):
-    threshold_id = forms.CharField(label=_("Threshold ID"),
-                                   widget=forms.TextInput(
-                                   attrs={'readonly': 'readonly'}))
+class EditServiceThresholdForm(BaseEditThresholdForm,
+                               CreateServiceThresholdForm):
+    fields_order = [
+        'service_id',
+        'threshold_id',
+        'level',
+        'type',
+        'cost',
+        'group_id']
 
-    def handle(self, request, data):
-        threshold_client = api.cloudkittyclient(request).hashmap.thresholds
-        threshold = {}
-        for k, v in data.items():
-            if v:
-                threshold[k] = v
-        threshold['threshold_id'] = self.initial['threshold_id']
-        return threshold_client.update(**threshold)
+
+class EditFieldThresholdForm(BaseEditThresholdForm,
+                             CreateFieldThresholdForm):
+    fields_order = [
+        'field_id',
+        'threshold_id',
+        'level',
+        'type',
+        'cost',
+        'group_id']
