@@ -42,7 +42,7 @@ pricing = {
             };
 
             $('#id_flavor').on('change', eventCallback);
-            $('#id_count').on('keyup', eventCallback);
+            $('#id_count').on('change', eventCallback);
             $('#id_image_id').on('change', eventCallback);
         }
     },
