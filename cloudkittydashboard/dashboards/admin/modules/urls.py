@@ -15,10 +15,12 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from cloudkittydashboard.dashboards.admin.modules.views \
-    import IndexView
+from cloudkittydashboard.dashboards.admin.modules import views
 
 urlpatterns = patterns(
     '',
-    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^(?P<module_id>[^/]+)/?$', views.ModuleDetailsView.as_view(),
+        name="module_details"),
+
 )

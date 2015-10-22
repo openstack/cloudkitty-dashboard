@@ -12,7 +12,9 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.utils.translation import ugettext_lazy as _
 from horizon import tables
+from horizon import views
 
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards.admin.modules import tables as admin_tables
@@ -30,3 +32,19 @@ class IndexView(tables.DataTableView):
             name=True
         )
         return modules
+
+
+class ModuleDetailsView(views.APIView):
+    template_name = 'admin/rating_modules/details.html'
+    page_title = _("Rating Module Details")
+
+    def get_data(self, request, context, *args, **kwargs):
+        module_id = kwargs.get("module_id")
+        try:
+            module = api.cloudkittyclient(self.request).modules.get(
+                module_id=module_id)
+        except Exception:
+            module = None
+        context['hotconfig'] = module._info['hot-config']
+        context['module'] = module
+        return context

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n sizeformat %}
+{% block title %}{% trans "Rating Module Details" %}{% endblock %}
+
+{% block main %}
+<div class="row">
+  <div class="col-sm-12">
+      <div class="detail">
+          <dl>
+              <dt>{% trans "Id" %}</dt>
+              <dd>{{ module.module_id }}</dd>
+              <dt>{% trans "Description" %}</dt>
+              <dd>{{ module.description }}</dd>
+              <dt>{% trans "Priority" %}</dt>
+              <dd>{{ module.priority }}</dd>
+              <dt>{% trans "Enabled" %}</dt>
+              <dd>{{ module.enabled }}</dd>
+              <dt>{% trans "Hot Config" %}</dt>
+              <dd>{{ hotconfig }}</dd>
+          </dl>
+      </div>
+  </div>
+</div>
+{% endblock %}
+
