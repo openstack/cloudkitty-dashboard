@@ -1,11 +1,85 @@
 {% extends 'base.html' %}
-{% load i18n %}
-{% block title %}{% trans "Hashmap" %}{% endblock %}
+{% load i18n sizeformat %}
+{% block title %}{% trans "Group Details" %}{% endblock %}
 
 {% block main %}
-<div class="row-fluid">
-  <div class="span12">
-  <!-- {{ tab_group.render }} -->
+<div class="row">
+  <div class="col-sm-12">
+      <div class="detail">
+          <dl>
+              <dt>{% trans "Id" %}</dt>
+              <dd>{{ group.group_id }}</dd>
+              <dt>{% trans "Name" %}</dt>
+              <dd>{{ group.name }}</dd>
+          </dl>
+          <hr>
+          {% if mappings %}
+            <h3>{% trans "Mappings" %}</h3>
+              {% if mappings.services %}
+              <h4>{% trans "Services" %}</h4>
+                {% for service in mappings.services %}
+                  <dl>
+                      <dt>{% trans "Mapping ID" %}</dt>
+                      <dd>{{ service.mapping_id }}</dd>
+                      <dt>{% trans "Service ID" %}</dt>
+                      <dd>{{ service.service_id }}</dd>
+                      <dt>{% trans "Cost" %}</dt>
+                      <dd>{{ service.cost }}</dd>
+                      <dt>{% trans "Type" %}</dt>
+                      <dd>{{ service.type }}</dd>
+                  </dl>
+                {% endfor %}
+            {% endif %}
+              {% if mappings.fields %}
+              <h4>{% trans "Fields" %}</h4>
+                {% for field in mappings.fields %}
+                  <dl>
+                      <dt>{% trans "Mapping ID" %}</dt>
+                      <dd>{{ field.mapping_id }}</dd>
+                      <dt>{% trans "Field ID" %}</dt>
+                      <dd>{{ field.field_id }}</dd>
+                      <dt>{% trans "Cost" %}</dt>
+                      <dd>{{ field.cost }}</dd>
+                      <dt>{% trans "Value" %}</dt>
+                      <dd>{{ field.value }}</dd>
+                      <dt>{% trans "Type" %}</dt>
+                      <dd>{{ field.type }}</dd>
+                  </dl>
+                {% endfor %}
+            {% endif %}
+          {% endif %}
+          {% if thresholds %}
+            <h3>{% trans "Thresholds" %}</h3>
+              {% if thresholds.services %}
+              <h4>{% trans "Services" %}</h4>
+                {% for service in thresholds.services %}
+                  <dl>
+                      <dt>{% trans "Service ID" %}</dt>
+                      <dd>{{ service.service_id }}</dd>
+                      <dt>{% trans "Cost" %}</dt>
+                      <dd>{{ service.cost }}</dd>
+                      <dt>{% trans "Type" %}</dt>
+                      <dd>{{ service.type }}</dd>
+                  </dl>
+                {% endfor %}
+            {% endif %}
+              {% if thresholds.fields %}
+              <h4>{% trans "Fields" %}</h4>
+                {% for field in thresholds.fields %}
+                  <dl>
+                      <dt>{% trans "Field ID" %}</dt>
+                      <dd>{{ field.field_id }}</dd>
+                      <dt>{% trans "Cost" %}</dt>
+                      <dd>{{ field.cost }}</dd>
+                      <dt>{% trans "Value" %}</dt>
+                      <dd>{{ field.value }}</dd>
+                      <dt>{% trans "Type" %}</dt>
+                      <dd>{{ field.type }}</dd>
+                  </dl>
+                {% endfor %}
+            {% endif %}
+          {% endif %}
+      </div>
   </div>
 </div>
 {% endblock %}

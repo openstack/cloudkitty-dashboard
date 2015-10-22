@@ -29,7 +29,7 @@ class CreateService(tables.LinkAction):
     classes = ("ajax-modal",)
 
 
-class DeleteService(tables.BatchAction):
+class DeleteService(tables.DeleteAction):
     name = "deleteservice"
     verbose_name = _("Delete Service")
     action_present = _("Delete")
@@ -40,8 +40,7 @@ class DeleteService(tables.BatchAction):
 
     def action(self, request, service_id):
         api.cloudkittyclient(request).hashmap.services.delete(
-            service_id=service_id
-        )
+            service_id=service_id)
 
 
 class ServicesTable(tables.DataTable):
@@ -55,7 +54,7 @@ class ServicesTable(tables.DataTable):
     class Meta(object):
         name = "services"
         verbose_name = _("Services")
-        table_actions = (CreateService,)
+        table_actions = (CreateService, DeleteService)
         row_actions = (DeleteService,)
 
 
@@ -72,7 +71,7 @@ class CreateGroup(tables.LinkAction):
         return reverse(url, args=[service_id])
 
 
-class DeleteGroup(tables.BatchAction):
+class DeleteGroup(tables.DeleteAction):
     name = "deletegroup"
     verbose_name = _("Delete Group")
     action_present = _("Delete")
@@ -83,8 +82,13 @@ class DeleteGroup(tables.BatchAction):
 
     def action(self, request, group_id):
         api.cloudkittyclient(request).hashmap.groups.delete(
-            group_id=group_id
-        )
+            group_id=group_id)
+
+
+def get_detail_link(datum):
+    if datum.group_id:
+        url = "horizon:admin:hashmap:group_details"
+        return reverse(url, kwargs={'group_id': datum.group_id})
 
 
 class GroupsTable(tables.DataTable):
@@ -92,13 +96,13 @@ class GroupsTable(tables.DataTable):
 
     Clicking on a group name sends you to a GroupsTab page.
     """
-    name = tables.Column('name', verbose_name=_("Name"))
+    name = tables.Column('name', verbose_name=_("Name"), link=get_detail_link)
     group_id = tables.Column('group_id', verbose_name=_("Group"))
 
     class Meta(object):
         name = "groups"
         verbose_name = _("Groups")
-        table_actions = (CreateGroup,)
+        table_actions = (CreateGroup, DeleteGroup)
         row_actions = (DeleteGroup,)
 
 
@@ -141,7 +145,7 @@ class CreateFieldThreshold(tables.LinkAction):
         return reverse(url, args=[field_id])
 
 
-class DeleteServiceThreshold(tables.BatchAction):
+class DeleteServiceThreshold(tables.DeleteAction):
     name = "deletetservicehreshold"
     verbose_name = _("Delete Service Threshold")
     action_present = _("Delete")
@@ -152,11 +156,10 @@ class DeleteServiceThreshold(tables.BatchAction):
 
     def action(self, request, threshold_id):
         api.cloudkittyclient(request).hashmap.thresholds.delete(
-            threshold_id=threshold_id
-        )
+            threshold_id=threshold_id)
 
 
-class DeleteFieldThreshold(tables.BatchAction):
+class DeleteFieldThreshold(tables.DeleteAction):
     name = "deletefieldthreshold"
     verbose_name = _("Delete Field Threshold")
     action_present = _("Delete")
@@ -167,8 +170,7 @@ class DeleteFieldThreshold(tables.BatchAction):
 
     def action(self, request, threshold_id):
         api.cloudkittyclient(request).hashmap.thresholds.delete(
-            threshold_id=threshold_id
-        )
+            threshold_id=threshold_id)
 
 
 class EditServiceThreshold(tables.LinkAction):
@@ -183,20 +185,23 @@ class EditServiceThreshold(tables.LinkAction):
         return reverse(url, args=[datum.threshold_id])
 
 
-class ServiceThresholdsTable(tables.DataTable):
-    """This table list the available groups.
-
-    Clicking on a group name sends you to a GroupsTab page.
-    """
+class BaseThresholdsTable(tables.DataTable):
     level = tables.Column('level', verbose_name=_("Level"))
     type = tables.Column('type', verbose_name=_("Type"))
     cost = tables.Column('cost', verbose_name=_("Cost"))
     group_id = tables.Column('group_id', verbose_name=_("Group"))
 
+
+class ServiceThresholdsTable(BaseThresholdsTable):
+    """This table list the available service thresholds.
+
+    Clicking on a group name sends you to a GroupsTab page.
+    """
+
     class Meta(object):
         name = "service_thresholds"
         verbose_name = _("Service Threshold")
-        table_actions = (CreateServiceThreshold,)
+        table_actions = (CreateServiceThreshold, DeleteServiceThreshold)
         row_actions = (EditServiceThreshold, DeleteServiceThreshold)
 
 
@@ -226,20 +231,16 @@ class EditFieldThreshold(tables.LinkAction):
         return reverse(url, args=[datum.threshold_id])
 
 
-class FieldThresholdsTable(tables.DataTable):
-    """This table list the available groups.
+class FieldThresholdsTable(BaseThresholdsTable):
+    """This table list the available field thresholds.
 
     Clicking on a group name sends you to a GroupsTab page.
     """
-    level = tables.Column('level', verbose_name=_("Level"))
-    type = tables.Column('type', verbose_name=_("Type"))
-    cost = tables.Column('cost', verbose_name=_("Cost"))
-    group_id = tables.Column('group_id', verbose_name=_("Group"))
 
     class Meta(object):
         name = "field_thresholds"
         verbose_name = _("Field Threshold")
-        table_actions = (CreateFieldThreshold,)
+        table_actions = (CreateFieldThreshold, DeleteFieldThreshold)
         row_actions = (EditFieldThreshold, DeleteFieldThreshold)
 
 
@@ -257,7 +258,7 @@ class FieldThresholdsTab(tabs.TableTab):
         return api.identify(thresholds)
 
 
-class DeleteField(tables.BatchAction):
+class DeleteField(tables.DeleteAction):
     name = "deletefield"
     verbose_name = _("Delete Field")
     action_present = _("Delete")
@@ -268,8 +269,7 @@ class DeleteField(tables.BatchAction):
 
     def action(self, request, field_id):
         api.cloudkittyclient(request).hashmap.fields.delete(
-            field_id=field_id
-        )
+            field_id=field_id)
 
 
 class CreateField(tables.LinkAction):
@@ -290,15 +290,17 @@ class FieldsTable(tables.DataTable):
 
     Clicking on a fields sends you to a MappingsTable.
     """
-    name = tables.Column('name', verbose_name=_("Name"),
-                         link='horizon:admin:hashmap:field')
+    name = tables.Column(
+        'name',
+        verbose_name=_("Name"),
+        link='horizon:admin:hashmap:field')
 
     class Meta(object):
         name = "fields"
         verbose_name = _("Fields")
         multi_select = False
         row_actions = (DeleteField,)
-        table_actions = (CreateField,)
+        table_actions = (CreateField, DeleteField)
 
 
 class FieldsTab(tabs.TableTab):
@@ -314,7 +316,7 @@ class FieldsTab(tabs.TableTab):
         return api.identify(fields)
 
 
-class DeleteMapping(tables.BatchAction):
+class DeleteMapping(tables.DeleteAction):
     name = "deletemapping"
     verbose_name = _("Delete Mapping")
     action_present = _("Delete")
@@ -325,8 +327,7 @@ class DeleteMapping(tables.BatchAction):
 
     def action(self, request, mapping_id):
         api.cloudkittyclient(request).hashmap.mappings.delete(
-            mapping_id=mapping_id
-        )
+            mapping_id=mapping_id)
 
 
 class CreateServiceMapping(tables.LinkAction):
@@ -354,16 +355,19 @@ class EditServiceMapping(tables.LinkAction):
         return reverse(url, args=[datum.mapping_id])
 
 
-class ServiceMappingsTable(tables.DataTable):
+class BaseMappingsTable(tables.DataTable):
     type = tables.Column('type', verbose_name=_("Type"))
     cost = tables.Column('cost', verbose_name=_("Cost"))
     group_id = tables.Column('group_id', verbose_name=_("Group"))
+
+
+class ServiceMappingsTable(BaseMappingsTable):
 
     class Meta(object):
         name = "mappings"
         verbose_name = _("Mappings")
         row_actions = (EditServiceMapping, DeleteMapping)
-        table_actions = (CreateServiceMapping,)
+        table_actions = (CreateServiceMapping, DeleteMapping)
 
 
 class CreateFieldMapping(tables.LinkAction):
@@ -391,17 +395,14 @@ class EditFieldMapping(tables.LinkAction):
         return reverse(url, args=[datum.mapping_id])
 
 
-class FieldMappingsTable(tables.DataTable):
+class FieldMappingsTable(BaseMappingsTable):
     value = tables.Column('value', verbose_name=_("Value"))
-    type = tables.Column('type', verbose_name=_("Type"))
-    cost = tables.Column('cost', verbose_name=_("Cost"))
-    group_id = tables.Column('group_id', verbose_name=_("Group"))
 
     class Meta(object):
         name = "mappings"
         verbose_name = _("Mappings")
         row_actions = (EditFieldMapping, DeleteMapping)
-        table_actions = (CreateFieldMapping,)
+        table_actions = (CreateFieldMapping, DeleteMapping)
 
 
 class FieldMappingsTab(tabs.TableTab):
@@ -414,8 +415,7 @@ class FieldMappingsTab(tabs.TableTab):
     def get_mappings_data(self):
         client = api.cloudkittyclient(self.request)
         mappings = client.hashmap.mappings.list(
-            field_id=self.request.field_id
-        )
+            field_id=self.request.field_id)
         return api.identify(mappings)
 
 
@@ -429,8 +429,7 @@ class MappingsTab(tabs.TableTab):
     def get_mappings_data(self):
         client = api.cloudkittyclient(self.request)
         mappings = client.hashmap.mappings.list(
-            service_id=self.request.service_id
-        )
+            service_id=self.request.service_id)
         return api.identify(mappings)
 
 
