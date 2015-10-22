@@ -3,12 +3,14 @@
 {% load static %}
 
 {% block price %}
+<h4>{% trans "Rating Information" %}</h4>
 <table class="flavor_table table-striped">
-  <tbody>
-  <tr>
-    <td class="price">{% trans "Price" %}</td><td><span id="price"></span> {% trans "$" %}</td>
-  </tr>
-  </tbody>
+    <tbody>
+        <tr>
+            <td class="flavor_name">{% trans "Price" %}</td>
+            <td><span id="price"></span> {% trans "$" %}</td>
+        </tr>
+    </tbody>
 </table>
 {% endblock %}
 
