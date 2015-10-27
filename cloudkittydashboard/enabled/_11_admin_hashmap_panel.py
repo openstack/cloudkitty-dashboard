@@ -14,6 +14,8 @@
 
 ADD_INSTALLED_APPS = ['cloudkittydashboard']
 
+AUTO_DISCOVER_STATIC_FILES = True
+
 PANEL_GROUP = 'rating'
 PANEL_DASHBOARD = 'admin'
 PANEL = 'hashmap'
