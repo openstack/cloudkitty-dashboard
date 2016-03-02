@@ -81,20 +81,27 @@ pricing = {
             var form_data = [{"service": "compute", "desc": desc_form, "volume": instance_count}];
 
             // send the JSON by a POST request
-            var url_data = '/dashboard/project/rating/quote';
+            var url_data = [
+                '/dashboard/project/rating/quote',
+                '/project/rating/quote']
             this.sendPost(form_data, url_data);
         }
     },
 
     sendPost: function(form_data, url_data) {
+        var url = url_data.shift();
         $.ajax({
             type: "post",  // send POST data
-            url: url_data,
+            url: url,
             dataType: 'json',
             data: JSON.stringify(form_data), // data sent
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $("#price").text(data);
+            },
+            error: function () {
+                if (url_data)
+                    pricing.sendPost(form_data, url_data);
             },
             beforeSend: function(xhr, settings){
                 $.ajaxSettings.beforeSend(xhr, settings);
