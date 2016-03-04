@@ -1,6 +1,6 @@
 %global full_release cloudkitty-dashboard-%{version}
 
-Name:           cloudkitty
+Name:           cloudkitty-dashboard
 Summary:        OpenStack Rating (cloudkitty) - Dashboard
 Version:        @VERSION@
 Release:        1%{?dist}
