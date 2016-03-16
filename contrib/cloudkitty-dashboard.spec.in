@@ -36,8 +36,18 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 %install
 %{__python} setup.py install -O1 --skip-build --root=%{buildroot}
 mkdir -p %{buildroot}/usr/share/openstack-dashboard/openstack_dashboard/enabled/
-ln -s %{python_sitelib}/cloudkittydashboard/enabled/_[0-9]*.py \
-    %{buildroot}/usr/share/openstack-dashboard/openstack_dashboard/enabled/
+for f in \
+    _10_admin_group.py \
+    _10_project_group.py \
+    _11_admin_hashmap_panel.py \
+    _11_admin_rating_panel.py \
+    _11_project_rating_panel.py \
+    _12_project_reporting_panel.py \
+    _13_admin_pyscripts_panel.py; \
+do
+    ln -s %{python_sitelib}/cloudkittydashboard/enabled/$f \
+        %{buildroot}/usr/share/openstack-dashboard/openstack_dashboard/enabled/ ; \
+done
 
 %files
 %{python_sitelib}/*
