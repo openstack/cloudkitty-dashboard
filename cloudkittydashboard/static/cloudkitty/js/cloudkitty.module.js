@@ -12,10 +12,11 @@
 
    $provide.decorator("horizon.dashboard.project.workflow.launch-instance.workflow", ['$delegate', function ($delegate) {
       var workflow = $delegate;
+      var static_path = $windowProvider.$get().STATIC_URL;
       workflow.append({
         formName: 'CloudkittyForm',
-        templateUrl: '/dashboard/static/cloudkitty/templates/cloudkitty-step.html',
-        helpUrl: '/dashboard/static/cloudkitty/templates/cloudkitty-help.html',
+        templateUrl: static_path + 'cloudkitty/templates/cloudkitty-step.html',
+        helpUrl: static_path + 'cloudkitty/templates/cloudkitty-help.html',
         title: 'Price'
       });
       return workflow;

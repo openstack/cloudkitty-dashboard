@@ -8,10 +8,11 @@
   CloudkittyStepController.$inject = [
     '$scope',
     'horizon.framework.widgets.wizard.events',
-    '$http'
+    '$http',
+    '$window'
   ];
 
-  function CloudkittyStepController($scope, wizardEvents, $http) {
+  function CloudkittyStepController($scope, wizardEvents, $http, $window) {
 
     var onSwitch = $scope.$on(wizardEvents.ON_SWITCH, function(evt, args) {
 
@@ -35,7 +36,7 @@
 
       var form_data = [{"service": "compute", "desc": desc_form, "volume": $scope.model.newInstanceSpec.instance_count}];
 
-      $http.post('/dashboard/project/rating/quote', form_data).then(function(res, status) {
+      $http.post($window.WEBROOT + 'project/rating/quote', form_data).then(function(res, status) {
         $scope.price = res.data;
       });
     });
