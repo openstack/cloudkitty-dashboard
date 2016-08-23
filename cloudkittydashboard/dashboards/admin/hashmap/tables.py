@@ -12,6 +12,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from collections import OrderedDict
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from horizon import tables
@@ -185,11 +186,36 @@ class EditServiceThreshold(tables.LinkAction):
         return reverse(url, args=[datum.threshold_id])
 
 
+def get_groupname(datum):
+    if hasattr(datum, "group_name"):
+        groupname = datum.group_name
+        return groupname
+    return _("Not available")
+
+
+def add_groupname(request, datums):
+    client = api.cloudkittyclient(request)
+    groups = client.hashmap.groups.list()
+    full_groups = OrderedDict([(str(group.group_id), group.name)
+                               for group in groups])
+
+    for datum in datums:
+        if datum.group_id:
+            if datum.group_id in full_groups:
+                datum.group_name = full_groups[datum.group_id]
+            else:
+                group = client.hashmap.groups.get(
+                    group_id=datum.group_id)
+                datum.group_name = group.name
+
+
 class BaseThresholdsTable(tables.DataTable):
     level = tables.Column('level', verbose_name=_("Level"))
     type = tables.Column('type', verbose_name=_("Type"))
     cost = tables.Column('cost', verbose_name=_("Cost"))
-    group_id = tables.Column('group_id', verbose_name=_("Group"))
+    group_name = tables.Column(get_groupname,
+                               verbose_name=_("Group Name"),
+                               link=get_detail_link)
 
 
 class ServiceThresholdsTable(BaseThresholdsTable):
@@ -216,6 +242,7 @@ class ServiceThresholdsTab(tabs.TableTab):
         client = api.cloudkittyclient(self.request)
         thresholds = client.hashmap.thresholds.list(
             service_id=self.request.service_id)
+        add_groupname(self.request, thresholds)
         return api.identify(thresholds)
 
 
@@ -255,6 +282,7 @@ class FieldThresholdsTab(tabs.TableTab):
         client = api.cloudkittyclient(self.request)
         thresholds = client.hashmap.thresholds.list(
             field_id=self.request.field_id)
+        add_groupname(self.request, thresholds)
         return api.identify(thresholds)
 
 
@@ -358,7 +386,9 @@ class EditServiceMapping(tables.LinkAction):
 class BaseMappingsTable(tables.DataTable):
     type = tables.Column('type', verbose_name=_("Type"))
     cost = tables.Column('cost', verbose_name=_("Cost"))
-    group_id = tables.Column('group_id', verbose_name=_("Group"))
+    group_name = tables.Column(get_groupname,
+                               verbose_name=_("Group Name"),
+                               link=get_detail_link)
 
 
 class ServiceMappingsTable(BaseMappingsTable):
@@ -416,6 +446,7 @@ class FieldMappingsTab(tabs.TableTab):
         client = api.cloudkittyclient(self.request)
         mappings = client.hashmap.mappings.list(
             field_id=self.request.field_id)
+        add_groupname(self.request, mappings)
         return api.identify(mappings)
 
 
@@ -430,6 +461,7 @@ class MappingsTab(tabs.TableTab):
         client = api.cloudkittyclient(self.request)
         mappings = client.hashmap.mappings.list(
             service_id=self.request.service_id)
+        add_groupname(self.request, mappings)
         return api.identify(mappings)
 
 
