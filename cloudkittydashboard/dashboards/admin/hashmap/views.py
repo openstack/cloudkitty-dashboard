@@ -296,23 +296,6 @@ class ServiceThresholdEditView(ServiceThresholdCreateView):
                        args=(self.initial['service_id'], ))
 
 
-class ServiceThresholdView(tabs.TabbedTableView):
-    tab_group_class = hashmap_tables.ServiceThresholdsTab
-
-    def get(self, *args, **kwargs):
-        threshold = api.cloudkittyclient(self.request).hashmap.thresholds.get(
-            threshold_id=kwargs['threshold_id']
-        )
-        self.request.threshold_id = threshold.threshold_id
-        self.page_title = "Hashmap Threshold : %s" % threshold.threshold_id
-        return super(ServiceThresholdView, self).get(*args, **kwargs)
-
-    def get_data(self):
-        out = api.cloudkittyclient(self.request).hashmaps.thresholds.list(
-            threshold_id=self.kwargs['threshold_id'])
-        return api.identify(out)
-
-
 class FieldThresholdCreateView(forms.ModalFormView):
     form_class = hashmap_forms.CreateFieldThresholdForm
     form_id = "create_field_threshold"
@@ -365,23 +348,6 @@ class FieldThresholdEditView(FieldThresholdCreateView):
     def get_success_url(self, **kwargs):
         return reverse('horizon:admin:hashmap:field',
                        args=(self.initial['field_id'], ))
-
-
-class FieldThresholdView(tabs.TabbedTableView):
-    tab_group_class = hashmap_tables.FieldThresholdsTab
-
-    def get(self, *args, **kwargs):
-        threshold = api.cloudkittyclient(self.request).hashmap.thresholds.get(
-            threshold_id=kwargs['threshold_id']
-        )
-        self.request.threshold_id = threshold.threshold_id
-        self.page_title = "Hashmap Threshold : %s" % threshold.threshold_id
-        return super(FieldThresholdView, self).get(*args, **kwargs)
-
-    def get_data(self):
-        out = api.cloudkittyclient(self.request).hashmaps.thresholds.list(
-            threshold_id=self.kwargs['threshold_id'])
-        return api.identify(out)
 
 
 class GroupView(tabs.TabbedTableView):
