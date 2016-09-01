@@ -216,6 +216,7 @@ class BaseThresholdsTable(tables.DataTable):
     group_name = tables.Column(get_groupname,
                                verbose_name=_("Group Name"),
                                link=get_detail_link)
+    tenant_id = tables.Column('tenant_id', verbose_name=_("Project"))
 
 
 class ServiceThresholdsTable(BaseThresholdsTable):
@@ -389,6 +390,7 @@ class BaseMappingsTable(tables.DataTable):
     group_name = tables.Column(get_groupname,
                                verbose_name=_("Group Name"),
                                link=get_detail_link)
+    tenant_id = tables.Column('tenant_id', verbose_name=_("Project"))
 
 
 class ServiceMappingsTable(BaseMappingsTable):

@@ -20,6 +20,8 @@ from horizon import forms
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards import common
 
+from openstack_dashboard import api as api_keystone
+
 LOG = logging.getLogger(__name__)
 
 
@@ -64,6 +66,8 @@ class BaseForm(forms.SelfHandlingForm, common.OrderFieldsMixin):
     group_id = forms.DynamicChoiceField(label=_("Group"),
                                         required=False,
                                         add_item_link=url)
+    tenant_id = forms.ChoiceField(label=_("Project"),
+                                  required=False)
     fields_order = ['type', 'cost', 'group_id']
 
     def __init__(self, request, *args, **kwargs):
@@ -75,10 +79,15 @@ class BaseForm(forms.SelfHandlingForm, common.OrderFieldsMixin):
         choices.insert(0, ('', ' '))
         self.fields['group_id'].choices = choices
 
+        tenants, __ = api_keystone.keystone.tenant_list(request)
+        choices_tenants = [(tenant.id, tenant.name) for tenant in tenants]
+        choices_tenants.insert(0, (None, ' '))
+        self.fields['tenant_id'].choices = choices_tenants
+
 
 class BaseThresholdForm(BaseForm):
     level = forms.DecimalField(label=_("Level"))
-    fields_order = ['level', 'type', 'cost', 'group_id']
+    fields_order = ['level', 'type', 'cost', 'group_id', 'tenant_id']
 
     def handle(self, request, data):
         thresholds_mgr = api.cloudkittyclient(request).hashmap.thresholds
@@ -93,14 +102,16 @@ class CreateServiceThresholdForm(BaseThresholdForm):
     service_id = forms.CharField(label=_("Service ID"),
                                  widget=forms.TextInput(
                                      attrs={'readonly': 'readonly'}))
-    fields_order = ['service_id', 'level', 'type', 'cost', 'group_id']
+    fields_order = ['service_id', 'level', 'type', 'cost', 'group_id',
+                    'tenant_id']
 
 
 class CreateFieldThresholdForm(BaseThresholdForm):
     field_id = forms.CharField(label=_("Field"),
                                widget=forms.TextInput(
                                    attrs={'readonly': 'readonly'}))
-    fields_order = ['field_id', 'level', 'type', 'cost', 'group_id']
+    fields_order = ['field_id', 'level', 'type', 'cost', 'group_id',
+                    'tenant_id']
 
 
 class BaseMappingForm(BaseForm):
@@ -120,7 +131,8 @@ class CreateFieldMappingForm(BaseMappingForm):
                                widget=forms.TextInput(
                                    attrs={'readonly': 'readonly'}),
                                required=False)
-    fields_order = ['field_id', 'value', 'type', 'cost', 'group_id']
+    fields_order = ['field_id', 'value', 'type', 'cost', 'group_id',
+                    'tenant_id']
 
 
 class CreateServiceMappingForm(BaseMappingForm):
@@ -128,13 +140,16 @@ class CreateServiceMappingForm(BaseMappingForm):
                                  widget=forms.TextInput(
                                      attrs={'readonly': 'readonly'}),
                                  required=False)
-    fields_order = ['service_id', 'type', 'cost', 'group_id']
+    fields_order = ['service_id', 'type', 'cost', 'group_id',
+                    'tenant_id']
 
 
 class BaseEditMappingForm(BaseMappingForm):
     mapping_id = forms.CharField(label=_("Mapping ID"),
                                  widget=forms.TextInput(
                                      attrs={'readonly': 'readonly'}))
+    tenant_id = forms.ChoiceField(label=_("Project"),
+                                  required=False)
 
     def handle(self, request, data):
         mapping_mgr = api.cloudkittyclient(request).hashmap.mappings
@@ -147,7 +162,8 @@ class BaseEditMappingForm(BaseMappingForm):
 
 
 class EditServiceMappingForm(BaseEditMappingForm, CreateServiceMappingForm):
-    fields_order = ['service_id', 'mapping_id', 'type', 'cost', 'group_id']
+    fields_order = ['service_id', 'mapping_id', 'type', 'cost', 'group_id',
+                    'tenant_id']
 
 
 class EditFieldMappingForm(BaseEditMappingForm, CreateFieldMappingForm):
@@ -157,7 +173,8 @@ class EditFieldMappingForm(BaseEditMappingForm, CreateFieldMappingForm):
         'value',
         'type',
         'cost',
-        'group_id']
+        'group_id',
+        'tenant_id']
 
 
 class BaseEditThresholdForm(BaseThresholdForm):
@@ -183,7 +200,8 @@ class EditServiceThresholdForm(BaseEditThresholdForm,
         'level',
         'type',
         'cost',
-        'group_id']
+        'group_id',
+        'tenant_id']
 
 
 class EditFieldThresholdForm(BaseEditThresholdForm,
@@ -194,4 +212,5 @@ class EditFieldThresholdForm(BaseEditThresholdForm,
         'level',
         'type',
         'cost',
-        'group_id']
+        'group_id',
+        'tenant_id']
