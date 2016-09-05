@@ -72,7 +72,7 @@ class BaseForm(forms.SelfHandlingForm, common.OrderFieldsMixin):
         groups = api.cloudkittyclient(request).hashmap.groups.list()
         groups = api.identify(groups)
         choices = [(group.id, group.name) for group in groups]
-        choices.insert(0, (None, ' '))
+        choices.insert(0, ('', ' '))
         self.fields['group_id'].choices = choices
 
 
