@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load l10n %}
 {% load static %}
 <script src='{% static "cloudkitty/js/d3.min.js" %}' type='text/javascript' charset='utf-8'></script>
 <script src='{% static "cloudkitty/js/d3pie.min.js" %}' type='text/javascript' charset='utf-8'></script>
@@ -55,7 +56,7 @@
       "content": [
 {% for service, data in repartition_data.items %}
         {"label": "{{ service }}",
-         "value": {{ data.cumulated }}
+         "value": {{ data.cumulated|unlocalize }}
         },
 {% endfor %}
     ]}});
@@ -86,7 +87,7 @@ var graph = new Rickshaw.Graph({
       color: palette.color(),
       name: "{{ service }}",
       data: [
-      {% for timestamp, rating in data.hourly.items %}{x: {{ timestamp }}, y: {{ rating }}},{% endfor %}
+      {% for timestamp, rating in data.hourly.items %}{x: {{ timestamp }}, y: {{ rating|unlocalize }}},{% endfor %}
       ]
     },
 {% endfor %}
