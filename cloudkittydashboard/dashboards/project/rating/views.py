@@ -16,6 +16,7 @@ import decimal
 import json
 
 from django import http
+from django.utils.translation import ugettext_lazy as _
 from horizon import exceptions
 from horizon import views
 
