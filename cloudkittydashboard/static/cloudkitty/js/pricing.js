@@ -51,7 +51,7 @@ pricing = {
         // Quota available → what about the selected flavor
         if (horizon.Quota.selected_flavor) {
             // get data of the flavor (form)
-            _image = horizon.Quota.getSelectedImage();
+            _image = horizon.Quota.getSelectedImageOrSnapshot();
             var flavor = horizon.Quota.selected_flavor.name;
             var vcpus = horizon.Quota.selected_flavor.vcpus;
             var disk = horizon.Quota.selected_flavor.disk;
