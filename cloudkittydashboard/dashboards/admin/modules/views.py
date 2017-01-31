@@ -12,11 +12,15 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
+from horizon import forms
 from horizon import tables
 from horizon import views
 
 from cloudkittydashboard.api import cloudkitty as api
+from cloudkittydashboard.dashboards.admin.modules import forms as module_forms
 from cloudkittydashboard.dashboards.admin.modules import tables as admin_tables
 
 
@@ -48,3 +52,33 @@ class ModuleDetailsView(views.APIView):
         context['hotconfig'] = module._info['hot-config']
         context['module'] = module
         return context
+
+
+class PriorityModuleEditView(forms.ModalFormView):
+    form_class = module_forms.EditPriorityForm
+    form_id = "edit_priority"
+    modal_header = _("Edit Priority Module")
+    page_title = _("Edit priority module")
+    submit_url = "horizon:admin:rating_modules:edit_priority"
+    success_url = "horizon:admin:rating_modules:edit_priority"
+    template_name = "horizon/common/modal_form.html"
+
+    def get_initial(self):
+        module = api.cloudkittyclient(self.request).modules.get(
+            module_id=self.kwargs['module_id'])
+        self.initial = module.to_dict()
+        return self.initial
+
+    def get_object_id(self, obj):
+        return obj.module_id
+
+    def get_context_data(self, **kwargs):
+        context = super(
+            PriorityModuleEditView, self).get_context_data(**kwargs)
+        context['module_id'] = self.kwargs.get('module_id')
+        context['submit_url'] = reverse_lazy(self.submit_url,
+                                             args=(context['module_id'], ))
+        return context
+
+    def get_success_url(self, **kwargs):
+        return reverse('horizon:admin:rating_modules:index')

@@ -1,4 +1,4 @@
-# Copyright 2015 Objectif Libre
+# Copyright 2017 Objectif Libre
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
 #    not use this file except in compliance with the License. You may obtain
@@ -12,17 +12,22 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from django.conf.urls import patterns
-from django.conf.urls import url
+import logging
 
-from cloudkittydashboard.dashboards.admin.modules import views
+from django.utils.translation import ugettext_lazy as _
+from horizon import forms
 
-urlpatterns = patterns(
-    '',
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^(?P<module_id>[^/]+)/?$', views.ModuleDetailsView.as_view(),
-        name="module_details"),
-    url(r'^edit_priority/(?P<module_id>[^/]+)/?$',
-        views.PriorityModuleEditView.as_view(),
-        name="edit_priority"),
-)
+from cloudkittydashboard.api import cloudkitty as api
+
+LOG = logging.getLogger(__name__)
+
+
+class EditPriorityForm(forms.SelfHandlingForm):
+    priority = forms.IntegerField(label=_("Priority"), required=True)
+
+    def handle(self, request, data):
+        ck_client = api.cloudkittyclient(request)
+        return ck_client.modules.update(
+            module_id=self.initial["module_id"],
+            priority=data["priority"]
+        )

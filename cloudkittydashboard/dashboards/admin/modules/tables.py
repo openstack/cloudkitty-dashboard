@@ -22,6 +22,19 @@ ENABLE = 0
 DISABLE = 1
 
 
+class EditModulePriority(tables.LinkAction):
+    name = "editmodulepriority"
+    verbose_name = _("Edit module priority")
+    icon = "edit"
+    ajax = True
+    classes = ("ajax-modal",)
+
+    def get_link_url(self, datum):
+        if datum.module_id:
+            url = "horizon:admin:rating_modules:edit_priority"
+            return reverse(url, kwargs={'module_id': datum.module_id})
+
+
 class ToggleEnabledModule(tables.BatchAction):
     name = "toggle_module"
     action_present = (_("Enable"), _("Disable"))
@@ -59,9 +72,10 @@ class ModulesTable(tables.DataTable):
     name = tables.Column('name', verbose_name=_("Name"), link=get_details_link)
     description = tables.Column('description', verbose_name=_("Description"))
     hot_config = tables.Column('hot-config', verbose_name=_("Configurable"))
+    priority = tables.Column('priority', verbose_name=_("Priority"))
     enabled = tables.Column('enabled', verbose_name=_("Enabled"))
 
     class Meta(object):
         name = "modules"
         verbose_name = _("Modules")
-        row_actions = (ToggleEnabledModule,)
+        row_actions = (ToggleEnabledModule, EditModulePriority)
