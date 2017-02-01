@@ -17,6 +17,7 @@ import logging
 from django.utils.translation import ugettext_lazy as _
 from horizon import forms
 
+from cloudkittyclient.apiclient import exceptions
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards import common
 
@@ -26,26 +27,88 @@ LOG = logging.getLogger(__name__)
 
 
 class CreateServiceForm(forms.SelfHandlingForm):
-    name = forms.CharField(label=_("Name"))
+    services_choices = [("service", _("Service")),
+                        ("custom_service", _("Custom service"))]
+    service_type = forms.ChoiceField(
+        label=_("Service type"),
+        choices=services_choices,
+        widget=forms.Select(attrs={
+            'class': 'switchable',
+            'data-slug': 'servicetype'}),
+        required=True)
+    service = forms.DynamicChoiceField(
+        label=_("Service"),
+        help_text=_("Services are provided by main collector."),
+        widget=forms.Select(attrs={
+            'class': 'switched',
+            'data-switch-on': 'servicetype',
+            'data-servicetype-service': _('Service')}),
+        required=False)
+    custom_service = forms.CharField(
+        label=_("Custom service"),
+        help_text=_("Custom services can be defined for any "
+                    "additional collector."),
+        widget=forms.widgets.TextInput(attrs={
+            'class': 'switched',
+            'data-switch-on': 'servicetype',
+            'data-servicetype-custom_service': _('Custom service')}),
+        required=False)
 
     def handle(self, request, data):
-        name = data['name']
-        LOG.info('Creating service with name %s' % (name))
-        return api.cloudkittyclient(request).hashmap.services.create(name=name)
+        if data['service_type'] == 'service':
+            service = data['service']
+        else:
+            service = data['custom_service']
+        services_mgr = api.cloudkittyclient(request).hashmap.services
+        LOG.info('Creating service with name %s' % (service))
+        return services_mgr.create(name=service)
+
+    def __init__(self, request, *args, **kwargs):
+        super(CreateServiceForm, self).__init__(request, *args, **kwargs)
+        services = api.cloudkittyclient(request).service_info.list()
+        services = api.identify(services)
+        choices = sorted([(s.service_id, s.service_id) for s in services])
+        self.fields['service'].choices = choices
 
 
 class CreateFieldForm(forms.SelfHandlingForm, common.OrderFieldsMixin):
     service_id = forms.CharField(label=_("Service ID"),
                                  widget=forms.TextInput(
-                                 attrs={'readonly': 'readonly'}))
-    name = forms.CharField(label=_("Name"))
+                                     attrs={'readonly': 'readonly'}))
+    service_name = forms.CharField(label=_("Service Name"),
+                                   widget=forms.TextInput(
+                                       attrs={'readonly': 'readonly'}))
 
     def handle(self, request, data):
-        name = data['name']
         service_id = data['service_id']
-        LOG.info('Creating field with name %s' % (name))
+        field = data['field']
+        LOG.info('Creating field with name %s' % (field))
         fields_mgr = api.cloudkittyclient(request).hashmap.fields
-        return fields_mgr.create(name=name, service_id=service_id)
+        return fields_mgr.create(name=field, service_id=service_id)
+
+    def __init__(self, request, *args, **kwargs):
+        super(CreateFieldForm, self).__init__(request, *args, **kwargs)
+        service_id = kwargs['initial']['service_id']
+        manager = api.cloudkittyclient(request)
+        service = manager.hashmap.services.get(service_id=service_id)
+        self.fields['service_name'].initial = service.name
+
+        try:
+            fields = manager.service_info.get(service_id=service.name)
+        except exceptions.NotFound:
+            fields = None
+
+        if fields:
+            fields = api.identify(fields)
+            choices = sorted([(field, field) for field in fields.metadata])
+            self.fields['field'] = forms.DynamicChoiceField(
+                label=_("Field"),
+                required=True)
+            self.fields['field'].choices = choices
+        else:
+            self.fields['field'] = forms.CharField(
+                label=_("Field"),
+                required=True)
 
 
 class CreateGroupForm(forms.SelfHandlingForm):

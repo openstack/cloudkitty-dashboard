@@ -5,6 +5,13 @@
 {% block main %}
 <div class="row-fluid">
   <div class="span12">
+
+{% if service_period %}
+  {% blocktrans with service_period as period %}
+   <p>Usage data are collected every {{ period }} seconds.</p>
+  {% endblocktrans %}
+{% endif %}
+
   {{ tab_group.render }}
   </div>
 </div>

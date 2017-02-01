@@ -51,6 +51,10 @@ class ServicesTable(tables.DataTable):
     """
     name = tables.Column('name', verbose_name=_("Name"),
                          link='horizon:admin:hashmap:service')
+    unit = tables.Column("unit", verbose_name=_("Unit"))
+
+    def get_object_id(self, datum):
+        return datum['id']
 
     class Meta(object):
         name = "services"

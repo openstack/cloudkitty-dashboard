@@ -21,6 +21,7 @@ from horizon import tables
 from horizon import tabs
 from horizon import views
 
+from cloudkittyclient.apiclient import exceptions
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards.admin.hashmap import forms as hashmap_forms
 from cloudkittydashboard.dashboards.admin.hashmap \
@@ -32,8 +33,23 @@ class IndexView(tables.DataTableView):
     template_name = "admin/hashmap/services_list.html"
 
     def get_data(self):
-        out = api.cloudkittyclient(self.request).hashmap.services.list()
-        return api.identify(out)
+        manager = api.cloudkittyclient(self.request)
+        services = manager.hashmap.services.list()
+        services = sorted(services, key=lambda service: service.name)
+        list_services = []
+        for s in services:
+            try:
+                service = manager.service_info.get(service_id=s.name)
+                unit = service.unit
+            except exceptions.NotFound:
+                unit = "-"
+
+            list_services.append({
+                "id": s.service_id,
+                "name": s.name,
+                "unit": unit
+            })
+        return list_services
 
 
 class ServiceView(tabs.TabbedTableView):
@@ -47,6 +63,21 @@ class ServiceView(tabs.TabbedTableView):
         self.request.service_id = service.service_id
         self.page_title = "Hashmap Service : %s" % service.name
         return super(ServiceView, self).get(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ServiceView, self).get_context_data(**kwargs)
+        manager = api.cloudkittyclient(self.request)
+        service = manager.hashmap.services.get(
+            service_id=kwargs['service_id']
+        )
+        config = manager.config.get_config()
+        period = None
+
+        if service.name in config['collect']['services']:
+            period = config['collect']['period']
+
+        context["service_period"] = period
+        return context
 
 
 class ServiceCreateView(forms.ModalFormView):
