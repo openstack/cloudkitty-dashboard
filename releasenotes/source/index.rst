@@ -10,6 +10,8 @@ Contents
    unreleased
    rocky
    queens
+   pike
+   ocata
 
 Indices and tables
 ==================
