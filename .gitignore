@@ -14,3 +14,5 @@ dist
 *.egg
 *.sw?
 .ropeproject
+AUTHORS
+ChangeLog
