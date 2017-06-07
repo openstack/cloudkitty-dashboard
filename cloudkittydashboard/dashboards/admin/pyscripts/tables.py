@@ -14,6 +14,8 @@
 
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ungettext_lazy
+
 from horizon import tables
 
 from cloudkittydashboard.api import cloudkitty as api
@@ -48,11 +50,25 @@ class UpdateScript(tables.LinkAction):
 class DeletePyScript(tables.DeleteAction):
     name = "deletepyscript"
     verbose_name = _("Delete Script")
-    action_present = _("Delete")
-    action_past = _("Deleted")
     data_type_singular = _("PyScript")
     data_type_plural = _("PyScripts")
     icon = "remove"
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Delete PyScript",
+            u"Delete PyScripts",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Deleted PyScript",
+            u"Deleted PyScripts",
+            count
+        )
 
     def action(self, request, script_id):
         api.cloudkittyclient(request).pyscripts.scripts.delete(

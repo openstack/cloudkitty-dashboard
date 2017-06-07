@@ -15,6 +15,8 @@
 from collections import OrderedDict
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ungettext_lazy
+
 from horizon import tables
 from horizon import tabs
 
@@ -33,11 +35,25 @@ class CreateService(tables.LinkAction):
 class DeleteService(tables.DeleteAction):
     name = "deleteservice"
     verbose_name = _("Delete Service")
-    action_present = _("Delete")
-    action_past = _("Deleted")
     data_type_singular = _("Service")
     data_type_plural = _("Services")
     icon = "remove"
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Delete Service",
+            u"Delete Services",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Deleted Service",
+            u"Deleted Services",
+            count
+        )
 
     def action(self, request, service_id):
         api.cloudkittyclient(request).hashmap.services.delete(
@@ -79,11 +95,25 @@ class CreateGroup(tables.LinkAction):
 class DeleteGroup(tables.DeleteAction):
     name = "deletegroup"
     verbose_name = _("Delete Group")
-    action_present = _("Delete")
-    action_past = _("Deleted")
     data_type_singular = _("Group")
     data_type_plural = _("Groups")
     icon = "remove"
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Delete Group",
+            u"Delete Groups",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Deleted Group",
+            u"Deleted Groups",
+            count
+        )
 
     def action(self, request, group_id):
         api.cloudkittyclient(request).hashmap.groups.delete(
@@ -151,13 +181,27 @@ class CreateFieldThreshold(tables.LinkAction):
 
 
 class DeleteServiceThreshold(tables.DeleteAction):
-    name = "deletetservicehreshold"
+    name = "deletetservicethreshold"
     verbose_name = _("Delete Service Threshold")
-    action_present = _("Delete")
-    action_past = _("Deleted")
     data_type_singular = _("Service Threshold")
     data_type_plural = _("Service Thresholds")
     icon = "remove"
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Delete Service Threshold",
+            u"Delete Service Thresholds",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Deleted Service Threshold",
+            u"Deleted Service Thresholds",
+            count
+        )
 
     def action(self, request, threshold_id):
         api.cloudkittyclient(request).hashmap.thresholds.delete(
@@ -167,11 +211,25 @@ class DeleteServiceThreshold(tables.DeleteAction):
 class DeleteFieldThreshold(tables.DeleteAction):
     name = "deletefieldthreshold"
     verbose_name = _("Delete Field Threshold")
-    action_present = _("Delete")
-    action_past = _("Deleted")
     data_type_singular = _("Field Threshold")
     data_type_plural = _("Field Thresholds")
     icon = "remove"
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Delete Field Threshold",
+            u"Delete Field Thresholds",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Deleted Field Threshold",
+            u"Deleted Field Thresholds",
+            count
+        )
 
     def action(self, request, threshold_id):
         api.cloudkittyclient(request).hashmap.thresholds.delete(
@@ -294,11 +352,25 @@ class FieldThresholdsTab(tabs.TableTab):
 class DeleteField(tables.DeleteAction):
     name = "deletefield"
     verbose_name = _("Delete Field")
-    action_present = _("Delete")
-    action_past = _("Deleted")
     data_type_singular = _("Field")
     data_type_plural = _("Fields")
     icon = "remove"
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Delete Field",
+            u"Delete Fields",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Deleted Field",
+            u"Deleted Fields",
+            count
+        )
 
     def action(self, request, field_id):
         api.cloudkittyclient(request).hashmap.fields.delete(
@@ -352,11 +424,25 @@ class FieldsTab(tabs.TableTab):
 class DeleteMapping(tables.DeleteAction):
     name = "deletemapping"
     verbose_name = _("Delete Mapping")
-    action_present = _("Delete")
-    action_past = _("Deleted")
     data_type_singular = _("Mapping")
     data_type_plural = _("Mappings")
     icon = "remove"
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Delete Mapping",
+            u"Delete Mappings",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Deleted Mapping",
+            u"Deleted Mappings",
+            count
+        )
 
     def action(self, request, mapping_id):
         api.cloudkittyclient(request).hashmap.mappings.delete(
