@@ -12,17 +12,15 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from django.conf.urls import patterns
 from django.conf.urls import url
 
 from cloudkittydashboard.dashboards.admin.modules import views
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^(?P<module_id>[^/]+)/?$', views.ModuleDetailsView.as_view(),
         name="module_details"),
     url(r'^edit_priority/(?P<module_id>[^/]+)/?$',
         views.PriorityModuleEditView.as_view(),
         name="edit_priority"),
-)
+]

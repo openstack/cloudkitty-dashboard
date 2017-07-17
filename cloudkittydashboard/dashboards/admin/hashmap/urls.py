@@ -12,13 +12,11 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from django.conf.urls import patterns
 from django.conf.urls import url
 
 from cloudkittydashboard.dashboards.admin.hashmap import views
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^service/(?P<service_id>[^/]+)/?$',
         views.ServiceView.as_view(),
@@ -65,4 +63,4 @@ urlpatterns = patterns(
     url(r'^edit_threshold/field/(?P<threshold_id>[^/]+)/?$',
         views.FieldThresholdEditView.as_view(),
         name='field_threshold_edit'),
-)
+]
