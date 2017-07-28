@@ -14,6 +14,8 @@
 
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ungettext_lazy
+
 from horizon import tables
 
 from cloudkittydashboard.api import cloudkitty as api
@@ -37,11 +39,25 @@ class EditModulePriority(tables.LinkAction):
 
 class ToggleEnabledModule(tables.BatchAction):
     name = "toggle_module"
-    action_present = (_("Enable"), _("Disable"))
-    action_past = (_("Enabled"), _("Disabled"))
     data_type_singular = _("Module")
     data_type_plural = _("Modules")
     classes = ("btn-toggle",)
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Enable Module",
+            u"Disable Module",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Enabled Module",
+            u"Disabled Module",
+            count
+        )
 
     def allowed(self, request, module=None):
         self.enabled = module.enabled
