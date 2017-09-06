@@ -19,7 +19,6 @@ from horizon import forms
 
 from cloudkittyclient.apiclient import exceptions
 from cloudkittydashboard.api import cloudkitty as api
-from cloudkittydashboard.dashboards import common
 
 from openstack_dashboard import api as api_keystone
 
@@ -71,7 +70,7 @@ class CreateServiceForm(forms.SelfHandlingForm):
         self.fields['service'].choices = choices
 
 
-class CreateFieldForm(forms.SelfHandlingForm, common.OrderFieldsMixin):
+class CreateFieldForm(forms.SelfHandlingForm):
     service_id = forms.CharField(label=_("Service ID"),
                                  widget=forms.TextInput(
                                      attrs={'readonly': 'readonly'}))
@@ -120,7 +119,7 @@ class CreateGroupForm(forms.SelfHandlingForm):
         return api.cloudkittyclient(request).hashmap.groups.create(name=name)
 
 
-class BaseForm(forms.SelfHandlingForm, common.OrderFieldsMixin):
+class BaseForm(forms.SelfHandlingForm):
     type = forms.ChoiceField(label=_("Type"),
                              choices=(("flat", _("Flat")),
                                       ("rate", _("Rate"))))
@@ -135,7 +134,7 @@ class BaseForm(forms.SelfHandlingForm, common.OrderFieldsMixin):
 
     def __init__(self, request, *args, **kwargs):
         super(BaseForm, self).__init__(request, *args, **kwargs)
-        self.order_fields()
+        self.order_fields(self.fields_order)
         groups = api.cloudkittyclient(request).hashmap.groups.list()
         groups = api.identify(groups)
         choices = [(group.id, group.name) for group in groups]

@@ -19,7 +19,6 @@ from django.utils.translation import ugettext_lazy as _
 from horizon import forms
 
 from cloudkittydashboard.api import cloudkitty as api
-from cloudkittydashboard.dashboards import common
 
 LOG = logging.getLogger(__name__)
 
@@ -99,7 +98,7 @@ class CreateScriptForm(forms.SelfHandlingForm):
             data=data['script_data'])
 
 
-class EditScriptForm(CreateScriptForm, common.OrderFieldsMixin):
+class EditScriptForm(CreateScriptForm):
     script_id = forms.CharField(label=_("Script ID"),
                                 widget=forms.TextInput(
                                 attrs={'readonly': 'readonly'}))
@@ -108,7 +107,7 @@ class EditScriptForm(CreateScriptForm, common.OrderFieldsMixin):
 
     def __init__(self, request, *args, **kwargs):
         super(EditScriptForm, self).__init__(request, *args, **kwargs)
-        self.order_fields()
+        self.order_fields(self.fields_order)
 
     class Meta(object):
         name = _("Upate Script")
