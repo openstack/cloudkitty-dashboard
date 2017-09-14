@@ -45,18 +45,32 @@ class ToggleEnabledModule(tables.BatchAction):
 
     @staticmethod
     def action_present(count):
-        return ungettext_lazy(
-            u"Enable Module",
-            u"Disable Module",
-            count
+        return (
+            ungettext_lazy(
+                u"Enable Module",
+                u"Enable Modules",
+                count
+            ),
+            ungettext_lazy(
+                u"Disable Module",
+                u"Disable Modules",
+                count
+            ),
         )
 
     @staticmethod
     def action_past(count):
-        return ungettext_lazy(
-            u"Enabled Module",
-            u"Disabled Module",
-            count
+        return (
+            ungettext_lazy(
+                u"Enabled Module",
+                u"Enabled Modules",
+                count
+            ),
+            ungettext_lazy(
+                u"Disabled Module",
+                u"Disabled Modules",
+                count
+            ),
         )
 
     def allowed(self, request, module=None):
