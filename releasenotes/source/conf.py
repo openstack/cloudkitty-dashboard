@@ -258,5 +258,5 @@ texinfo_documents = [
 
 # -- Options for openstackdocstheme -------------------------------------------
 repository_name = 'openstack/cloudkitty-dashboard'
-bug_project = 'cloudkitty-dashboard'
+bug_project = '891'
 bug_tag = 'doc'
