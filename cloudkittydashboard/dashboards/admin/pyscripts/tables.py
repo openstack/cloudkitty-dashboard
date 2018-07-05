@@ -71,7 +71,7 @@ class DeletePyScript(tables.DeleteAction):
         )
 
     def action(self, request, script_id):
-        api.cloudkittyclient(request).pyscripts.scripts.delete(
+        api.cloudkittyclient(request).rating.pyscripts.delete_script(
             script_id=script_id)
 
 

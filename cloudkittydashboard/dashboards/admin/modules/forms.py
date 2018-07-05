@@ -27,7 +27,7 @@ class EditPriorityForm(forms.SelfHandlingForm):
 
     def handle(self, request, data):
         ck_client = api.cloudkittyclient(request)
-        return ck_client.modules.update(
+        return ck_client.rating.update_module(
             module_id=self.initial["module_id"],
             priority=data["priority"]
         )

@@ -20,8 +20,9 @@ from horizon import forms
 from horizon import tables
 from horizon import tabs
 from horizon import views
+from keystoneauth1 import exceptions
 
-from cloudkittyclient.apiclient import exceptions
+# from cloudkittyclient.apiclient import exceptions
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards.admin.hashmap import forms as hashmap_forms
 from cloudkittydashboard.dashboards.admin.hashmap \
@@ -34,19 +35,19 @@ class IndexView(tables.DataTableView):
 
     def get_data(self):
         manager = api.cloudkittyclient(self.request)
-        services = manager.hashmap.services.list()
-        services = sorted(services, key=lambda service: service.name)
+        services = manager.rating.hashmap.get_service().get('services', [])
+        services = sorted(services, key=lambda service: service['name'])
         list_services = []
         for s in services:
             try:
-                service = manager.service_info.get(service_id=s.name)
-                unit = service.unit
+                service = manager.info.get_metric(metric_name=s['name'])
+                unit = service['unit']
             except exceptions.NotFound:
                 unit = "-"
 
             list_services.append({
-                "id": s.service_id,
-                "name": s.name,
+                "id": s['service_id'],
+                "name": s['name'],
                 "unit": unit
             })
         return list_services
@@ -57,24 +58,23 @@ class ServiceView(tabs.TabbedTableView):
     template_name = 'admin/hashmap/service_details.html'
 
     def get(self, *args, **kwargs):
-        service = api.cloudkittyclient(self.request).hashmap.services.get(
-            service_id=kwargs['service_id']
-        )
-        self.request.service_id = service.service_id
-        self.page_title = "Hashmap Service : %s" % service.name
+        service = api.cloudkittyclient(
+            self.request).rating.hashmap.get_service(
+            service_id=kwargs['service_id'])
+        self.request.service_id = service['service_id']
+        self.page_title = "Hashmap Service : %s" % service['name']
         return super(ServiceView, self).get(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(ServiceView, self).get_context_data(**kwargs)
         manager = api.cloudkittyclient(self.request)
-        service = manager.hashmap.services.get(
-            service_id=kwargs['service_id']
-        )
-        config = manager.config.get_config()
+        service = manager.rating.hashmap.get_service(
+            service_id=kwargs['service_id'])
+        config = manager.info.get_config()
         period = None
 
-        if service.name in config['collect']['services']:
-            period = config['collect']['period']
+        if service['name'] in config['metrics'].keys():
+            period = config.get('period', 3600)
 
         context["service_period"] = period
         return context
@@ -98,11 +98,10 @@ class FieldView(tabs.TabbedTableView):
     template_name = 'admin/hashmap/field_details.html'
 
     def get(self, *args, **kwargs):
-        field = api.cloudkittyclient(self.request).hashmap.fields.get(
-            field_id=kwargs['field_id']
-        )
-        self.request.field_id = field.field_id
-        self.page_title = "Hashmap Field : %s" % field.name
+        field = api.cloudkittyclient(self.request).rating.hashmap.get_field(
+            field_id=kwargs['field_id'])
+        self.request.field_id = field['field_id']
+        self.page_title = "Hashmap Field : %s" % field['name']
         return super(FieldView, self).get(*args, **kwargs)
 
 
@@ -170,9 +169,9 @@ class ServiceMappingEditView(ServiceMappingCreateView):
     success_url = 'horizon:admin:hashmap:service_mapping_edit'
 
     def get_initial(self):
-        out = api.cloudkittyclient(self.request).hashmap.mappings.get(
+        out = api.cloudkittyclient(self.request).rating.hashmap.get_mapping(
             mapping_id=self.kwargs['mapping_id'])
-        self.initial = out.to_dict()
+        self.initial = out
         return self.initial
 
     def get_context_data(self, **kwargs):
@@ -224,9 +223,9 @@ class FieldMappingEditView(FieldMappingCreateView):
     submit_url = 'horizon:admin:hashmap:field_mapping_edit'
 
     def get_initial(self):
-        out = api.cloudkittyclient(self.request).hashmap.mappings.get(
+        out = api.cloudkittyclient(self.request).rating.hashmap.get_mapping(
             mapping_id=self.kwargs['mapping_id'])
-        self.initial = out.to_dict()
+        self.initial = out
         return self.initial
 
     def get_context_data(self, **kwargs):
@@ -309,9 +308,9 @@ class ServiceThresholdEditView(ServiceThresholdCreateView):
     submit_url = 'horizon:admin:hashmap:service_threshold_edit'
 
     def get_initial(self):
-        out = api.cloudkittyclient(self.request).hashmap.thresholds.get(
+        out = api.cloudkittyclient(self.request).rating.hashmap.get_threshold(
             threshold_id=self.kwargs['threshold_id'])
-        self.initial = out.to_dict()
+        self.initial = out
         return self.initial
 
     def get_context_data(self, **kwargs):
@@ -363,9 +362,9 @@ class FieldThresholdEditView(FieldThresholdCreateView):
     submit_url = 'horizon:admin:hashmap:field_threshold_edit'
 
     def get_initial(self):
-        out = api.cloudkittyclient(self.request).hashmap.thresholds.get(
+        out = api.cloudkittyclient(self.request).rating.hashmap.get_threshold(
             threshold_id=self.kwargs['threshold_id'])
-        self.initial = out.to_dict()
+        self.initial = out
         return self.initial
 
     def get_context_data(self, **kwargs):
@@ -386,7 +385,7 @@ class GroupView(tabs.TabbedTableView):
     template_name = 'admin/hashmap/group_details.html'
 
     def get(self, *args, **kwargs):
-        group = api.cloudkittyclient(self.request).hashmap.groups.get(
+        group = api.cloudkittyclient(self.request).rating.hashmap.get_group(
             group_id=kwargs['group_id']
         )
         self.request.group_id = group.group_id
@@ -394,8 +393,7 @@ class GroupView(tabs.TabbedTableView):
         return super(GroupView, self).get(*args, **kwargs)
 
     def get_data(self):
-        out = api.cloudkittyclient(self.request).hashmap.groups.list(
-        )
+        out = api.cloudkittyclient(self.request).rating.hashmap.get_group()
         return api.identify(out)
 
 
@@ -408,18 +406,17 @@ class GroupDetailsView(views.APIView):
         ck_client = api.cloudkittyclient(self.request)
 
         try:
-            group = ck_client.hashmap.groups.get(group_id=group_id)
+            group = ck_client.rating.hashmap.get_group(group_id=group_id)
         except Exception:
             group = None
-
         try:
-            mappings = ck_client.hashmap.mappings.findall(group_id=group_id)
+            mappings = ck_client.rating.hashmap.get_mapping(
+                group_id=group_id)['mappings']
         except Exception:
             mappings = []
-
         try:
-            thresholds = ck_client.hashmap.thresholds.findall(
-                group_id=group_id)
+            thresholds = ck_client.rating.hashmap.get_threshold(
+                group_id=group_id)['thresholds']
         except Exception:
             thresholds = []
 
@@ -430,7 +427,7 @@ class GroupDetailsView(views.APIView):
         for key, value in dict(
                 mappings=mappings, thresholds=thresholds).items():
             for entry in value:
-                if entry.service_id:
+                if entry.get('service_id'):
                     values[key]['services'].append(entry)
                 else:
                     values[key]['fields'].append(entry)

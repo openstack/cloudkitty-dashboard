@@ -17,32 +17,39 @@ import collections
 
 from django.conf import settings
 from horizon.utils.memoized import memoized  # noqa
+from keystoneauth1.identity.v3 import Token
 
 from cloudkittyclient import client as ck_client
-from openstack_dashboard.api import base
+from cloudkittydashboard import utils
 
 
 @memoized
 def cloudkittyclient(request):
     """Initialization of Cloudkitty client."""
-
-    endpoint = base.url_for(request, 'rating')
-    insecure = getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False)
     cacert = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
-    return ck_client.Client('1', endpoint,
-                            token=(lambda: request.user.token.id),
-                            insecure=insecure,
-                            cacert=cacert)
+    auth_url = getattr(settings, 'OPENSTACK_KEYSTONE_URL', None)
+    auth = Token(
+        auth_url,
+        token=request.user.token.id,
+        project_id=request.user.project_id,
+        domain_id=request.user.domain_id,
+    )
+    return ck_client.Client(
+        '1',
+        auth=auth,
+        cert=cacert)
 
 
 def identify(what, name=False, key=None):
     if isinstance(what, collections.Iterable):
         for i in what:
-            i.id = getattr(i, key or "%s_id" % i.key)
-            if name:
-                i.name = getattr(i, key or "%s_id" % i.key)
+            i['id'] = i.get(key or "%s_id" % i['key'])
+            if name and not i.get('name'):
+                i['name'] = i.get(key or "%s_id" % i['key'])
+        what = [utils.TemplatizableDict(i) for i in what]
     else:
-        what.id = getattr(what, key or "%s_id" % what.key)
-        if name:
-            what.name = getattr(what, key or "%s_id" % what.key)
+        what['id'] = what.get(key or "%s_id" % what['key'])
+        if name and not i.get('name'):
+            what['name'] = what.get(key or "%s_id" % what['key'])
+        what = utils.TemplatizableDict(what)
     return what

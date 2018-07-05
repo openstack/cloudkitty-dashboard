@@ -31,8 +31,8 @@ def _do_this_month(data):
     # stacked graphs
     start_timestamp = None
     end_timestamp = None
-    for dataframe in data:
-        begin = dataframe.begin
+    for dataframe in data.get('dataframes', []):
+        begin = dataframe['begin']
         timestamp = int(time.mktime(
             datetime.datetime.strptime(begin[:16],
                                        "%Y-%m-%dT%H:%M").timetuple()))
@@ -41,7 +41,7 @@ def _do_this_month(data):
         if end_timestamp is None or timestamp > end_timestamp:
             end_timestamp = timestamp
 
-        for resource in dataframe.resources:
+        for resource in dataframe['resources']:
             service_id = resource['service']
             service_data = services.setdefault(
                 service_id, {'cumulated': 0, 'hourly': {}})
@@ -79,7 +79,7 @@ class CostRepartitionTab(tabs.Tab):
         begin = "%4d-%02d-01T00:00:00" % (today.year, today.month)
         end = "%4d-%02d-%02dT23:59:59" % (today.year, today.month, day_end)
         client = api.cloudkittyclient(request)
-        data = client.storage.dataframes.list(
+        data = client.storage.get_dataframes(
             begin=begin, end=end, tenant_id=request.user.tenant_id)
         parsed_data = _do_this_month(data)
         return {'repartition_data': parsed_data}

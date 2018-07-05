@@ -93,7 +93,7 @@ class CreateScriptForm(forms.SelfHandlingForm):
         name = data['name']
         LOG.info('Creating script with name %s' % (name))
         ck_client = api.cloudkittyclient(request)
-        return ck_client.pyscripts.scripts.create(
+        return ck_client.rating.pyscripts.create_script(
             name=name,
             data=data['script_data'])
 
@@ -105,10 +105,6 @@ class EditScriptForm(CreateScriptForm):
     fields_order = ['script_id', 'name', 'script_source', 'script_upload',
                     'script_data']
 
-    def __init__(self, request, *args, **kwargs):
-        super(EditScriptForm, self).__init__(request, *args, **kwargs)
-        self.order_fields(self.fields_order)
-
     class Meta(object):
         name = _("Upate Script")
 
@@ -116,6 +112,5 @@ class EditScriptForm(CreateScriptForm):
         script_id = self.initial['script_id']
         LOG.info('Updating script with id %s' % (script_id))
         ck_client = api.cloudkittyclient(request)
-        return ck_client.pyscripts.scripts.update(script_id=script_id,
-                                                  name=data['name'],
-                                                  data=data['script_data'])
+        return ck_client.rating.pyscripts.update_script(
+            script_id=script_id, name=data['name'], data=data['script_data'])

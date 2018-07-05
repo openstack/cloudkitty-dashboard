@@ -30,11 +30,9 @@ class IndexView(tables.DataTableView):
     table_class = admin_tables.ModulesTable
 
     def get_data(self):
-        # Add data to the context here...
-        modules = api.identify(
-            api.cloudkittyclient(self.request).modules.list(),
-            name=True
-        )
+        modules = api.cloudkittyclient(
+            self.request).rating.get_module()['modules']
+        modules = api.identify(modules, key='module_id', name=True)
         return modules
 
 
@@ -45,12 +43,13 @@ class ModuleDetailsView(views.APIView):
     def get_data(self, request, context, *args, **kwargs):
         module_id = kwargs.get("module_id")
         try:
-            module = api.cloudkittyclient(self.request).modules.get(
+            module = api.cloudkittyclient(self.request).rating.get_module(
                 module_id=module_id)
+            context['hotconfig'] = module['hot-config']
+            context['module'] = module
         except Exception:
-            module = None
-        context['hotconfig'] = module._info['hot-config']
-        context['module'] = module
+            context['hotconfig'] = False
+            context['module'] = {}
         return context
 
 
@@ -64,9 +63,9 @@ class PriorityModuleEditView(forms.ModalFormView):
     template_name = "horizon/common/modal_form.html"
 
     def get_initial(self):
-        module = api.cloudkittyclient(self.request).modules.get(
+        module = api.cloudkittyclient(self.request).rating.get_module(
             module_id=self.kwargs['module_id'])
-        self.initial = module.to_dict()
+        self.initial = module
         return self.initial
 
     def get_object_id(self, obj):

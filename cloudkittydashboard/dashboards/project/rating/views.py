@@ -29,7 +29,7 @@ class IndexView(views.APIView):
 
     def get_data(self, request, context, *args, **kwargs):
         # Add data to the context here...
-        total = api.cloudkittyclient(request).reports.get_total(
+        total = api.cloudkittyclient(request).report.get_total(
             tenant_id=request.user.tenant_id) or 0.00
         context['total'] = total
         return context

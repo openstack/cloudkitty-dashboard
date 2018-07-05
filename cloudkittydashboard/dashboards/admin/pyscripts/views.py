@@ -31,8 +31,9 @@ class IndexView(tables.DataTableView):
     template_name = 'admin/pyscripts/pyscripts_list.html'
 
     def get_data(self):
-        data = api.cloudkittyclient(self.request).pyscripts.scripts.list()
-        data = api.identify(data, name=False)
+        data = api.cloudkittyclient(
+            self.request).rating.pyscripts.list_scripts()['scripts']
+        data = api.identify(data, key='script_id')
         return data
 
 
@@ -59,9 +60,11 @@ class ScriptUpdateView(forms.ModalFormView):
     template_name = 'admin/pyscripts/form.html'
 
     def get_initial(self):
-        script = api.cloudkittyclient(self.request).pyscripts.scripts.get(
+        client = api.cloudkittyclient(self.request)
+
+        script = client.rating.pyscripts.get_script(
             script_id=self.kwargs['script_id'])
-        self.initial = script.to_dict()
+        self.initial = script
         self.initial['script_data'] = self.initial['data']
         return self.initial
 
@@ -83,8 +86,8 @@ class ScriptDetailsView(views.APIView):
     def get_data(self, request, context, *args, **kwargs):
         script_id = kwargs.get("script_id")
         try:
-            script = api.cloudkittyclient(self.request).pyscripts.scripts.get(
-                script_id=script_id)
+            client = api.cloudkittyclient(self.request)
+            script = client.rating.pyscripts.get_script(script_id=script_id)
         except Exception:
             script = None
         context['script'] = script

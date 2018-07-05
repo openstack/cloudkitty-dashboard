@@ -74,7 +74,7 @@ class ToggleEnabledModule(tables.BatchAction):
         )
 
     def allowed(self, request, module=None):
-        self.enabled = module.enabled
+        self.enabled = module.get('enabled')
         if self.enabled:
             self.current_present_action = DISABLE
         else:
@@ -82,14 +82,12 @@ class ToggleEnabledModule(tables.BatchAction):
         return True
 
     def action(self, request, obj_id):
-        module = api.cloudkittyclient(request).modules.get(module_id=obj_id)
-        self.enabled = module.enabled
-        if self.enabled:
-            self.current_past_action = DISABLE
-            module.disable()
-        else:
-            module.enable()
-            self.current_past_action = ENABLE
+        client = api.cloudkittyclient(request)
+        module = client.rating.get_module(module_id=obj_id)
+        self.enabled = module.get('enabled', False)
+        self.current_past_action = DISABLE if self.enabled else ENABLE
+        client.rating.update_module(module_id=obj_id,
+                                    enabled=(not self.enabled))
 
 
 def get_details_link(datum):

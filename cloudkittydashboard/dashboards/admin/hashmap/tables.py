@@ -56,7 +56,7 @@ class DeleteService(tables.DeleteAction):
         )
 
     def action(self, request, service_id):
-        api.cloudkittyclient(request).hashmap.services.delete(
+        api.cloudkittyclient(request).rating.hashmap.delete_service(
             service_id=service_id)
 
 
@@ -116,7 +116,7 @@ class DeleteGroup(tables.DeleteAction):
         )
 
     def action(self, request, group_id):
-        api.cloudkittyclient(request).hashmap.groups.delete(
+        api.cloudkittyclient(request).rating.hashmap.delete_group(
             group_id=group_id)
 
 
@@ -150,8 +150,8 @@ class GroupsTab(tabs.TableTab):
 
     def get_groups_data(self):
         client = api.cloudkittyclient(self.request)
-        groups = client.hashmap.groups.list()
-        return api.identify(groups)
+        groups = client.rating.hashmap.get_group().get('groups', [])
+        return api.identify(groups, key='group_id')
 
 
 class CreateServiceThreshold(tables.LinkAction):
@@ -204,7 +204,7 @@ class DeleteServiceThreshold(tables.DeleteAction):
         )
 
     def action(self, request, threshold_id):
-        api.cloudkittyclient(request).hashmap.thresholds.delete(
+        api.cloudkittyclient(request).rating.hashmap.delete_threshold(
             threshold_id=threshold_id)
 
 
@@ -232,7 +232,7 @@ class DeleteFieldThreshold(tables.DeleteAction):
         )
 
     def action(self, request, threshold_id):
-        api.cloudkittyclient(request).hashmap.thresholds.delete(
+        api.cloudkittyclient(request).rating.hashmap.delete_threshold(
             threshold_id=threshold_id)
 
 
@@ -257,18 +257,18 @@ def get_groupname(datum):
 
 def add_groupname(request, datums):
     client = api.cloudkittyclient(request)
-    groups = client.hashmap.groups.list()
-    full_groups = OrderedDict([(str(group.group_id), group.name)
+    groups = client.rating.hashmap.get_group().get('groups', [])
+    full_groups = OrderedDict([(str(group['group_id']), group['name'])
                                for group in groups])
 
     for datum in datums:
-        if datum.group_id:
-            if datum.group_id in full_groups:
-                datum.group_name = full_groups[datum.group_id]
+        if datum.get('group_id'):
+            if datum['group_id'] in full_groups:
+                datum['group_name'] = full_groups[datum['group_id']]
             else:
-                group = client.hashmap.groups.get(
-                    group_id=datum.group_id)
-                datum.group_name = group.name
+                group = client.rating.hashmap.get_group(
+                    group_id=datum['group_id'])
+                datum['group_name'] = group['name']
 
 
 class BaseThresholdsTable(tables.DataTable):
@@ -303,10 +303,10 @@ class ServiceThresholdsTab(tabs.TableTab):
 
     def get_service_thresholds_data(self):
         client = api.cloudkittyclient(self.request)
-        thresholds = client.hashmap.thresholds.list(
-            service_id=self.request.service_id)
+        thresholds = client.rating.hashmap.get_threshold(
+            service_id=self.request.service_id).get('thresholds', [])
         add_groupname(self.request, thresholds)
-        return api.identify(thresholds)
+        return api.identify(thresholds, key='threshold_id', name=True)
 
 
 class EditFieldThreshold(tables.LinkAction):
@@ -343,10 +343,10 @@ class FieldThresholdsTab(tabs.TableTab):
 
     def get_field_thresholds_data(self):
         client = api.cloudkittyclient(self.request)
-        thresholds = client.hashmap.thresholds.list(
-            field_id=self.request.field_id)
+        thresholds = client.rating.hashmap.get_threshold(
+            field_id=self.request.field_id).get('thresholds', [])
         add_groupname(self.request, thresholds)
-        return api.identify(thresholds)
+        return api.identify(thresholds, key='threshold_id', name=True)
 
 
 class DeleteField(tables.DeleteAction):
@@ -373,7 +373,7 @@ class DeleteField(tables.DeleteAction):
         )
 
     def action(self, request, field_id):
-        api.cloudkittyclient(request).hashmap.fields.delete(
+        api.cloudkittyclient(request).rating.hashmap.delete_field(
             field_id=field_id)
 
 
@@ -417,8 +417,9 @@ class FieldsTab(tabs.TableTab):
 
     def get_fields_data(self):
         client = api.cloudkittyclient(self.request)
-        fields = client.hashmap.fields.list(service_id=self.request.service_id)
-        return api.identify(fields)
+        fields = client.rating.hashmap.get_field(
+            service_id=self.request.service_id)['fields']
+        return api.identify(fields, key='field_id')
 
 
 class DeleteMapping(tables.DeleteAction):
@@ -445,7 +446,7 @@ class DeleteMapping(tables.DeleteAction):
         )
 
     def action(self, request, mapping_id):
-        api.cloudkittyclient(request).hashmap.mappings.delete(
+        api.cloudkittyclient(request).rating.hashmap.delete_mapping(
             mapping_id=mapping_id)
 
 
@@ -536,10 +537,10 @@ class FieldMappingsTab(tabs.TableTab):
 
     def get_mappings_data(self):
         client = api.cloudkittyclient(self.request)
-        mappings = client.hashmap.mappings.list(
-            field_id=self.request.field_id)
+        mappings = client.rating.hashmap.get_mapping(
+            field_id=self.request.field_id).get('mappings', [])
         add_groupname(self.request, mappings)
-        return api.identify(mappings)
+        return api.identify(mappings, key='mapping_id', name=True)
 
 
 class MappingsTab(tabs.TableTab):
@@ -551,10 +552,10 @@ class MappingsTab(tabs.TableTab):
 
     def get_mappings_data(self):
         client = api.cloudkittyclient(self.request)
-        mappings = client.hashmap.mappings.list(
-            service_id=self.request.service_id)
+        mappings = client.rating.hashmap.get_mapping(
+            service_id=self.request.service_id).get('mappings', [])
         add_groupname(self.request, mappings)
-        return api.identify(mappings)
+        return api.identify(mappings, key='mapping_id', name=True)
 
 
 class FieldTabs(tabs.TabGroup):
