@@ -18,21 +18,30 @@ import json
 from django import http
 from django.utils.translation import ugettext_lazy as _
 from horizon import exceptions
-from horizon import views
+from horizon import tables
 
 from cloudkittydashboard.api import cloudkitty as api
+from cloudkittydashboard.dashboards.project.rating \
+    import tables as rating_tables
+from cloudkittydashboard.utils import TemplatizableDict
 
 
-class IndexView(views.APIView):
-    # A very simple class-based view...
+class IndexView(tables.DataTableView):
+    table_class = rating_tables.SummaryTable
     template_name = 'project/rating/index.html'
 
-    def get_data(self, request, context, *args, **kwargs):
-        # Add data to the context here...
-        total = api.cloudkittyclient(request).report.get_total(
-            tenant_id=request.user.tenant_id) or 0.00
-        context['total'] = total
-        return context
+    def get_data(self):
+        summary = api.cloudkittyclient(self.request).report.get_summary(
+            tenant_id=self.request.user.tenant_id,
+            groupby=['tenant_id', 'res_type'])['summary']
+        summary = api.identify(summary, key='res_type', name=True)
+        summary.append(TemplatizableDict({
+            'id': 'ALL',
+            'res_type': 'TOTAL',
+            'name': 'ALL',
+            'rate': sum([float(i['rate']) for i in summary]),
+        }))
+        return summary
 
 
 def quote(request):
@@ -42,8 +51,7 @@ def quote(request):
             json_data = json.loads(request.body)
             try:
                 pricing = decimal.Decimal(api.cloudkittyclient(request)
-                                          .quotations.quote(json_data))
-                pricing = pricing.normalize().to_eng_string()
+                                          .rating.get_quotation(json_data))
             except Exception:
                 exceptions.handle(request,
                                   _('Unable to retrieve price.'))

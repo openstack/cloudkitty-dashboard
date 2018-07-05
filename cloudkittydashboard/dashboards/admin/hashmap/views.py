@@ -22,7 +22,6 @@ from horizon import tabs
 from horizon import views
 from keystoneauth1 import exceptions
 
-# from cloudkittyclient.apiclient import exceptions
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards.admin.hashmap import forms as hashmap_forms
 from cloudkittydashboard.dashboards.admin.hashmap \

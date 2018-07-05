@@ -1,0 +1,14 @@
+---
+features:
+  - |
+    An "Admin/Rating Summary" tab has been added. An admin user can now have
+    the cost of every rated tenant at once. By clicking on a tenant, a
+    per-resource total for the given tenant can be obtained (this view is
+    similar to the "Project/Rating" tab). A per-resource total for the whole
+    cloud is also available.
+
+upgrade:
+  - |
+    The "Project/Rating" tab has been improved: it does now provide a total
+    by metric type. This make use of the /summary endpoint instead of /total
+    (/total is deprecated).

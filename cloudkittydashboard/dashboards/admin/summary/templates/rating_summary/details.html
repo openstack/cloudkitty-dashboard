@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Tenant Details" %}{% endblock %}
+
+{% block page_header %}
+  {% include "horizon/common/_page_header.html" with title=_("Tenant Details") %}
+{% endblock page_header %}
+
+{% block main %}
+
+{% trans "Project ID:" %} {{ project_id }}
+
+{{ table.render }}
+
+{{ modules }}
+{% endblock %}
