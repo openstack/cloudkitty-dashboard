@@ -33,8 +33,7 @@ class CreateServiceForm(forms.SelfHandlingForm):
         choices=services_choices,
         widget=forms.Select(attrs={
             'class': 'switchable',
-            'data-slug': 'servicetype'}),
-        required=True)
+            'data-slug': 'servicetype'}))
     service = forms.DynamicChoiceField(
         label=_("Service"),
         help_text=_("Services are provided by main collector."),
@@ -101,13 +100,11 @@ class CreateFieldForm(forms.SelfHandlingForm):
             fields = api.identify(fields)
             choices = sorted([(field, field) for field in fields.metadata])
             self.fields['field'] = forms.DynamicChoiceField(
-                label=_("Field"),
-                required=True)
+                label=_("Field"))
             self.fields['field'].choices = choices
         else:
             self.fields['field'] = forms.CharField(
-                label=_("Field"),
-                required=True)
+                label=_("Field"))
 
 
 class CreateGroupForm(forms.SelfHandlingForm):
