@@ -31,7 +31,7 @@ class CreatePyScript(tables.LinkAction):
     name = "createpyscript"
     verbose_name = _("Create Script")
     url = "horizon:admin:pyscripts:script_create"
-    icon = "create"
+    icon = "plus"
     ajax = True
     classes = ("ajax-modal",)
 
