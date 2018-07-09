@@ -52,7 +52,6 @@ class DeletePyScript(tables.DeleteAction):
     verbose_name = _("Delete Script")
     data_type_singular = _("PyScript")
     data_type_plural = _("PyScripts")
-    icon = "remove"
 
     @staticmethod
     def action_present(count):

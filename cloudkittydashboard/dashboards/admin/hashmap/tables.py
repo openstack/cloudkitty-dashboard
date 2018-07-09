@@ -37,7 +37,6 @@ class DeleteService(tables.DeleteAction):
     verbose_name = _("Delete Service")
     data_type_singular = _("Service")
     data_type_plural = _("Services")
-    icon = "remove"
 
     @staticmethod
     def action_present(count):
@@ -97,7 +96,6 @@ class DeleteGroup(tables.DeleteAction):
     verbose_name = _("Delete Group")
     data_type_singular = _("Group")
     data_type_plural = _("Groups")
-    icon = "remove"
 
     @staticmethod
     def action_present(count):
@@ -185,7 +183,6 @@ class DeleteServiceThreshold(tables.DeleteAction):
     verbose_name = _("Delete Service Threshold")
     data_type_singular = _("Service Threshold")
     data_type_plural = _("Service Thresholds")
-    icon = "remove"
 
     @staticmethod
     def action_present(count):
@@ -213,7 +210,6 @@ class DeleteFieldThreshold(tables.DeleteAction):
     verbose_name = _("Delete Field Threshold")
     data_type_singular = _("Field Threshold")
     data_type_plural = _("Field Thresholds")
-    icon = "remove"
 
     @staticmethod
     def action_present(count):
@@ -354,7 +350,6 @@ class DeleteField(tables.DeleteAction):
     verbose_name = _("Delete Field")
     data_type_singular = _("Field")
     data_type_plural = _("Fields")
-    icon = "remove"
 
     @staticmethod
     def action_present(count):
@@ -426,7 +421,6 @@ class DeleteMapping(tables.DeleteAction):
     verbose_name = _("Delete Mapping")
     data_type_singular = _("Mapping")
     data_type_plural = _("Mappings")
-    icon = "remove"
 
     @staticmethod
     def action_present(count):
