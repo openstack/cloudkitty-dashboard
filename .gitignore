@@ -8,7 +8,7 @@ build
 cover
 htmlcov
 .secret_key_store
-.testrepository
+.stestr/
 .venv
 dist
 *.egg
