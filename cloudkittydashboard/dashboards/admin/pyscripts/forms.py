@@ -33,8 +33,7 @@ class CreateScriptForm(forms.SelfHandlingForm):
         choices=source_choices,
         widget=forms.Select(attrs={
             'class': 'switchable',
-            'data-slug': 'scriptsource'}),
-        required=True)
+            'data-slug': 'scriptsource'}))
     script_help = _("A script or set of python commands to modify rating "
                     "calculations.")
     script_upload = forms.FileField(

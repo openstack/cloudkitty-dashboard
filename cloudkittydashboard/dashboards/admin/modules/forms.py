@@ -23,7 +23,7 @@ LOG = logging.getLogger(__name__)
 
 
 class EditPriorityForm(forms.SelfHandlingForm):
-    priority = forms.IntegerField(label=_("Priority"), required=True)
+    priority = forms.IntegerField(label=_("Priority"))
 
     def handle(self, request, data):
         ck_client = api.cloudkittyclient(request)
