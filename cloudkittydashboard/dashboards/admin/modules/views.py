@@ -60,7 +60,7 @@ class PriorityModuleEditView(forms.ModalFormView):
     page_title = _("Edit priority module")
     submit_url = "horizon:admin:rating_modules:edit_priority"
     success_url = "horizon:admin:rating_modules:edit_priority"
-    template_name = "horizon/common/modal_form.html"
+    template_name = "admin/rating_modules/priority_edit.html"
 
     def get_initial(self):
         module = api.cloudkittyclient(self.request).rating.get_module(
