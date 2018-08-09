@@ -260,3 +260,6 @@ texinfo_documents = [
 repository_name = 'openstack/cloudkitty-dashboard'
 bug_project = 'cloudkitty-dashboard'
 bug_tag = 'doc'
+
+# -- Options for Internationalization output ------------------------------
+locale_dirs = ['locale/']
