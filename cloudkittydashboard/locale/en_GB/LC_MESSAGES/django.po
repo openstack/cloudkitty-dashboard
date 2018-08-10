@@ -1,0 +1,428 @@
+# Andi Chandler <andi@gowling.com>, 2018. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: cloudkitty-dashboard VERSION\n"
+"Report-Msgid-Bugs-To: https://bugs.launchpad.net/openstack-i18n/\n"
+"POT-Creation-Date: 2018-08-09 10:07+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-08-08 07:50+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>\n"
+"Language-Team: English (United Kingdom)\n"
+"Language: en_GB\n"
+"X-Generator: Zanata 4.3.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#, python-format
+msgid ""
+"\n"
+"   <p>Usage data are collected every %(period)s seconds.</p>\n"
+"  "
+msgstr ""
+"\n"
+"   <p>Usage data are collected every %(period)s seconds.</p>\n"
+"  "
+
+msgid "$"
+msgstr "$"
+
+msgid "A script or set of python commands to modify rating calculations."
+msgstr "A script or set of Python commands to modify rating calculations."
+
+msgid "Checksum"
+msgstr "Checksum"
+
+msgid "Configurable"
+msgstr "Configurable"
+
+msgid "Cost"
+msgstr "Cost"
+
+msgid "Cost Per Service Per Hour"
+msgstr "Cost Per Service Per Hour"
+
+msgid "Create Field"
+msgstr "Create Field"
+
+msgid "Create Field Mapping"
+msgstr "Create Field Mapping"
+
+msgid "Create Field Threshold"
+msgstr "Create Field Threshold"
+
+msgid "Create Group"
+msgstr "Create Group"
+
+msgid "Create Mapping"
+msgstr "Create Mapping"
+
+msgid "Create Script"
+msgstr "Create Script"
+
+msgid "Create Service"
+msgstr "Create Service"
+
+msgid "Create Service Threshold"
+msgstr "Create Service Threshold"
+
+msgid "Create a new rating script."
+msgstr "Create a new rating script."
+
+msgid "Create field Mapping"
+msgstr "Create field Mapping"
+
+msgid "Create new Field"
+msgstr "Create new Field"
+
+msgid "Create new Field Threshold"
+msgstr "Create new Field Threshold"
+
+msgid "Create new Group"
+msgstr "Create new Group"
+
+msgid "Create new Mapping"
+msgstr "Create new Mapping"
+
+msgid "Create new Service"
+msgstr "Create new Service"
+
+msgid "Create new Service Threshold"
+msgstr "Create new Service Threshold"
+
+msgid "Cumulative Cost Repartition"
+msgstr "Cumulative Cost Repartition"
+
+msgid "Custom service"
+msgstr "Custom service"
+
+msgid "Custom services can be defined for any additional collector."
+msgstr "Custom services can be defined for any additional collector."
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Delete Field"
+msgid_plural "Delete Fields"
+msgstr[0] "Delete Field"
+msgstr[1] "Delete Fields"
+
+msgid "Delete Field Threshold"
+msgid_plural "Delete Field Thresholds"
+msgstr[0] "Delete Field Threshold"
+msgstr[1] "Delete Field Thresholds"
+
+msgid "Delete Group"
+msgid_plural "Delete Groups"
+msgstr[0] "Delete Group"
+msgstr[1] "Delete Groups"
+
+msgid "Delete Mapping"
+msgid_plural "Delete Mappings"
+msgstr[0] "Delete Mapping"
+msgstr[1] "Delete Mappings"
+
+msgid "Delete PyScript"
+msgid_plural "Delete PyScripts"
+msgstr[0] "Delete PyScript"
+msgstr[1] "Delete PyScripts"
+
+msgid "Delete Script"
+msgstr "Delete Script"
+
+msgid "Delete Service"
+msgid_plural "Delete Services"
+msgstr[0] "Delete Service"
+msgstr[1] "Delete Services"
+
+msgid "Delete Service Threshold"
+msgid_plural "Delete Service Thresholds"
+msgstr[0] "Delete Service Threshold"
+msgstr[1] "Delete Service Thresholds"
+
+msgid "Deleted Field"
+msgid_plural "Deleted Fields"
+msgstr[0] "Deleted Field"
+msgstr[1] "Deleted Fields"
+
+msgid "Deleted Field Threshold"
+msgid_plural "Deleted Field Thresholds"
+msgstr[0] "Deleted Field Threshold"
+msgstr[1] "Deleted Field Thresholds"
+
+msgid "Deleted Group"
+msgid_plural "Deleted Groups"
+msgstr[0] "Deleted Group"
+msgstr[1] "Deleted Groups"
+
+msgid "Deleted Mapping"
+msgid_plural "Deleted Mappings"
+msgstr[0] "Deleted Mapping"
+msgstr[1] "Deleted Mappings"
+
+msgid "Deleted PyScript"
+msgid_plural "Deleted PyScripts"
+msgstr[0] "Deleted PyScript"
+msgstr[1] "Deleted PyScripts"
+
+msgid "Deleted Service"
+msgid_plural "Deleted Services"
+msgstr[0] "Deleted Service"
+msgstr[1] "Deleted Services"
+
+msgid "Deleted Service Threshold"
+msgid_plural "Deleted Service Thresholds"
+msgstr[0] "Deleted Service Threshold"
+msgstr[1] "Deleted Service Thresholds"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Direct Input"
+msgstr "Direct Input"
+
+msgid "Disable Module"
+msgid_plural "Disable Modules"
+msgstr[0] "Disable Module"
+msgstr[1] "Disable Modules"
+
+msgid "Disabled Module"
+msgid_plural "Disabled Modules"
+msgstr[0] "Disabled Module"
+msgstr[1] "Disabled Modules"
+
+msgid "Edit Field Threshold"
+msgstr "Edit Field Threshold"
+
+msgid "Edit Mapping"
+msgstr "Edit Mapping"
+
+msgid "Edit Priority Module"
+msgstr "Edit Priority Module"
+
+msgid "Edit Script"
+msgstr "Edit Script"
+
+msgid "Edit Service Threshold"
+msgstr "Edit Service Threshold"
+
+msgid "Edit module priority"
+msgstr "Edit module priority"
+
+msgid "Edit priority module"
+msgstr "Edit priority module"
+
+msgid "Enable Module"
+msgid_plural "Enable Modules"
+msgstr[0] "Enable Module"
+msgstr[1] "Enable Modules"
+
+msgid "Enabled"
+msgstr "Enabled"
+
+msgid "Enabled Module"
+msgid_plural "Enabled Modules"
+msgstr[0] "Enabled Module"
+msgstr[1] "Enabled Modules"
+
+msgid "Field"
+msgstr "Field"
+
+msgid "Field ID"
+msgstr "Field ID"
+
+msgid "Field Mappings"
+msgstr "Field Mappings"
+
+msgid "Field Threshold"
+msgstr "Field Threshold"
+
+msgid "Field Thresholds"
+msgstr "Field Thresholds"
+
+msgid "Fields"
+msgstr "Fields"
+
+msgid "File"
+msgstr "File"
+
+msgid "Flat"
+msgstr "Flat"
+
+msgid "Group"
+msgstr "Group"
+
+msgid "Group Details"
+msgstr "Group Details"
+
+msgid "Group Name"
+msgstr "Group Name"
+
+msgid "Groups"
+msgstr "Groups"
+
+msgid "Hashmap"
+msgstr "Hashmap"
+
+msgid "Hot Config"
+msgstr "Hot Config"
+
+msgid "Id"
+msgstr "Id"
+
+msgid "Level"
+msgstr "Level"
+
+msgid "Mapping"
+msgstr "Mapping"
+
+msgid "Mapping ID"
+msgstr "Mapping ID"
+
+msgid "Mappings"
+msgstr "Mappings"
+
+msgid "Module"
+msgstr "Module"
+
+msgid "Modules"
+msgstr "Modules"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Not available"
+msgstr "Not available"
+
+msgid "Price"
+msgstr "Price"
+
+msgid "Priority"
+msgstr "Priority"
+
+msgid "Project"
+msgstr "Project"
+
+msgid "PyScript"
+msgstr "PyScript"
+
+msgid "PyScripts"
+msgstr "PyScripts"
+
+msgid "Rate"
+msgstr "Rate"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Rating Information"
+msgstr "Rating Information"
+
+msgid "Rating Module Details"
+msgstr "Rating Module Details"
+
+msgid "Rating Modules"
+msgstr "Rating Modules"
+
+msgid "Rating Script Source"
+msgstr "Rating Script Source"
+
+msgid "Rating Summary"
+msgstr "Rating Summary"
+
+msgid "Reporting"
+msgstr "Reporting"
+
+msgid "Script Data"
+msgstr "Script Data"
+
+msgid "Script Details"
+msgstr "Script Details"
+
+msgid "Script Details : {{ script.name }}"
+msgstr "Script Details : {{ script.name }}"
+
+msgid "Script File"
+msgstr "Script File"
+
+msgid "Script ID"
+msgstr "Script ID"
+
+msgid "Service"
+msgstr "Service"
+
+msgid "Service ID"
+msgstr "Service ID"
+
+msgid "Service Mappings"
+msgstr "Service Mappings"
+
+msgid "Service Name"
+msgstr "Service Name"
+
+msgid "Service Threshold"
+msgstr "Service Threshold"
+
+msgid "Service Thresholds"
+msgstr "Service Thresholds"
+
+msgid "Service type"
+msgstr "Service type"
+
+msgid "Services"
+msgstr "Services"
+
+msgid "Services are provided by main collector."
+msgstr "Services are provided by main collector."
+
+#, python-format
+msgid "There was a problem parsing the %(prefix)s: %(error)s"
+msgstr "There was a problem parsing the %(prefix)s: %(error)s"
+
+msgid "Threshold ID"
+msgstr "Threshold ID"
+
+msgid "Thresholds"
+msgstr "Thresholds"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Unable to retrieve price."
+msgstr "Unable to retrieve price."
+
+msgid "Unit"
+msgstr "Unit"
+
+msgid "Upate Script"
+msgstr "Update Script"
+
+msgid "Update Field Mapping"
+msgstr "Update Field Mapping"
+
+msgid "Update Field Threshold"
+msgstr "Update Field Threshold"
+
+msgid "Update Mapping"
+msgstr "Update Mapping"
+
+msgid "Update Script"
+msgstr "Update Script"
+
+msgid "Update Service Threshold"
+msgstr "Update Service Threshold"
+
+msgid "Value"
+msgstr "Value"
+
+msgid "id"
+msgstr "id"
+
+msgid "pyscripts"
+msgstr "pyscripts"
