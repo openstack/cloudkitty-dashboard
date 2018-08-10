@@ -105,7 +105,7 @@ class EditScriptForm(CreateScriptForm):
                     'script_data']
 
     class Meta(object):
-        name = _("Upate Script")
+        name = _("Update Script")
 
     def handle(self, request, data):
         script_id = self.initial['script_id']

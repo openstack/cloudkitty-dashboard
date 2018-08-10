@@ -56,8 +56,8 @@ class ModuleDetailsView(views.APIView):
 class PriorityModuleEditView(forms.ModalFormView):
     form_class = module_forms.EditPriorityForm
     form_id = "edit_priority"
-    modal_header = _("Edit Priority Module")
-    page_title = _("Edit priority module")
+    modal_header = _("Edit Module Priority")
+    page_title = _("Edit module priority")
     submit_url = "horizon:admin:rating_modules:edit_priority"
     success_url = "horizon:admin:rating_modules:edit_priority"
     template_name = "horizon/common/modal_form.html"
