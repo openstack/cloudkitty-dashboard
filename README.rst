@@ -40,7 +40,7 @@ to contribute, contact us.
 You can reach us through IRC (#cloudkitty @freenode.net), or on the official
 OpenStack mailing list openstack-dev@lists.openstack.org.
 
-A launchpad_ project is available if you need to report bugs.
+A storyboard_ project is available if you need to report bugs.
 
 
 Trying it
@@ -50,7 +50,7 @@ CloudKitty can be deployed with devstack, more information can be found in the
 `devstack section`_ of the documentation.
 
 
-.. _launchpad: https://launchpad.net/cloudkitty
+.. _storyboard: https://storyboard.openstack.org/#!/project/891
 
 
 .. _devstack section: https://cloudkitty.readthedocs.org/en/latest/devstack.html
