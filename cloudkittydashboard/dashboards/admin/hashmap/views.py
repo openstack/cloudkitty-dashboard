@@ -86,7 +86,7 @@ class ServiceCreateView(forms.ModalFormView):
     page_title = _("Create Service")
     success_url = reverse_lazy('horizon:admin:hashmap:index')
     submit_url = reverse_lazy('horizon:admin:hashmap:service_create')
-    template_name = 'horizon/common/modal_form.html'
+    template_name = 'admin/hashmap/service_create.html'
 
     def get_object_id(self, obj):
         return obj.service_id
@@ -109,7 +109,7 @@ class FieldCreateView(forms.ModalFormView):
     form_id = "create_field"
     modal_header = _("Create Field")
     page_title = _("Create Field")
-    template_name = 'horizon/common/modal_form.html'
+    template_name = 'admin/hashmap/field_create.html'
     success_url = 'horizon:admin:hashmap:service'
     submit_url = 'horizon:admin:hashmap:field_create'
 
@@ -136,7 +136,7 @@ class ServiceMappingCreateView(forms.ModalFormView):
     form_id = "create_mapping"
     modal_header = _("Create Mapping")
     page_title = _("Create Mapping")
-    template_name = 'horizon/common/modal_form.html'
+    template_name = 'admin/hashmap/mapping_create.html'
     success_url = 'horizon:admin:hashmap:service'
     submit_url = 'horizon:admin:hashmap:service_mapping_create'
 
@@ -191,7 +191,7 @@ class FieldMappingCreateView(forms.ModalFormView):
     form_id = "create_field_mapping"
     modal_header = _("Create Field Mapping")
     page_title = _("Create field Mapping")
-    template_name = 'horizon/common/modal_form.html'
+    template_name = 'admin/hashmap/mapping_create.html'
     submit_url = 'horizon:admin:hashmap:field_mapping_create'
     success_url = 'horizon:admin:hashmap:field_mapping_create'
 
@@ -245,7 +245,7 @@ class GroupCreateView(forms.ModalFormView):
     form_id = "create_group"
     modal_header = _("Create Group")
     page_title = _("Create Group")
-    template_name = 'horizon/common/modal_form.html'
+    template_name = 'admin/hashmap/group_create.html'
     submit_url = 'horizon:admin:hashmap:group_create'
     success_url = 'horizon:admin:hashmap:group_create'
 
@@ -276,7 +276,7 @@ class ServiceThresholdCreateView(forms.ModalFormView):
     form_id = "create_service_threshold"
     modal_header = _("Create Service Threshold")
     page_title = _("Create Service Threshold")
-    template_name = 'horizon/common/modal_form.html'
+    template_name = 'admin/hashmap/threshold_create.html'
     success_url = 'horizon:admin:hashmap:service'
     submit_url = 'horizon:admin:hashmap:service_threshold_create'
 
@@ -330,7 +330,7 @@ class FieldThresholdCreateView(forms.ModalFormView):
     form_id = "create_field_threshold"
     modal_header = _("Create Field Threshold")
     page_title = _("Create Field Threshold")
-    template_name = 'horizon/common/modal_form.html'
+    template_name = 'admin/hashmap/threshold_create.html'
     success_url = 'horizon:admin:hashmap:field'
     submit_url = 'horizon:admin:hashmap:field_threshold_create'
 
