@@ -27,6 +27,7 @@ from cloudkittydashboard import utils
 def cloudkittyclient(request):
     """Initialization of Cloudkitty client."""
     cacert = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
+    insecure = getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False)
     auth_url = getattr(settings, 'OPENSTACK_KEYSTONE_URL', None)
     auth = Token(
         auth_url,
@@ -37,7 +38,8 @@ def cloudkittyclient(request):
     return ck_client.Client(
         '1',
         auth=auth,
-        cert=cacert)
+        cacert=cacert,
+        insecure=insecure)
 
 
 def identify(what, name=False, key=None):
