@@ -3,16 +3,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cloudkitty-dashboard VERSION\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/openstack-i18n/\n"
-"POT-Creation-Date: 2018-08-09 10:07+0000\n"
+"POT-Creation-Date: 2018-09-12 09:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-08-08 07:50+0000\n"
+"PO-Revision-Date: 2018-09-07 11:25+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom)\n"
 "Language: en_GB\n"
 "X-Generator: Zanata 4.3.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#, python-format
+msgid ""
+"\n"
+"        Edit the priority for the <i>%(module_id)s</i> module.\n"
+"      "
+msgstr ""
+"\n"
+"        Edit the priority for the <i>%(module_id)s</i> module.\n"
+"      "
 
 #, python-format
 msgid ""
@@ -27,8 +37,27 @@ msgstr ""
 msgid "$"
 msgstr "$"
 
+msgid "A field is referring to a metadata field of a resource. "
+msgstr "A field is referring to a metadata field of a resource. "
+
+msgid "A group is a way to group calculations of mappings."
+msgstr "A group is a way to group calculations of mappings."
+
+msgid "A mapping is the final object, it’s what triggers calculation."
+msgstr "A mapping is the final object, it’s what triggers calculation."
+
 msgid "A script or set of python commands to modify rating calculations."
 msgstr "A script or set of Python commands to modify rating calculations."
+
+msgid "A service is a way to map the rule to the type of data collected."
+msgstr "A service is a way to map the rule to the type of data collected."
+
+msgid ""
+"A threshold entry is used to apply rating rules base on level. Its behaviour "
+"is similar to a mapping except that it applies the cost base on the level."
+msgstr ""
+"A threshold entry is used to apply rating rules base on level. Its behaviour "
+"is similar to a mapping except that it applies the cost base on the level."
 
 msgid "Checksum"
 msgstr "Checksum"
@@ -178,6 +207,9 @@ msgstr[1] "Deleted Service Thresholds"
 msgid "Description"
 msgstr "Description"
 
+msgid "Description:"
+msgstr "Description:"
+
 msgid "Details"
 msgstr "Details"
 
@@ -200,8 +232,8 @@ msgstr "Edit Field Threshold"
 msgid "Edit Mapping"
 msgstr "Edit Mapping"
 
-msgid "Edit Priority Module"
-msgstr "Edit Priority Module"
+msgid "Edit Module Priority"
+msgstr "Edit Module Priority"
 
 msgid "Edit Script"
 msgstr "Edit Script"
@@ -211,9 +243,6 @@ msgstr "Edit Service Threshold"
 
 msgid "Edit module priority"
 msgstr "Edit module priority"
-
-msgid "Edit priority module"
-msgstr "Edit priority module"
 
 msgid "Enable Module"
 msgid_plural "Enable Modules"
@@ -285,6 +314,9 @@ msgstr "Mapping ID"
 msgid "Mappings"
 msgstr "Mappings"
 
+msgid "Metric Type"
+msgstr "Metric Type"
+
 msgid "Module"
 msgstr "Module"
 
@@ -305,6 +337,18 @@ msgstr "Priority"
 
 msgid "Project"
 msgstr "Project"
+
+msgid "Project ID"
+msgstr "Project ID"
+
+msgid "Project ID:"
+msgstr "Project ID:"
+
+msgid "Project Name"
+msgstr "Project Name"
+
+msgid "Project Total"
+msgstr "Project Total"
 
 msgid "PyScript"
 msgstr "PyScript"
@@ -336,6 +380,9 @@ msgstr "Rating Summary"
 msgid "Reporting"
 msgstr "Reporting"
 
+msgid "Res Type"
+msgstr "Res Type"
+
 msgid "Script Data"
 msgstr "Script Data"
 
@@ -344,6 +391,9 @@ msgstr "Script Details"
 
 msgid "Script Details : {{ script.name }}"
 msgstr "Script Details : {{ script.name }}"
+
+msgid "Script Details : {{ table.project_id }}"
+msgstr "Script Details : {{ table.project_id }}"
 
 msgid "Script File"
 msgstr "Script File"
@@ -378,6 +428,15 @@ msgstr "Services"
 msgid "Services are provided by main collector."
 msgstr "Services are provided by main collector."
 
+msgid "Summary"
+msgstr "Summary"
+
+msgid "Tenant Details"
+msgstr "Tenant Details"
+
+msgid "Tenant Summary"
+msgstr "Tenant Summary"
+
 #, python-format
 msgid "There was a problem parsing the %(prefix)s: %(error)s"
 msgstr "There was a problem parsing the %(prefix)s: %(error)s"
@@ -388,9 +447,6 @@ msgstr "Threshold ID"
 msgid "Thresholds"
 msgstr "Thresholds"
 
-msgid "Total"
-msgstr "Total"
-
 msgid "Type"
 msgstr "Type"
 
@@ -399,9 +455,6 @@ msgstr "Unable to retrieve price."
 
 msgid "Unit"
 msgstr "Unit"
-
-msgid "Upate Script"
-msgstr "Update Script"
 
 msgid "Update Field Mapping"
 msgstr "Update Field Mapping"
