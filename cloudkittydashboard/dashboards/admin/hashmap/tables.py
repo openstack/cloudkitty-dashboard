@@ -27,7 +27,7 @@ class CreateService(tables.LinkAction):
     name = "createservice"
     verbose_name = _("Create new Service")
     url = 'horizon:admin:hashmap:service_create'
-    icon = "create"
+    icon = "plus"
     ajax = True
     classes = ("ajax-modal",)
 
@@ -81,7 +81,7 @@ class ServicesTable(tables.DataTable):
 class CreateGroup(tables.LinkAction):
     name = "creategroup"
     verbose_name = _("Create new Group")
-    icon = "create"
+    icon = "plus"
     ajax = True
     classes = ("ajax-modal",)
 
@@ -155,7 +155,7 @@ class GroupsTab(tabs.TableTab):
 class CreateServiceThreshold(tables.LinkAction):
     name = "createservicethreshold"
     verbose_name = _("Create new Service Threshold")
-    icon = "create"
+    icon = "plus"
     ajax = False
     classes = ("ajax-modal",)
 
@@ -168,7 +168,7 @@ class CreateServiceThreshold(tables.LinkAction):
 class CreateFieldThreshold(tables.LinkAction):
     name = "createfieldthreshold"
     verbose_name = _("Create new Field Threshold")
-    icon = "create"
+    icon = "plus"
     ajax = False
     classes = ("ajax-modal",)
 
@@ -375,7 +375,7 @@ class DeleteField(tables.DeleteAction):
 class CreateField(tables.LinkAction):
     name = "createfield"
     verbose_name = _("Create new Field")
-    icon = "create"
+    icon = "plus"
     ajax = True
     classes = ("ajax-modal",)
 
@@ -447,7 +447,7 @@ class DeleteMapping(tables.DeleteAction):
 class CreateServiceMapping(tables.LinkAction):
     name = "createiservicemapping"
     verbose_name = _("Create new Mapping")
-    icon = "create"
+    icon = "plus"
     ajax = True
     classes = ("ajax-modal",)
 
@@ -490,7 +490,7 @@ class ServiceMappingsTable(BaseMappingsTable):
 class CreateFieldMapping(tables.LinkAction):
     name = "createfieldmapping"
     verbose_name = _("Create new Mapping")
-    icon = "create"
+    icon = "plus"
     ajax = True
     classes = ("ajax-modal",)
 
