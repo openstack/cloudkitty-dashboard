@@ -9,7 +9,6 @@ cover
 htmlcov
 .secret_key_store
 .stestr/
-.venv
 dist
 *.egg
 *.sw?
