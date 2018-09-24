@@ -71,6 +71,9 @@ class ServicesTable(tables.DataTable):
     def get_object_id(self, datum):
         return datum['id']
 
+    def get_object_display(self, datum):
+        return datum['name']
+
     class Meta(object):
         name = "services"
         verbose_name = _("Services")
