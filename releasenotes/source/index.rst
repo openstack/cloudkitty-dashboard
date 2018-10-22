@@ -9,6 +9,7 @@ Contents
 
    unreleased
    rocky
+   queens
 
 Indices and tables
 ==================
