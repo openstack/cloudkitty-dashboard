@@ -20,10 +20,21 @@ test_cloudkittydashboard
 Tests for `cloudkittydashboard` module.
 """
 
+from cloudkittydashboard.dashboards.project.rating import \
+    panel as rating_panel
+from cloudkittydashboard.dashboards.project.reporting import \
+    panel as reporting_panel
 from cloudkittydashboard.tests import base
+import horizon
 
 
 class TestCloudkittydashboard(base.TestCase):
 
-    def test_something(self):
-        pass
+    def test_registered(self):
+        project_dashboard = horizon.get_dashboard('project')
+
+        panel_1 = project_dashboard.get_panel('rating')
+        self.assertEqual(rating_panel.Project_rating, panel_1.__class__)
+
+        panel_2 = project_dashboard.get_panel('reporting')
+        self.assertEqual(reporting_panel.Project_reporting, panel_2.__class__)
