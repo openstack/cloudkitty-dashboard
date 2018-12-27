@@ -1,0 +1,434 @@
+# François Magimel <magimel.francois@gmail.com>, 2018. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: cloudkitty-dashboard VERSION\n"
+"Report-Msgid-Bugs-To: https://bugs.launchpad.net/openstack-i18n/\n"
+"POT-Creation-Date: 2018-12-17 08:30+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-12-26 11:55+0000\n"
+"Last-Translator: François Magimel <magimel.francois@gmail.com>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"X-Generator: Zanata 4.3.3\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#, python-format
+msgid ""
+"\n"
+"        Edit the priority for the <i>%(module_id)s</i> module.\n"
+"      "
+msgstr ""
+"\n"
+"        Éditer la priorité pour le module <i>%(module_id)s</i>.\n"
+"      "
+
+#, python-format
+msgid ""
+"\n"
+"   <p>Usage data are collected every %(period)s seconds.</p>\n"
+"  "
+msgstr ""
+"\n"
+"   <p>Les données d'utilisation sont collectées toutes %(period)s secondes.</"
+"p>\n"
+"  "
+
+#, fuzzy
+msgid "$"
+msgstr "€"
+
+msgid "A field is referring to a metadata field of a resource. "
+msgstr "Un champ fait référence à un champ de métadonnées d'une ressource."
+
+msgid "A group is a way to group calculations of mappings."
+msgstr "Un groupe permet de regrouper les calculs propres à des mappings."
+
+msgid "A mapping is the final object, it’s what triggers calculation."
+msgstr "Un mapping est l'objet final : c'est ce qui déclenche le calcul."
+
+msgid "A service is a way to map the rule to the type of data collected."
+msgstr ""
+"Un service est un moyen de faire correspondre la règle au type de données "
+"recueillies."
+
+msgid "Checksum"
+msgstr "Somme de contrôle"
+
+msgid "Cost"
+msgstr "Coût"
+
+msgid "Cost Per Service Per Hour"
+msgstr "Coût par service par heure"
+
+msgid "Create Field"
+msgstr "Créer un champ"
+
+msgid "Create Field Mapping"
+msgstr "Créer un mapping du champ"
+
+msgid "Create Field Threshold"
+msgstr "Créer un seuil du champ"
+
+msgid "Create Group"
+msgstr "Créer un groupe"
+
+msgid "Create Mapping"
+msgstr "Créer un mapping"
+
+msgid "Create Script"
+msgstr "Créer un script"
+
+msgid "Create Service"
+msgstr "Créer un service"
+
+msgid "Create Service Threshold"
+msgstr "Créer un seuil du service"
+
+msgid "Create field Mapping"
+msgstr "Créer un mapping du champ"
+
+msgid "Create new Field"
+msgstr "Créer un nouveau champ"
+
+msgid "Create new Field Threshold"
+msgstr "Créer un nouveau seuil du champ"
+
+msgid "Create new Group"
+msgstr "Créer un nouveau groupe"
+
+msgid "Create new Mapping"
+msgstr "Créer un nouveau mapping"
+
+msgid "Create new Service"
+msgstr "Créer un nouveau service"
+
+msgid "Create new Service Threshold"
+msgstr "Créer un nouveau seuil du service"
+
+msgid "Cumulative Cost Repartition"
+msgstr "Répartition des coûts cumulés"
+
+msgid "Custom service"
+msgstr "Service personnalisé"
+
+msgid "Data"
+msgstr "Données"
+
+msgid "Delete Field"
+msgid_plural "Delete Fields"
+msgstr[0] "Supprimer le champ"
+msgstr[1] "Supprimer les champs"
+
+msgid "Delete Field Threshold"
+msgid_plural "Delete Field Thresholds"
+msgstr[0] "Supprimer le seuil du champ"
+msgstr[1] "Supprimer les seuils du champ"
+
+msgid "Delete Group"
+msgid_plural "Delete Groups"
+msgstr[0] "Supprimer le groupe"
+msgstr[1] "Supprimer les groupes"
+
+msgid "Delete Mapping"
+msgid_plural "Delete Mappings"
+msgstr[0] "Supprimer le mapping"
+msgstr[1] "Supprimer les mappings"
+
+msgid "Delete PyScript"
+msgid_plural "Delete PyScripts"
+msgstr[0] "Supprimer le PyScript"
+msgstr[1] "Supprimer les PyScripts"
+
+msgid "Delete Script"
+msgstr "Supprimer le script"
+
+msgid "Delete Service"
+msgid_plural "Delete Services"
+msgstr[0] "Supprimer le service"
+msgstr[1] "Supprimer les services"
+
+msgid "Delete Service Threshold"
+msgid_plural "Delete Service Thresholds"
+msgstr[0] "Supprimer le seuil du service"
+msgstr[1] "Supprimer les seuils du service"
+
+msgid "Deleted Field"
+msgid_plural "Deleted Fields"
+msgstr[0] "Champ supprimé"
+msgstr[1] "Champs supprimés"
+
+msgid "Deleted Field Threshold"
+msgid_plural "Deleted Field Thresholds"
+msgstr[0] "Seuil du champ supprimé"
+msgstr[1] "Seuils du champ supprimés"
+
+msgid "Deleted Group"
+msgid_plural "Deleted Groups"
+msgstr[0] "Groupe supprimé"
+msgstr[1] "Groupes supprimés"
+
+msgid "Deleted Mapping"
+msgid_plural "Deleted Mappings"
+msgstr[0] "Mapping supprimé"
+msgstr[1] "Mappings supprimés"
+
+msgid "Deleted PyScript"
+msgid_plural "Deleted PyScripts"
+msgstr[0] "PyScript supprimé"
+msgstr[1] "PyScripts supprimés"
+
+msgid "Deleted Service"
+msgid_plural "Deleted Services"
+msgstr[0] "Service supprimé"
+msgstr[1] "Services supprimés"
+
+msgid "Deleted Service Threshold"
+msgid_plural "Deleted Service Thresholds"
+msgstr[0] "Seuil du service supprimé"
+msgstr[1] "Seuils du service supprimés"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Description:"
+msgstr "Description :"
+
+msgid "Details"
+msgstr "Détails"
+
+msgid "Direct Input"
+msgstr "Entrée directe"
+
+msgid "Disable Module"
+msgid_plural "Disable Modules"
+msgstr[0] "Désactiver le module"
+msgstr[1] "Désactiver les modules"
+
+msgid "Disabled Module"
+msgid_plural "Disabled Modules"
+msgstr[0] "Module désactivé"
+msgstr[1] "Modules désactivés"
+
+msgid "Edit Field Threshold"
+msgstr "Éditer le seuil du champ"
+
+msgid "Edit Mapping"
+msgstr "Éditer le mapping"
+
+msgid "Edit Module Priority"
+msgstr "Édité la priorité du module"
+
+msgid "Edit Script"
+msgstr "Éditer le script"
+
+msgid "Edit Service Threshold"
+msgstr "Éditer le seuil du service"
+
+msgid "Edit module priority"
+msgstr "Édité la priorité du module"
+
+msgid "Enable Module"
+msgid_plural "Enable Modules"
+msgstr[0] "Activer le module"
+msgstr[1] "Activer les modules"
+
+msgid "Enabled"
+msgstr "Activé"
+
+msgid "Enabled Module"
+msgid_plural "Enabled Modules"
+msgstr[0] "Module activé"
+msgstr[1] "Modules activés"
+
+msgid "Field"
+msgstr "Champ"
+
+msgid "Field ID"
+msgstr "ID du champ"
+
+msgid "Field Mappings"
+msgstr "Mappings du champ"
+
+msgid "Field Threshold"
+msgstr "Seuil du champ"
+
+msgid "Field Thresholds"
+msgstr "Seuils du champ"
+
+msgid "Fields"
+msgstr "Champs"
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "Group"
+msgstr "Groupe"
+
+msgid "Group Details"
+msgstr "Détails du groupe"
+
+msgid "Group Name"
+msgstr "Nom du groupe"
+
+msgid "Groups"
+msgstr "Groupes"
+
+msgid "Hashmap"
+msgstr "Table de hachage"
+
+msgid "Id"
+msgstr "Id"
+
+msgid "Level"
+msgstr "Niveau"
+
+msgid "Mapping"
+msgstr "Mapping"
+
+msgid "Mapping ID"
+msgstr "ID du mapping"
+
+msgid "Mappings"
+msgstr "Mappings"
+
+msgid "Metric Type"
+msgstr "Type de mesure"
+
+msgid "Module"
+msgstr "Module"
+
+msgid "Modules"
+msgstr "Modules"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Not available"
+msgstr "Non disponible"
+
+msgid "Price"
+msgstr "Prix"
+
+msgid "Priority"
+msgstr "Priorité"
+
+msgid "Project"
+msgstr "Projet"
+
+msgid "Project ID"
+msgstr "ID du projet"
+
+msgid "Project ID:"
+msgstr "ID du projet :"
+
+msgid "Project Name"
+msgstr "Nom du projet"
+
+msgid "Project Total"
+msgstr "Total du projet"
+
+msgid "PyScript"
+msgstr "PyScript"
+
+msgid "PyScripts"
+msgstr "PyScripts"
+
+msgid "Rating"
+msgstr "Tarification"
+
+msgid "Reporting"
+msgstr "Rapport"
+
+msgid "Script Data"
+msgstr "Données du script"
+
+msgid "Script Details"
+msgstr "Détails du script"
+
+msgid "Script Details : {{ script.name }}"
+msgstr "Détails du script : {{ script.name }}"
+
+msgid "Script Details : {{ table.project_id }}"
+msgstr "Détails du script : {{ table.project_id }}"
+
+#, fuzzy
+msgid "Script File"
+msgstr "Fichier (script)"
+
+msgid "Script ID"
+msgstr "ID du script"
+
+msgid "Service"
+msgstr "Service"
+
+msgid "Service ID"
+msgstr "ID du service"
+
+msgid "Service Mappings"
+msgstr "Mappings du service"
+
+msgid "Service Name"
+msgstr "Nom du service"
+
+msgid "Service Threshold"
+msgstr "Seuil du service"
+
+msgid "Service Thresholds"
+msgstr "Seuils du service"
+
+msgid "Service type"
+msgstr "Type de service"
+
+msgid "Services"
+msgstr "Services"
+
+msgid "Services are provided by main collector."
+msgstr "Les services sont fournis par le collecteur principal."
+
+msgid "Summary"
+msgstr "Résumé"
+
+#, python-format
+msgid "There was a problem parsing the %(prefix)s: %(error)s"
+msgstr "Il y a eu un problème pour analyser le %(prefix)s : %(error)s"
+
+msgid "Threshold ID"
+msgstr "Id du seuil"
+
+msgid "Thresholds"
+msgstr "Seuils"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Unable to retrieve price."
+msgstr "Impossible de récupérer le prix."
+
+msgid "Unit"
+msgstr "Unité"
+
+msgid "Update Field Mapping"
+msgstr "Mettre à jour le mapping du champ"
+
+msgid "Update Field Threshold"
+msgstr "Mettre à jour le seuil du champ"
+
+msgid "Update Mapping"
+msgstr "Mettre à jour le mapping"
+
+msgid "Update Script"
+msgstr "Mettre à jour le script"
+
+msgid "Update Service Threshold"
+msgstr "Mettre à jour le seuil du service"
+
+msgid "Value"
+msgstr "Valeur"
+
+msgid "id"
+msgstr "id"
+
+msgid "pyscripts"
+msgstr "pyscripts"
