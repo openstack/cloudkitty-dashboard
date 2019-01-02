@@ -2,110 +2,149 @@
 {% load l10n %}
 {% load static %}
 <script src='{% static "cloudkitty/js/d3.min.js" %}' type='text/javascript' charset='utf-8'></script>
-<script src='{% static "cloudkitty/js/d3pie.min.js" %}' type='text/javascript' charset='utf-8'></script>
 <script src='{% static "cloudkitty/js/rickshaw.min.js" %}' type='text/javascript' charset='utf-8'></script>
 
-<div class="col-md-6">
-  <h4>{% trans "Cumulative Cost Repartition" %}</h4>
-  <div id="repartition_cumulated"></div>
+<div class="container-fluid">
+  <div class="col-lg-3 col-md-4">
+    <h4>{% trans "Legend" %}</h4>
+    <div id="graph_legend"></div>
+  </div>
+  <div class="col-lg-4 col-md-8" style="max-width:25vw;">
+    <h4>{% trans "Cumulative Cost Repartition" %}</h4>
+    <div id="repartition_cumulated"></div>
+  </div>
+  <div class="col-lg-5 col-sm-12">
+    <h4>{% trans "Cost Per Service Per Hour" %}</h4>
+    <div id="cost_progress" style="max-width:100%;"></div>
+    <div id="cost_progress_legend"></div>
+  </div>
 </div>
 
 <script type="text/javascript">
-  var cumulated = new d3pie("repartition_cumulated", {
-    "size": {
-       "canvasHeight": 300,
-       "canvasWidth": 500
-    },
-    "labels": {
-      "outer": {
-        "pieDistance": 20
-      },
-      "inner": {
-        "hideWhenLessThanPercentage": 3
-      },
-      "mainLabel": {
-        "fontSize": 11
-      },
-      "percentage": {
-        "color": "#ffffff",
-        "decimalPlaces": 0
-      },
-      "value": {
-        "color": "#adadad",
-        "fontSize": 11
-      },
-      "lines": {
-        "enabled": true
-      }
-    },
-    "effects": {
-      "pullOutSegmentOnClick": {
-        "effect": "linear",
-        "speed": 400,
-        "size": 8
-      }
-    },
-    "misc": {
-      "gradient": {
-        "enabled": true,
-        "percentage": 100
-      }
-    },
-    "data": {
-      "sortOrder": "value-desc",
-      "content": [
+  var data = [
 {% for service, data in repartition_data.items %}
-        {"label": "{{ service }}",
-         "value": {{ data.cumulated|unlocalize }}
-        },
-{% endfor %}
-    ]}});
-</script>
-
-<div class="col-md-6">
-  <h4>{% trans "Cost Per Service Per Hour" %}</h4>
-  <div id="cost_progress"></div>
-  <div id="cost_progress_legend"></div>
-</div>
-
-<script>
-var palette = new Rickshaw.Color.Palette();
-var graph = new Rickshaw.Graph({
-  element: document.querySelector('#cost_progress'),
-  width: 500,
-  height: 300,
-  interpolation: 'linear',
-  onComplete: function(w) {
-    var legend = new Rickshaw.Graph.Legend({
-      element: document.querySelector('#cost_progress_legend'),
-      graph: w.graph
-    });
-  },
-  series: [
-{% for service, data in repartition_data.items %}
-    {
-      color: palette.color(),
-      name: "{{ service }}",
-      data: [
-      {% for timestamp, rating in data.hourly.items %}{x: {{ timestamp }}, y: {{ rating|unlocalize }}},{% endfor %}
-      ]
+    {"label": "{{ service }}",
+     "value": {{ data.cumulated|unlocalize }}
     },
 {% endfor %}
   ]
-});
-graph.render();
 
-var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+  // Pie Chart
+  var innerRadius = 75;
+  var outerRadius = 150;
+  var height = 300;
+  var width = 300;
+
+  var colors = d3.scale.category20c();
+
+  var vis = d3.select("#repartition_cumulated")
+      .append("svg:svg")              // create the SVG element inside the DOM
+      .data([data])                   // associate our data
+      .attr("width", "75%")
+      .attr("height", "75%")
+      .attr("viewBox", "0 0 300 300")
+      .append("svg:g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")") // move the center of the pie chart from 0, 0 to radius, radius
+
+  var arc = d3.svg.arc() // Creating <path> elements using arc data
+      .outerRadius(outerRadius)
+      .innerRadius(innerRadius);
+
+  var pie = d3.layout.pie() // Creating arc data for us given a list of values
+      .value(function(d) { return d.value; });
+
+  var arcs = vis.selectAll("g.slice")     // Selecting all <g> elements (there are none yet)
+      .data(pie)                          // associate data
+      .enter()                            // creating a <g> for each element of data
+      .append("svg:g")
+      .attr("class", "slice");
+
+  arcs.append("svg:path")
+      .attr("fill", function(d, i) { return colors(i); } ) // Setting the color of each slice
+      .attr("d", arc);                                     // creating the actual svg
+
+  arcs.append("svg:title")                                     //add a label to each slice
+      .attr("text-anchor", "middle")                          //center the text on it's origin
+      .text(function(d, i) { return data[i].label; });        //get the label from our original data array
+
+
+  // Legend
+  var legendHeight = 20;
+  var legendSpace = 5;
+  var viewBoxHeight = data.length * (legendHeight + legendSpace);
+  console.log('data length', data.length)
+
+  var legend_vis = d3.select("#graph_legend")
+      .append("svg:svg")
+      .data([data])
+      .attr("viewBox", "0 0 250 " + viewBoxHeight)
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .append("svg:g")
+      .attr("transform", "translate(0,0)");
+
+  var legend = legend_vis.selectAll("g")
+      .data(data)
+      .enter()
+      .append('g')
+      .attr('class', 'legend')
+      .attr('transform', function(d, i) {
+        var x = 0;
+        var y = i * (legendHeight + legendSpace);
+        return 'translate(' + x + ',' + y + ')';
+      });
+
+  var legendRectSize = 20;
+  var legendSpacing = 5;
+  legend.append('rect')
+      .attr('width', legendRectSize)
+      .attr('height', legendRectSize)
+      .style('fill', function(d, i) { return colors(i); })
+      .style('stroke', function(d, i) { return colors(i); });
+
+  legend.append('text')
+      .attr('x', legendRectSize + legendSpacing)
+      .attr('y', legendRectSize - legendSpacing)
+      .text(function(d) { return d.label; });
+</script>
+
+<script>
+
+  var colors = d3.scale.category20c();
+  var graph = new Rickshaw.Graph({
+    element: document.querySelector('#cost_progress'),
+    interpolation: 'linear',
+    onComplete: function(w) {
+      var legend = new Rickshaw.Graph.Legend({
+        element: document.querySelector('#cost_progress_legend'),
+        graph: w.graph
+      });
+    },
+    series: [
+{% for service, data in repartition_data.items %}
+      {
+        color: colors({{ forloop.counter }} - 1),
+        name: "{{ service }}",
+        data: [
+          {% for timestamp, rating in data.hourly.items %}{x: {{ timestamp }}, y: {{ rating|unlocalize }}},{% endfor %}
+        ]
+      },
+{% endfor %}
+    ]
+  });
+  graph.render();
+
+  var hoverDetail = new Rickshaw.Graph.HoverDetail( {
     graph: graph
-} );
+  });
 
-var yAxis = new Rickshaw.Graph.Axis.Y({
+  var yAxis = new Rickshaw.Graph.Axis.Y({
     graph: graph,
-});
-yAxis.render();
+  });
+  yAxis.render();
 
-var xAxis = new Rickshaw.Graph.Axis.Time({
+  var xAxis = new Rickshaw.Graph.Axis.Time({
     graph: graph
-});
-xAxis.render();
+  });
+  xAxis.render();
 </script>

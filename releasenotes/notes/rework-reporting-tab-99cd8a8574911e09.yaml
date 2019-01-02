@@ -1,0 +1,6 @@
+---
+upgrade:
+  - |
+    The "reporting" tab has been reworked and the dashboard does not require
+    D3pie anymore. The colors between the charts are now consistent and a
+    color legend has been added.
