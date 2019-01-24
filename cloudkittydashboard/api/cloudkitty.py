@@ -35,11 +35,18 @@ def cloudkittyclient(request):
         project_id=request.user.project_id,
         domain_id=request.user.domain_id,
     )
+
+    adapter_options = {
+        'region_name': request.user.services_region,
+    }
+
     return ck_client.Client(
         '1',
         auth=auth,
         cacert=cacert,
-        insecure=insecure)
+        insecure=insecure,
+        adapter_options=adapter_options,
+    )
 
 
 def identify(what, name=False, key=None):
