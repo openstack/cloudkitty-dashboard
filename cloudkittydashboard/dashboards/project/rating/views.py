@@ -11,10 +11,9 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-
-import decimal
 import json
 
+from django.conf import settings
 from django import http
 from django.utils.translation import ugettext_lazy as _
 from horizon import exceptions
@@ -45,13 +44,24 @@ class IndexView(tables.DataTableView):
 
 
 def quote(request):
-    pricing = "0"
+    pricing = 0.0
     if request.is_ajax():
         if request.method == 'POST':
             json_data = json.loads(request.body)
+
+            def __update_quotation_data(element, service):
+                if isinstance(element, dict):
+                    element['service'] = service
+                else:
+                    for elem in element:
+                        __update_quotation_data(elem, service)
+
             try:
-                pricing = decimal.Decimal(api.cloudkittyclient(request)
-                                          .rating.get_quotation(json_data))
+                service = getattr(
+                    settings, 'CLOUDKITTY_QUOTATION_SERVICE', 'instance')
+                __update_quotation_data(json_data, service)
+                pricing = float(api.cloudkittyclient(request)
+                                .rating.get_quotation(res_data=json_data))
             except Exception:
                 exceptions.handle(request,
                                   _('Unable to retrieve price.'))
