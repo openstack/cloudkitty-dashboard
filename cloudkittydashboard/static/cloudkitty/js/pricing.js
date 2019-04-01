@@ -78,7 +78,7 @@ pricing = {
             if (_image != undefined) {
                 desc_form['image_id'] = _image.id
             }
-            var form_data = [{"service": "compute", "desc": desc_form, "volume": instance_count}];
+            var form_data = [{"desc": desc_form, "volume": instance_count}];
 
             // send the JSON by a POST request
             var url_data = [

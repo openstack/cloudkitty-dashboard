@@ -21,7 +21,7 @@
       var disk_total = $scope.model.newInstanceSpec.flavor.ephemeral + $scope.model.newInstanceSpec.flavor.disk;
 
       var desc_form = {
-        'flavor': $scope.model.newInstanceSpec.flavor.name,
+        'flavor_name': $scope.model.newInstanceSpec.flavor.name,
         'flavor_id': $scope.model.newInstanceSpec.flavor.id,
         'vcpus': $scope.model.newInstanceSpec.flavor.vcpus,
         'disk': $scope.model.newInstanceSpec.flavor.disk,
@@ -34,7 +34,7 @@
         'image_id': $scope.model.newInstanceSpec.source[0].id,
       }
 
-      var form_data = [{"service": "compute", "desc": desc_form, "volume": $scope.model.newInstanceSpec.instance_count}];
+      var form_data = [{"desc": desc_form, "volume": $scope.model.newInstanceSpec.instance_count}];
 
       $http.post($window.WEBROOT + 'project/rating/quote', form_data).then(function(res, status) {
         $scope.price = res.data;

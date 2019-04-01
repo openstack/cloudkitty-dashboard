@@ -1,0 +1,6 @@
+---
+features:
+  - |
+    The predictive pricing has been updated. It is now possible to specify the
+    HashMap service to use for predictive pricing in Horizon's configuration
+    file through the ``CLOUDKITTY_QUOTATION_SERVICE`` option.
