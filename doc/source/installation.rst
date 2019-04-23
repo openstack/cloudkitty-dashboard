@@ -6,7 +6,7 @@ Retrieve and install CloudKitty dashboard:
 
 ::
 
-    git clone https://git.openstack.org/openstack/cloudkitty-dashboard
+    git clone https://opendev.org/openstack/cloudkitty-dashboard
     cd cloudkitty-dashboard
     python setup.py install
 
