@@ -40,6 +40,7 @@ class CreateServiceForm(forms.SelfHandlingForm):
         widget=forms.Select(attrs={
             'class': 'switched',
             'data-switch-on': 'servicetype',
+            'data-required-when-shown': 'true',
             'data-servicetype-service': _('Service')}),
         required=False)
     custom_service = forms.CharField(
@@ -49,6 +50,7 @@ class CreateServiceForm(forms.SelfHandlingForm):
         widget=forms.widgets.TextInput(attrs={
             'class': 'switched',
             'data-switch-on': 'servicetype',
+            'data-required-when-shown': 'true',
             'data-servicetype-custom_service': _('Custom service')}),
         required=False)
 
