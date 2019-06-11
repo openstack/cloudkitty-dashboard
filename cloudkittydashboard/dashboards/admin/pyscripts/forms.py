@@ -43,6 +43,7 @@ class CreateScriptForm(forms.SelfHandlingForm):
         help_text=script_help,
         widget=forms.FileInput(attrs={
             'class': 'switched',
+            'data-required-when-shown': 'true',
             'data-switch-on': 'scriptsource',
             'data-scriptsource-file': _('Script File')}),
         required=False)
@@ -51,6 +52,7 @@ class CreateScriptForm(forms.SelfHandlingForm):
         help_text=script_help,
         widget=forms.widgets.Textarea(attrs={
             'class': 'switched',
+            'data-required-when-shown': 'true',
             'data-switch-on': 'scriptsource',
             'data-scriptsource-raw': _('Script Data')}),
         required=False)
