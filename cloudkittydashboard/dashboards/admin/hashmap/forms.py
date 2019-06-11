@@ -15,7 +15,9 @@ from decimal import Decimal
 import logging
 
 from django.utils.translation import ugettext_lazy as _
+from horizon import exceptions as horizon_exceptions
 from horizon import forms
+from horizon import messages
 from keystoneauth1 import exceptions
 
 from cloudkittydashboard.api import cloudkitty as api
@@ -61,7 +63,15 @@ class CreateServiceForm(forms.SelfHandlingForm):
             service = data['custom_service']
         services_mgr = api.cloudkittyclient(request).rating.hashmap
         LOG.info('Creating service with name %s' % (service))
-        return services_mgr.create_service(name=service)
+        try:
+            service = services_mgr.create_service(name=service)
+            messages.success(
+                request,
+                _('Service was successfully created'))
+            return service
+        except Exception:
+            horizon_exceptions.handle(request,
+                                      _("Unable to create new service."))
 
     def __init__(self, request, *args, **kwargs):
         super(CreateServiceForm, self).__init__(request, *args, **kwargs)

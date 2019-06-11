@@ -16,7 +16,9 @@ import logging
 
 from django.utils.text import normalize_newlines
 from django.utils.translation import ugettext_lazy as _
+from horizon import exceptions
 from horizon import forms
+from horizon import messages
 
 from cloudkittydashboard.api import cloudkitty as api
 
@@ -92,9 +94,16 @@ class CreateScriptForm(forms.SelfHandlingForm):
         name = data['name']
         LOG.info('Creating script with name %s' % (name))
         ck_client = api.cloudkittyclient(request)
-        return ck_client.rating.pyscripts.create_script(
-            name=name,
-            data=data['script_data'])
+        try:
+            script = ck_client.rating.pyscripts.create_script(
+                name=name,
+                data=data['script_data'])
+            messages.success(
+                request,
+                _('Successfully created script'))
+            return script
+        except Exception:
+            exceptions.handle(request, _("Unable to create script."))
 
 
 class EditScriptForm(CreateScriptForm):
@@ -111,5 +120,13 @@ class EditScriptForm(CreateScriptForm):
         script_id = self.initial['script_id']
         LOG.info('Updating script with id %s' % (script_id))
         ck_client = api.cloudkittyclient(request)
-        return ck_client.rating.pyscripts.update_script(
-            script_id=script_id, name=data['name'], data=data['script_data'])
+        try:
+            script = ck_client.rating.pyscripts.update_script(
+                script_id=script_id, name=data['name'],
+                data=data['script_data'])
+            messages.success(
+                request,
+                _('Successfully updated script'))
+            return script
+        except Exception:
+            exceptions.handle(request, _("Unable to update script."))

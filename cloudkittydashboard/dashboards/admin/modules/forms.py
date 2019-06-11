@@ -13,7 +13,9 @@
 #    under the License.
 
 from django.utils.translation import ugettext_lazy as _
+from horizon import exceptions
 from horizon import forms
+from horizon import messages
 
 from cloudkittydashboard.api import cloudkitty as api
 
@@ -23,7 +25,12 @@ class EditPriorityForm(forms.SelfHandlingForm):
 
     def handle(self, request, data):
         ck_client = api.cloudkittyclient(request)
-        return ck_client.rating.update_module(
-            module_id=self.initial["module_id"],
-            priority=data["priority"]
-        )
+        try:
+            priority = ck_client.rating.update_module(
+                module_id=self.initial["module_id"], priority=data["priority"])
+            messages.success(
+                request,
+                _('Successfully updated priority'))
+            return priority
+        except Exception:
+            exceptions.handle(request, _("Unable to update priority."))
