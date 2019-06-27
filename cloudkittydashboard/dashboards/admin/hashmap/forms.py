@@ -94,7 +94,15 @@ class CreateFieldForm(forms.SelfHandlingForm):
         field = data['field']
         LOG.info('Creating field with name %s' % (field))
         fields_mgr = api.cloudkittyclient(request).rating.hashmap
-        return fields_mgr.create_field(name=field, service_id=service_id)
+        try:
+            field = fields_mgr.create_field(name=field, service_id=service_id)
+            messages.success(
+                request,
+                _('Field was successfully created'))
+            return field
+        except Exception:
+            horizon_exceptions.handle(request,
+                                      _("Unable to create field."))
 
     def __init__(self, request, *args, **kwargs):
         super(CreateFieldForm, self).__init__(request, *args, **kwargs)
@@ -124,8 +132,16 @@ class CreateGroupForm(forms.SelfHandlingForm):
     def handle(self, request, data):
         name = data['name']
         LOG.info('Creating group with name %s' % (name))
-        return api.cloudkittyclient(request).rating.hashmap.create_group(
-            name=name)
+        try:
+            group = api.cloudkittyclient(request).rating.hashmap.create_group(
+                name=name)
+            messages.success(
+                request,
+                _('Group was successfully created'))
+            return group
+        except Exception:
+            horizon_exceptions.handle(request,
+                                      _("Unable to create group."))
 
 
 class BaseForm(forms.SelfHandlingForm):
