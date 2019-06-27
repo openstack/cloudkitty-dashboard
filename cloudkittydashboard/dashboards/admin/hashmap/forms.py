@@ -56,6 +56,14 @@ class CreateServiceForm(forms.SelfHandlingForm):
             'data-servicetype-custom_service': _('Custom service')}),
         required=False)
 
+    def clean_custom_service(self):
+        custom_service = self.cleaned_data.get('custom_service').strip()
+        service_type = self.cleaned_data.get('service_type')
+        if service_type == "custom_service" and not custom_service:
+            msg = _('Custom service cannot be empty.')
+            self._errors['custom_service'] = self.error_class([msg])
+        return custom_service
+
     def handle(self, request, data):
         if data['service_type'] == 'service':
             service = data['service']
