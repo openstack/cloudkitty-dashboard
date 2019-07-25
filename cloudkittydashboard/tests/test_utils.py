@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2018 Objectif Libre
+# Copyright 2019 Objectif Libre
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -13,15 +12,17 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 #
+import unittest
+
+from cloudkittydashboard import utils
 
 
-class TemplatizableDict(dict):
-    """Class allowing to pass a dict to horizon templates"""
+class TemplatizableDictTest(unittest.TestCase):
 
-    def __getattr__(self, key):
-        if key in self.keys():
-            return self[key]
-        raise AttributeError("Object has no {} attribute".format(key))
+    def test_hasattr_attr_exists(self):
+        obj = utils.TemplatizableDict(a=1, b=2)
+        self.assertTrue(hasattr(obj, 'a'))
 
-    def __setattr__(self, key, val):
-        self[key] = val
+    def test_hasattr_attr_does_not_exist(self):
+        obj = utils.TemplatizableDict(a=1, b=2)
+        self.assertFalse(hasattr(obj, 'c'))
