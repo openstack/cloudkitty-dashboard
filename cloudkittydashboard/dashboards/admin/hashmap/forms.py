@@ -77,9 +77,10 @@ class CreateServiceForm(forms.SelfHandlingForm):
                 request,
                 _('Service was successfully created'))
             return service
-        except Exception:
+        except Exception as ex:
             horizon_exceptions.handle(request,
-                                      _("Unable to create new service."))
+                                      _("Unable to create new service: %s")
+                                      % str(ex))
 
     def __init__(self, request, *args, **kwargs):
         super(CreateServiceForm, self).__init__(request, *args, **kwargs)
@@ -108,9 +109,10 @@ class CreateFieldForm(forms.SelfHandlingForm):
                 request,
                 _('Field was successfully created'))
             return field
-        except Exception:
-            horizon_exceptions.handle(request,
-                                      _("Unable to create field."))
+        except Exception as ex:
+            horizon_exceptions.handle(
+                request,
+                _("Unable to create field: %s") % str(ex))
 
     def __init__(self, request, *args, **kwargs):
         super(CreateFieldForm, self).__init__(request, *args, **kwargs)
@@ -147,9 +149,10 @@ class CreateGroupForm(forms.SelfHandlingForm):
                 request,
                 _('Group was successfully created'))
             return group
-        except Exception:
-            horizon_exceptions.handle(request,
-                                      _("Unable to create group."))
+        except Exception as ex:
+            horizon_exceptions.handle(
+                request,
+                _("Unable to create group: %s") % str(ex))
 
 
 class BaseForm(forms.SelfHandlingForm):
