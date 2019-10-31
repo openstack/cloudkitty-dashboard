@@ -1,5 +1,6 @@
 - project:
     templates:
+      - check-requirements
       - horizon-non-primary-django-jobs
       - openstack-python3-ussuri-jobs
       - publish-openstack-docs-pti
