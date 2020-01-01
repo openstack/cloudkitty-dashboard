@@ -2,10 +2,6 @@
 # of appearance. Changing the order has an impact on the overall integration
 # process, which may cause wedges in the gate later.
 hacking>=1.1.0,<1.2.0 # Apache-2.0
-
-# Require Horizon
--e git://github.com/openstack/horizon.git#egg=horizon
-
 coverage>=3.6
 python-subunit>=0.0.18
 oslotest>=1.10.0 # Apache-2.0
