@@ -1,18 +1,15 @@
-========================
-Team and repository tags
-========================
-
-.. image:: https://governance.openstack.org/badges/cloudkitty-dashboard.svg
-    :target: https://governance.openstack.org/reference/tags/index.html
-
-.. Change things from this point on
-
 ====================
 CloudKitty dashboard
 ====================
 
+.. image:: https://governance.openstack.org/badges/cloudkitty-dashboard.svg
+    :target: https://governance.openstack.org/tc/reference/tags/index.html
+
+.. Change things from this point on
+
 :Wiki: `CloudKitty Wiki`_
 :IRC: #cloudkitty @ freenode
+
 
 Horizon dashboard for CloudKitty.
 
