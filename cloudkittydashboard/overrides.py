@@ -34,4 +34,5 @@ class InstancePredictivePricing(create_instance.SetInstanceDetailsAction):
                       self).get_help_text(extra_context=extra)
         return extra
 
+
 create_instance.SetInstanceDetails.action_class = InstancePredictivePricing
