@@ -13,9 +13,9 @@
 # under the License.
 import json
 import os
+from unittest import mock
 
 from django import http
-import mock
 
 from cloudkittydashboard.tests import base
 
