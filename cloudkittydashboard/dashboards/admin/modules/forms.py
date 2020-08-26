@@ -32,6 +32,6 @@ class EditPriorityForm(forms.SelfHandlingForm):
                 request,
                 _('Successfully updated priority'))
             return priority
-        except Exception as ex:
+        except Exception:
             exceptions.handle(request,
-                              _("Unable to update priority: %s") % str(ex))
+                              _("Unable to update priority."))

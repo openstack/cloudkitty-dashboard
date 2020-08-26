@@ -104,9 +104,9 @@ class CreateScriptForm(forms.SelfHandlingForm):
                 request,
                 _('Successfully created script'))
             return script
-        except Exception as ex:
+        except Exception:
             exceptions.handle(request,
-                              _("Unable to create script: %s") % str(ex))
+                              _("Unable to create script."))
 
 
 class EditScriptForm(CreateScriptForm):
@@ -131,6 +131,6 @@ class EditScriptForm(CreateScriptForm):
                 request,
                 _('Successfully updated script'))
             return script
-        except Exception as ex:
+        except Exception:
             exceptions.handle(request,
-                              _("Unable to update script: %s") % str(ex))
+                              _("Unable to update script."))

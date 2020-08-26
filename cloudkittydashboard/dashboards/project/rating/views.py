@@ -62,9 +62,9 @@ def quote(request):
                 __update_quotation_data(json_data, service)
                 pricing = float(api.cloudkittyclient(request)
                                 .rating.get_quotation(res_data=json_data))
-            except Exception as ex:
+            except Exception:
                 exceptions.handle(request,
-                                  _('Unable to retrieve price: %s') % str(ex))
+                                  _('Unable to retrieve price.'))
 
     return http.HttpResponse(json.dumps(pricing),
                              content_type='application/json')
