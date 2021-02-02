@@ -112,6 +112,7 @@
   var graph = new Rickshaw.Graph({
     element: document.querySelector('#cost_progress'),
     interpolation: 'linear',
+    unstack: 'true',
     onComplete: function(w) {
       var legend = new Rickshaw.Graph.Legend({
         element: document.querySelector('#cost_progress_legend'),
