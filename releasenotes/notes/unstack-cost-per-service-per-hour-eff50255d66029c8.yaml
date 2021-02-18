@@ -1,0 +1,4 @@
+---
+upgrade:
+  - |
+    The "Cost Per Service Per Hour" graph no longer stacks series on the Y axis.
