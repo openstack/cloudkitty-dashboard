@@ -29,6 +29,7 @@ def cloudkittyclient(request):
     cacert = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
     insecure = getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False)
     auth_url = getattr(settings, 'OPENSTACK_KEYSTONE_URL', None)
+    interface = getattr(settings, 'OPENSTACK_ENDPOINT_TYPE', 'publicURL')
     auth = Token(
         auth_url,
         token=request.user.token.id,
@@ -38,6 +39,7 @@ def cloudkittyclient(request):
 
     adapter_options = {
         'region_name': request.user.services_region,
+        'interface': interface,
     }
 
     return ck_client.Client(

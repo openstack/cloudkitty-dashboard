@@ -1,0 +1,6 @@
+---
+upgrade:
+  - |
+    The CloudKitty dashboard now inherits the interface type from Horizon.
+    This allows for easier testing, like in an all-in-one to use the
+    internalURL.
