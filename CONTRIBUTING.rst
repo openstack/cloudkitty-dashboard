@@ -1,16 +1,19 @@
-If you would like to contribute to the development of OpenStack,
-you must follow the steps in this page:
+The source repository for this project can be found at:
+  
+   https://opendev.org/openstack/cloudkitty-dashboard
 
-   https://docs.openstack.org/infra/manual/developers.html
+Pull requests submitted through GitHub are not monitored.
 
-Once those steps have been completed, changes to OpenStack
-should be submitted for review via the Gerrit tool, following
-the workflow documented at:
+To start contributing to OpenStack, follow the steps in the contribution guide
+to set up and use Gerrit:
 
-   https://docs.openstack.org/infra/manual/developers.html#development-workflow
+   https://docs.openstack.org/contributors/code-and-documentation/quick-start.html
 
-Pull requests submitted through GitHub will be ignored.
-
-Bugs should be filed on Storyboard, not GitHub:
+Bugs should be filed on Storyboard:
 
    https://storyboard.openstack.org/#!/project/891
+
+For more specific information about contributing to this repository, see the
+cloudkitty-dashboard contributor guide:
+
+   https://docs.openstack.org/cloudkitty-dashboard/latest/contributor/contributing.html
