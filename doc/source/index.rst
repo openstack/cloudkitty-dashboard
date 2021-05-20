@@ -13,7 +13,16 @@ Contents:
 
    readme
    installation
-   contributing
+
+For Contributors
+================
+
+* If you are a new contributor to cloudkitty-dashboard please refer: :doc:`contributor/contributing`
+
+  .. toctree::
+     :hidden:
+
+     contributor/contributing
 
 Indices and tables
 ==================
