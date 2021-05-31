@@ -8,7 +8,7 @@ CloudKitty dashboard
 .. Change things from this point on
 
 :Wiki: `CloudKitty Wiki`_
-:IRC: #cloudkitty @ freenode
+:IRC: #cloudkitty @ oftc.net
 
 
 Horizon dashboard for CloudKitty.
