@@ -13,7 +13,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 #
-import collections
+from collections import abc
 
 from django.conf import settings
 from horizon.utils.memoized import memoized  # noqa
@@ -52,7 +52,7 @@ def cloudkittyclient(request):
 
 
 def identify(what, name=False, key=None):
-    if isinstance(what, collections.Iterable):
+    if isinstance(what, abc.Iterable):
         for i in what:
             i['id'] = i.get(key or "%s_id" % i['key'])
             if name and not i.get('name'):
