@@ -65,9 +65,11 @@ pricing = {
 
             // make the json data form
             desc_form = {
-                'flavor': flavor,
-                'source_type': source_type,
-                'source_val': source_val, // images : horizon.Quota.findImageById(source_val);
+                'metadata': {
+                    'flavor': flavor,
+                    'source_type': source_type,
+                    'source_val': source_val, // images : horizon.Quota.findImageById(source_val);
+                },
                 'vcpus': vcpus,
                 'disk': disk,
                 'ephemeral': ephemeral,
