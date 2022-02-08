@@ -24,7 +24,7 @@ from cloudkittydashboard import utils
 
 
 @memoized
-def cloudkittyclient(request):
+def cloudkittyclient(request, version='1'):
     """Initialization of Cloudkitty client."""
     cacert = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
     insecure = getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False)
@@ -43,7 +43,7 @@ def cloudkittyclient(request):
     }
 
     return ck_client.Client(
-        '1',
+        version,
         auth=auth,
         cacert=cacert,
         insecure=insecure,
