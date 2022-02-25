@@ -53,8 +53,8 @@ class PredictivePricingTest(base.TestCase):
     @mock.patch('cloudkittydashboard.dashboards.project.rating.views.api')
     def test_quote_does_update_request_dict(self, api_mock):
         body = [{'service': 'nope'}, {'other_key': None}]
-        expected_body = [{u'service': 'test_service'},
-                         {u'other_key': None, 'service': 'test_service'}]
+        expected_body = [{'service': 'test_service'},
+                         {'other_key': None, 'service': 'test_service'}]
 
         request = mock.MagicMock()
         request.is_ajax.return_value = True
