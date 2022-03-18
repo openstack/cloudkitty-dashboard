@@ -1,5 +1,5 @@
-Welcome to Cloudkitty Dashboard Release Notes documentation!
-============================================================
+CloudKitty Dashboard Release Notes
+==================================
 
 Contents
 ========
