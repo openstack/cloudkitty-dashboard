@@ -1,7 +1,7 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from cloudkittydashboard.dashboards.project.reporting import views
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index'),
+    re_path(r'^$', views.IndexView.as_view(), name='index'),
 ]

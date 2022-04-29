@@ -14,7 +14,6 @@
 # under the License.
 #
 
-from django.conf.urls import url  # noqa
 from django.utils.translation import ugettext_lazy as _
 from openstack_dashboard.dashboards.project.instances.workflows \
     import create_instance

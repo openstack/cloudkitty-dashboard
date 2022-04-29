@@ -12,12 +12,12 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from django.conf.urls import url
+from django.urls import re_path
 
 from cloudkittydashboard.dashboards.admin.summary import views
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^(?P<project_id>[^/]+)/?$', views.TenantDetailsView.as_view(),
-        name="project_details"),
+    re_path(r'^$', views.IndexView.as_view(), name='index'),
+    re_path(r'^(?P<project_id>[^/]+)/?$', views.TenantDetailsView.as_view(),
+            name="project_details"),
 ]
