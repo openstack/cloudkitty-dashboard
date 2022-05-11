@@ -19,9 +19,12 @@ from horizon import tables
 class SummaryTable(tables.DataTable):
     """This table formats a summary for the given tenant."""
 
-    res_type = tables.Column('res_type', verbose_name=_('Metric Type'))
+    res_type = tables.Column('type', verbose_name=_('Metric Type'))
     rate = tables.Column('rate', verbose_name=_('Rate'))
 
     class Meta(object):
         name = "summary"
         verbose_name = _("Summary")
+
+    def get_object_id(self, datum):
+        return datum.get('type')

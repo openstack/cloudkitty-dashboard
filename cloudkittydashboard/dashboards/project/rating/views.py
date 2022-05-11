@@ -22,7 +22,6 @@ from horizon import tables
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards.project.rating \
     import tables as rating_tables
-from cloudkittydashboard.utils import TemplatizableDict
 
 
 class IndexView(tables.DataTableView):
@@ -30,17 +29,16 @@ class IndexView(tables.DataTableView):
     template_name = 'project/rating/index.html'
 
     def get_data(self):
-        summary = api.cloudkittyclient(self.request).report.get_summary(
-            tenant_id=self.request.user.tenant_id,
-            groupby=['tenant_id', 'res_type'])['summary']
-        summary = api.identify(summary, key='res_type', name=True)
-        summary.append(TemplatizableDict({
-            'id': 'ALL',
-            'res_type': 'TOTAL',
-            'name': 'ALL',
-            'rate': sum([float(i['rate']) for i in summary]),
-        }))
-        return summary
+        summary = api.cloudkittyclient(
+            self.request, version='2').summary.get_summary(
+                tenant_id=self.request.user.tenant_id,
+                groupby=['type'], response_format='object')
+
+        data = summary.get('results')
+        total = sum([r.get('rate') for r in data])
+
+        data.append({'type': 'TOTAL', 'rate': total})
+        return data
 
 
 def quote(request):

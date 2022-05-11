@@ -1,0 +1,5 @@
+---
+other:
+  - |
+    The ratings panel in the project dashboard has been converted
+    to use the v2 API.
