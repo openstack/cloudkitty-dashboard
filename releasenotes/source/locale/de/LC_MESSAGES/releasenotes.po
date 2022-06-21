@@ -3,9 +3,9 @@
 # Andreas Jaeger <jaegerandi@gmail.com>, 2020. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: cloudkitty-dashboard\n"
+"Project-Id-Version: Cloudkitty Dashboard Release Notes\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 14:52+0000\n"
+"POT-Creation-Date: 2022-05-11 10:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -67,6 +67,3 @@ msgstr "Train Serie Releasenotes"
 
 msgid "Upgrade Notes"
 msgstr "Aktualisierungsnotizen"
-
-msgid "Welcome to Cloudkitty Dashboard Release Notes documentation!"
-msgstr "Willkommen bei den Releasenotes für das Cloudkitty Dashboard!"
