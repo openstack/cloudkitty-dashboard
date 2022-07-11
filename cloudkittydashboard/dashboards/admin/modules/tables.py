@@ -13,8 +13,8 @@
 #    under the License.
 
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext_lazy
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
 
 from horizon import tables
 
@@ -46,12 +46,12 @@ class ToggleEnabledModule(tables.BatchAction):
     @staticmethod
     def action_present(count):
         return (
-            ungettext_lazy(
+            ngettext_lazy(
                 u"Enable Module",
                 u"Enable Modules",
                 count
             ),
-            ungettext_lazy(
+            ngettext_lazy(
                 u"Disable Module",
                 u"Disable Modules",
                 count
@@ -61,12 +61,12 @@ class ToggleEnabledModule(tables.BatchAction):
     @staticmethod
     def action_past(count):
         return (
-            ungettext_lazy(
+            ngettext_lazy(
                 u"Enabled Module",
                 u"Enabled Modules",
                 count
             ),
-            ungettext_lazy(
+            ngettext_lazy(
                 u"Disabled Module",
                 u"Disabled Modules",
                 count
