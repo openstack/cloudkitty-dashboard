@@ -19,6 +19,3 @@ PANEL = 'rating'
 # Python panel class of the PANEL to be added.
 ADD_PANEL = \
     'cloudkittydashboard.dashboards.project.rating.panel.Project_rating'
-
-UPDATE_HORIZON_CONFIG = {'customization_module':
-                         "cloudkittydashboard.overrides"}

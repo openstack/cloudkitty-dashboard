@@ -1,0 +1,5 @@
+---
+fixes:
+  - |
+    Fixes compatibility with Horizon 21.0.0 and newer following the removal of
+    the Django-based implementation of launch instance.
