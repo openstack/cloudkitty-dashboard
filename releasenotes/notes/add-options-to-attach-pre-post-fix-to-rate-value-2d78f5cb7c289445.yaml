@@ -1,0 +1,10 @@
+---
+features:
+  - |
+    Adds optional Horizon settings variable OPENSTACK_CLOUDKITTY_RATE_PREFIX
+    and OPENSTACK_CLOUDKITTY_RATE_POSTFIX. These allow users to attach
+    pre/postfix to their rate vaules shown at the dashboard such as currency.
+    These values can be set in ``.py`` settings snippets under
+    ``openstack_dashboard/local/local_settings.d`` directory. Follow
+    https://docs.openstack.org/horizon/latest/configuration/settings.html
+    for more details.

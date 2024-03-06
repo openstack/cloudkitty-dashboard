@@ -25,3 +25,12 @@ class TemplatizableDict(dict):
 
     def __setattr__(self, key, val):
         self[key] = val
+
+
+def formatRate(rate: float, prefix: str, postfix: str) -> str:
+    rate = str(rate)
+    if prefix:
+        rate = prefix + rate
+    if postfix:
+        rate = rate + postfix
+    return rate
