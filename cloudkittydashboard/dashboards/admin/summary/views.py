@@ -12,6 +12,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from horizon import tables
 
@@ -19,6 +20,12 @@ from openstack_dashboard.api import keystone as api_keystone
 
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards.admin.summary import tables as sum_tables
+from cloudkittydashboard import utils
+
+rate_prefix = getattr(settings,
+                      'OPENSTACK_CLOUDKITTY_RATE_PREFIX', None)
+rate_postfix = getattr(settings,
+                       'OPENSTACK_CLOUDKITTY_RATE_POSTFIX', None)
 
 
 class IndexView(tables.DataTableView):
@@ -39,6 +46,9 @@ class IndexView(tables.DataTableView):
         for tenant in summary:
             tenant['name'] = tenants.get(tenant.id, '-')
         summary[-1]['name'] = 'Cloud Total'
+        for tenant in summary:
+            tenant['rate'] = utils.formatRate(tenant['rate'],
+                                              rate_prefix, rate_postfix)
         return summary
 
 
@@ -65,4 +75,7 @@ class TenantDetailsView(tables.DataTableView):
             'rate': sum([float(item['rate']) for item in summary]),
         })
         summary = api.identify(summary, key='res_type', name=True)
+        for item in summary:
+            item['rate'] = utils.formatRate(item['rate'],
+                                            rate_prefix, rate_postfix)
         return summary

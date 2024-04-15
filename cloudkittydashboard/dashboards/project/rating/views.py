@@ -22,6 +22,12 @@ from horizon import tables
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards.project.rating \
     import tables as rating_tables
+from cloudkittydashboard import utils
+
+rate_prefix = getattr(settings,
+                      'OPENSTACK_CLOUDKITTY_RATE_PREFIX', None)
+rate_postfix = getattr(settings,
+                       'OPENSTACK_CLOUDKITTY_RATE_POSTFIX', None)
 
 
 class IndexView(tables.DataTableView):
@@ -38,6 +44,9 @@ class IndexView(tables.DataTableView):
         total = sum([r.get('rate') for r in data])
 
         data.append({'type': 'TOTAL', 'rate': total})
+        for item in data:
+            item['rate'] = utils.formatRate(item['rate'],
+                                            rate_prefix, rate_postfix)
         return data
 
 
