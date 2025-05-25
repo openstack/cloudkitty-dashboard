@@ -56,16 +56,16 @@ class DeletePyScript(tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ngettext_lazy(
-            u"Delete PyScript",
-            u"Delete PyScripts",
+            "Delete PyScript",
+            "Delete PyScripts",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ngettext_lazy(
-            u"Deleted PyScript",
-            u"Deleted PyScripts",
+            "Deleted PyScript",
+            "Deleted PyScripts",
             count
         )
 

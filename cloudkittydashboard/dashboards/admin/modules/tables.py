@@ -47,13 +47,13 @@ class ToggleEnabledModule(tables.BatchAction):
     def action_present(count):
         return (
             ngettext_lazy(
-                u"Enable Module",
-                u"Enable Modules",
+                "Enable Module",
+                "Enable Modules",
                 count
             ),
             ngettext_lazy(
-                u"Disable Module",
-                u"Disable Modules",
+                "Disable Module",
+                "Disable Modules",
                 count
             ),
         )
@@ -62,13 +62,13 @@ class ToggleEnabledModule(tables.BatchAction):
     def action_past(count):
         return (
             ngettext_lazy(
-                u"Enabled Module",
-                u"Enabled Modules",
+                "Enabled Module",
+                "Enabled Modules",
                 count
             ),
             ngettext_lazy(
-                u"Disabled Module",
-                u"Disabled Modules",
+                "Disabled Module",
+                "Disabled Modules",
                 count
             ),
         )

@@ -72,5 +72,5 @@ Some symbols (Such as Non-ASCII) might require to use unicode value directly.
 .. code-block:: python
 
    # British Pound
-   OPENSTACK_CLOUDKITTY_RATE_PREFIX = u'\xA3'
+   OPENSTACK_CLOUDKITTY_RATE_PREFIX = '\xA3'
    OPENSTACK_CLOUDKITTY_RATE_POSTFIX = 'GBP'
