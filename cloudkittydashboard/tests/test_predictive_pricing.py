@@ -36,7 +36,7 @@ class PredictivePricingTest(base.TestCase):
     def _test_quote_request_not_ajax_post(self, arg):
         request = mock.MagicMock()
         if arg == 'ajax':
-            request.is_ajax.return_value = False
+            request.headers.get.return_value = None  # Not an AJAX request
         elif arg == 'method':
             request.method == 'POST'
         resp = self.quote(request)
@@ -57,7 +57,7 @@ class PredictivePricingTest(base.TestCase):
                          {'other_key': None, 'service': 'test_service'}]
 
         request = mock.MagicMock()
-        request.is_ajax.return_value = True
+        request.headers.get.return_value = 'XMLHttpRequest'
         request.method = 'POST'
         request.body = json.dumps(body)
 
