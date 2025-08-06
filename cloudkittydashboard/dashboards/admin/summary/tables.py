@@ -42,4 +42,4 @@ class TenantSummaryTable(tables.DataTable):
 
     class Meta(object):
         name = "tenant_summary"
-        verbose_name = _("Tenant Summary")
+        verbose_name = _("Project Summary")
