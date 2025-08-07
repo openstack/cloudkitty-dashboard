@@ -41,16 +41,16 @@ class DeleteService(tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ngettext_lazy(
-            u"Delete Service",
-            u"Delete Services",
+            "Delete Service",
+            "Delete Services",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ngettext_lazy(
-            u"Deleted Service",
-            u"Deleted Services",
+            "Deleted Service",
+            "Deleted Services",
             count
         )
 
@@ -103,16 +103,16 @@ class DeleteGroup(tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ngettext_lazy(
-            u"Delete Group",
-            u"Delete Groups",
+            "Delete Group",
+            "Delete Groups",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ngettext_lazy(
-            u"Deleted Group",
-            u"Deleted Groups",
+            "Deleted Group",
+            "Deleted Groups",
             count
         )
 
@@ -190,16 +190,16 @@ class DeleteServiceThreshold(tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ngettext_lazy(
-            u"Delete Service Threshold",
-            u"Delete Service Thresholds",
+            "Delete Service Threshold",
+            "Delete Service Thresholds",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ngettext_lazy(
-            u"Deleted Service Threshold",
-            u"Deleted Service Thresholds",
+            "Deleted Service Threshold",
+            "Deleted Service Thresholds",
             count
         )
 
@@ -217,16 +217,16 @@ class DeleteFieldThreshold(tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ngettext_lazy(
-            u"Delete Field Threshold",
-            u"Delete Field Thresholds",
+            "Delete Field Threshold",
+            "Delete Field Thresholds",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ngettext_lazy(
-            u"Deleted Field Threshold",
-            u"Deleted Field Thresholds",
+            "Deleted Field Threshold",
+            "Deleted Field Thresholds",
             count
         )
 
@@ -357,16 +357,16 @@ class DeleteField(tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ngettext_lazy(
-            u"Delete Field",
-            u"Delete Fields",
+            "Delete Field",
+            "Delete Fields",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ngettext_lazy(
-            u"Deleted Field",
-            u"Deleted Fields",
+            "Deleted Field",
+            "Deleted Fields",
             count
         )
 
@@ -429,16 +429,16 @@ class DeleteMapping(tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ngettext_lazy(
-            u"Delete Mapping",
-            u"Delete Mappings",
+            "Delete Mapping",
+            "Delete Mappings",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ngettext_lazy(
-            u"Deleted Mapping",
-            u"Deleted Mappings",
+            "Deleted Mapping",
+            "Deleted Mappings",
             count
         )
 
