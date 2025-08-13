@@ -1,0 +1,5 @@
+---
+upgrade:
+  - |
+    Upgrades the CloudKitty API from v1 to v2 in the admin/rating panel.
+
