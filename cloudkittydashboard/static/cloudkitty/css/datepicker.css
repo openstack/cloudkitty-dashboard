@@ -1,0 +1,75 @@
+.form-inline {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.form-inline h4 {
+    text-align: left;
+    margin: 0 0 10px 0;
+}
+
+.form-inline .datepicker,
+.form-inline .datepicker-delimiter,
+.form-inline .btn {
+    margin: 0 10px 0 0;
+}
+
+.controls-container {
+    text-align: left;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropbtn,
+.arrow-btn {
+    background-color: #EEEEEE;
+    color: #6E6E6E;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content button {
+    color: black;
+    background-color: #f1f1f1;
+    border: none;
+    padding: 12px 16px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    margin: 0;
+    border-radius: 0;
+}
+
+.dropdown-content button:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

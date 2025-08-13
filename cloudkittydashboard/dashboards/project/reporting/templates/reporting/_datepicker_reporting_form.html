@@ -1,0 +1,61 @@
+{% load i18n %}
+{%load static %}
+
+<link rel="stylesheet" href="{% static 'cloudkitty/css/datepicker.css' %}">
+<script src="{% static 'cloudkitty/js/datepicker.js' %}" type="text/javascript" charset="utf-8"></script>
+
+<form action="?" method="get" id="{{ datepicker_id }}" class="form-inline">
+    <h4>{% trans "Select a period of time to view data in:" %}
+        <span class="small help-block">{% trans "The date should be in YYYY-MM-DD format." %}</span>
+    </h4>
+    <div class="datepicker form-group">
+        {% with datepicker_input=form.start datepicker_label="From" %}
+        {% include 'project/reporting/_datepicker_reporting.html' %}
+        {% endwith %}
+    </div>
+    <span class="datepicker-delimiter">
+        <span class="datepicker-delimiter-text">{% trans 'to' %}</span>
+    </span>
+    <div class="datepicker form-group">
+        {% with datepicker_input=form.end datepicker_label="To" %}
+        {% include 'project/reporting/_datepicker_reporting.html' %}
+        {% endwith %}
+    </div>
+    <button class="btn btn-primary" type="submit">{% trans "Submit" %}</button>
+</form>
+
+<div class="controls-container">
+    <div class="dropdown default-ranges">
+        <button class="dropbtn">{% trans "Period Range" %}</button>
+        <div class="dropdown-content">
+            <button data-period="day" data-view="current">{% trans "Day View" %}</button>
+            <button data-period="week" data-view="current">{% trans "Week View" %}</button>
+            <button data-period="month" data-view="current">{% trans "Month View" %}</button>
+            <button data-period="year" data-view="current">{% trans "Year View" %}</button>
+        </div>
+    </div>
+    <div class="dropdown preset-ranges">
+        <button class="dropbtn">{% trans "Preset Ranges" %}</button>
+        <div class="dropdown-content">
+            <button data-period="day" data-view="yesterday">{% trans "Yesterday" %}</button>
+            <button data-period="week" data-view="last">{% trans "Last Week" %}</button>
+            <button data-period="month" data-view="last">{% trans "Last Month" %}</button>
+            <button data-period="month" data-view="last" data-amount="3">{% trans "Last 3 Months" %}</button>
+            <button data-period="month" data-view="last" data-amount="6">{% trans "Last 6 Months" %}</button>
+            <button data-period="year" data-view="last">{% trans "Last Year" %}</button>
+        </div>
+    </div>
+    <button class="arrow-btn" data-direction="prev">&laquo;</button>
+    <button class="arrow-btn" data-direction="next">&raquo;</button>
+</div>
+
+
+<script>
+    $(function () {
+        initDatepicker({
+            formId: '{{ datepicker_id }}',
+            startFieldName: '{{ form.start.name }}',
+            endFieldName: '{{ form.end.name }}'
+        });
+    });
+</script>
