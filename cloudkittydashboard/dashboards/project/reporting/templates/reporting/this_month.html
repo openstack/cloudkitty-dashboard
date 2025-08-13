@@ -2,9 +2,12 @@
 {% load l10n %}
 {% load static %}
 
+<link rel="stylesheet" href="{% static 'cloudkitty/css/this_month.css' %}">
+
 <div class="container-fluid">
   <div class="col-lg-3 col-md-4">
     <h4>{% trans "Legend" %}</h4>
+    <span class="small help-block">{% trans "Click on a metric to remove it from the pie chart." %}</span>
     <div id="graph_legend"></div>
   </div>
   <div class="col-lg-4 col-md-8" style="max-width:25vw;">
@@ -15,27 +18,39 @@
     <h4>{% trans "Cost Per Service Per Hour" %}</h4>
     <div id="cost_progress" style="max-width:100%;"></div>
     <div id="cost_progress_legend"></div>
+    <div id="datepicker_range">
+      {% with start=form.start end=form.end datepicker_id='date_form' %}
+      {% include 'project/reporting/_datepicker_reporting_form.html' %}
+      {% endwith %}
+    </div>
   </div>
-</div>
 
-<script type="text/javascript">
-  var data = [
-{% for service, data in repartition_data.items %}
-    {"label": "{{ service }}",
-     "value": {{ data.cumulated|unlocalize }}
-    },
-{% endfor %}
+  <script>
+
+    window.addEventListener('load', function () {
+      var data = [
+        {% for service, data in repartition_data.items %}
+  {
+        "label": "{{ service }}",
+        "value": {{ data.cumulated | unlocalize }}
+  },
+      {% endfor %}
   ]
 
-  // Pie Chart
-  var innerRadius = 75;
-  var outerRadius = 150;
-  var height = 300;
-  var width = 300;
+      data.forEach(function (d) {
+        d.value = +d.value; // Ensure value is a number
+        d.enabled = true;
+      });
 
-  var colors = d3.scale.category20c();
+    // Pie Chart
+    var innerRadius = 75;
+    var outerRadius = 150;
+    var height = 300;
+    var width = 300;
 
-  var vis = d3.select("#repartition_cumulated")
+    var colors = d3.scale.category20c();
+
+    var vis = d3.select("#repartition_cumulated")
       .append("svg:svg")              // create the SVG element inside the DOM
       .data([data])                   // associate our data
       .attr("width", "75%")
@@ -44,35 +59,78 @@
       .append("svg:g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")") // move the center of the pie chart from 0, 0 to radius, radius
 
-  var arc = d3.svg.arc() // Creating <path> elements using arc data
+    var arc = d3.svg.arc() // Creating <path> elements using arc data
       .outerRadius(outerRadius)
       .innerRadius(innerRadius);
 
-  var pie = d3.layout.pie() // Creating arc data for us given a list of values
-      .value(function(d) { return d.value; });
+    var pie = d3.layout.pie() // Creating arc data for us given a list of values
+      .value(function (d) { return d.enabled ? d.value : 0; });
 
-  var arcs = vis.selectAll("g.slice")     // Selecting all <g> elements (there are none yet)
+    var arcs = vis.selectAll("g.slice")     // Selecting all <g> elements (there are none yet)
       .data(pie)                          // associate data
       .enter()                            // creating a <g> for each element of data
       .append("svg:g")
       .attr("class", "slice");
 
-  arcs.append("svg:path")
-      .attr("fill", function(d, i) { return colors(i); } ) // Setting the color of each slice
-      .attr("d", arc);                                     // creating the actual svg
 
-  arcs.append("svg:title")                                     //add a label to each slice
-      .attr("text-anchor", "middle")                          //center the text on it's origin
-      .text(function(d, i) { return data[i].label; });        //get the label from our original data array
+    var div = d3.select("body").append("div")
+      .attr("class", "tooltip-donut")
+      .style("position", "absolute")
+      .style("text-align", "center")
+      .style("padding", ".5rem")
+      .style("background", "#FFFFFF")
+      .style("color", "#313639")
+      .style("border", "1px solid #313639")
+      .style("border-radius", "8px")
+      .style("pointer-events", "none")
+      .style("font-size", "1.3rem")
+      .style("opacity", 0);
+
+    var path = arcs.append("svg:path")
+      .attr("fill", function (d, i) { return colors(i); }) // Setting the color of each slice
+      .attr("d", arc)                                    // creating the actual svg
+      .each(function (d) { this._current = d; }) // store the initial angles
+      .style("pointer-events", "none") // Disable hover events during initial animation
+      .on('mouseover', function (d, i) {
+        d3.select(this).transition()
+          .duration('50')
+          .attr('opacity', '.85');
+        div.transition()
+          .duration(50)
+          .style("opacity", 1);
+
+        // Calculate total of all enabled values
+        var total = d3.sum(data, function (item) {
+          return item.enabled ? item.value : 0;
+        });
+        let percentage = total > 0 ? Math.round((d.value / total) * 100) : 0;
+        let label = percentage.toString() + '%';
+
+        div.html(label) // shows percentage label to be near cursor
+          .style("left", (d3.mouse(document.body)[0] + 10) + "px")
+          .style("top", (d3.mouse(document.body)[1] - 15) + "px");
+      })
+      .on('mouseout', function (d, i) {
+        d3.select(this).transition()
+          .duration('50')
+          .attr('opacity', '1');
+        div.transition()
+          .duration('50')
+          .style("opacity", 0);
+      });
+
+    arcs.append("svg:title")                                     //add a label to each slice
+      .attr("text-anchor", "middle")                          //center the text on its origin
+      .text(function (d, i) { return data[i].label; });        //get the label from our original data array
 
 
-  // Legend
-  var legendHeight = 20;
-  var legendSpace = 5;
-  var viewBoxHeight = data.length * (legendHeight + legendSpace);
-  console.log('data length', data.length)
+    // Legend
+    var legendHeight = 20;
+    var legendSpace = 5;
+    var viewBoxHeight = data.length * (legendHeight + legendSpace);
+    console.log('data length', data.length)
 
-  var legend_vis = d3.select("#graph_legend")
+    var legend_vis = d3.select("#graph_legend")
       .append("svg:svg")
       .data([data])
       .attr("viewBox", "0 0 250 " + viewBoxHeight)
@@ -81,69 +139,153 @@
       .append("svg:g")
       .attr("transform", "translate(0,0)");
 
-  var legend = legend_vis.selectAll("g")
+    var legend = legend_vis.selectAll("g")
       .data(data)
       .enter()
       .append('g')
       .attr('class', 'legend')
-      .attr('transform', function(d, i) {
+      .attr('transform', function (d, i) {
         var x = 0;
         var y = i * (legendHeight + legendSpace);
         return 'translate(' + x + ',' + y + ')';
       });
 
-  var legendRectSize = 20;
-  var legendSpacing = 5;
-  legend.append('rect')
+    var legendRectSize = 20;
+    var legendSpacing = 5;
+    legend.append('rect')
       .attr('width', legendRectSize)
       .attr('height', legendRectSize)
-      .style('fill', function(d, i) { return colors(i); })
-      .style('stroke', function(d, i) { return colors(i); });
+      .style('fill', function (d, i) { return colors(i); })
+      .style('stroke', function (d, i) { return colors(i); })
+      .on('click.removeSlice', function (d) {
+        var rect = d3.select(this);
+        var enabled = true;
 
-  legend.append('text')
+        // Find the corresponding data point in the original data array
+        var dataItem = data.find(item => item.label === d.label);
+
+        // Calculate total enabled slices
+        var totalEnabled = d3.sum(data.map(function (d) {
+          return (d.enabled) ? 1 : 0;
+        }));
+
+        if (rect.attr('class') === 'disabled') {
+          rect.attr('class', '');
+          if (dataItem) dataItem.enabled = true; // Enable the data point
+        }
+        else {
+          if (totalEnabled < 2) return; // Prevent disabling of the last slice
+          rect.attr('class', 'disabled');
+          if (dataItem) dataItem.enabled = false;
+        }
+
+        // Rebind data to the pie slices, filtered by enabled state
+        // You need to re-select 'arcs' and then re-bind data
+        arcs = vis.selectAll("g.slice")
+          .data(pie);
+
+        // Disable hover events during legend-triggered animation
+        path.style("pointer-events", "none");
+
+        // Update the path 'd' attribute with a transition
+        arcs.select("path")
+          .transition()
+          .duration(750)
+          .attrTween('d', function (d) {
+            var interpolate = d3.interpolate(this._current, d);
+            this._current = interpolate(0); // Update _current for next transition
+            return function (t) {
+              return arc(interpolate(t));
+            };
+          })
+          .each("end", function () {
+            // Re-enable hover events after legend animation completes
+            path.style("pointer-events", "auto");
+          });
+      });
+
+
+    legend.append('text')
       .attr('x', legendRectSize + legendSpacing)
       .attr('y', legendRectSize - legendSpacing)
-      .text(function(d) { return d.label; });
-</script>
+      .text(function (d) { return d.label; });
 
-<script>
 
-  var colors = d3.scale.category20c();
-  var graph = new Rickshaw.Graph({
-    element: document.querySelector('#cost_progress'),
-    interpolation: 'linear',
-    unstack: 'true',
-    onComplete: function(w) {
-      var legend = new Rickshaw.Graph.Legend({
-        element: document.querySelector('#cost_progress_legend'),
-        graph: w.graph
+    path.transition()
+      .ease("sin")
+      .duration(2000)
+      .attrTween("d", tweenPie)
+      .each("end", function () {
+        path.style("pointer-events", "auto");
       });
-    },
-    series: [
-{% for service, data in repartition_data.items %}
+
+
+    function tweenPie(b) {
+      var i = d3.interpolate({ startAngle: 0, endAngle: 0 }, b);
+      return function (t) { return arc(i(t)); };
+    }
+
+});
+
+  </script>
+
+  <script>
+
+    var colors = d3.scale.category20c();
+    var graph = new Rickshaw.Graph({
+      element: document.querySelector('#cost_progress'),
+      interpolation: 'linear',
+      unstack: true,
+
+      series: [
+        {% for service, data in repartition_data.items %}
       {
         color: colors({{ forloop.counter }} - 1),
         name: "{{ service }}",
         data: [
-          {% for timestamp, rating in data.hourly.items %}{x: {{ timestamp }}, y: {{ rating|unlocalize }}},{% endfor %}
+          {% for timestamp, rating in data.hourly.items %}{ x: {{ timestamp }}, y: {{ rating | unlocalize }} }, {% endfor %}
         ]
       },
-{% endfor %}
+    {% endfor %}
     ]
   });
-  graph.render();
+    graph.render();
 
-  var hoverDetail = new Rickshaw.Graph.HoverDetail( {
-    graph: graph
-  });
+    var legend = new Rickshaw.Graph.Legend({
+      element: document.querySelector('#cost_progress_legend'),
+      graph: graph
+    });
 
-  var yAxis = new Rickshaw.Graph.Axis.Y({
-    graph: graph,
-  });
-  yAxis.render();
+    var hoverDetail = new Rickshaw.Graph.HoverDetail({
+      graph: graph
+    });
 
-  var xAxis = new Rickshaw.Graph.Axis.Time({
-    graph: graph
-  });
-  xAxis.render();
-</script>
+    var yAxis = new Rickshaw.Graph.Axis.Y({
+      graph: graph,
+    });
+    yAxis.render();
+
+    var xAxis = new Rickshaw.Graph.Axis.Time({
+      graph: graph
+    });
+    xAxis.render();
+
+    // This allows you to toggle the visibility of series in the graph
+    var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
+      graph: graph,
+      legend: legend
+    });
+
+    // This allows you to highlight a series when you hover over it in the legend
+    var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
+      graph: graph,
+      legend: legend
+    });
+
+    //This allows you to change which metric is in front
+    var order = new Rickshaw.Graph.Behavior.Series.Order({
+      graph: graph,
+      legend: legend
+    });
+
+  </script>
