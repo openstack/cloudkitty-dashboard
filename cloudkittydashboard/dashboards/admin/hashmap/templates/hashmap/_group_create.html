@@ -3,5 +3,11 @@
 
 {% block modal-body-right %}
     <h3>{% trans "Description:" %}</h3>
-    <p>{% trans "A group is a way to group calculations of mappings." %}</p>
+    <p>{% blocktrans trimmed %}
+       A group lets you organize mapping calculations into separate sets.
+       For example, you might create one group with rules for rating instance uptime
+       and another for evaluating block storage volumes. Keeping them in separate
+       groups ensures the calculations remain independent and don’t interfere
+       with each other.
+       {% endblocktrans %}</p>
 {% endblock %}
