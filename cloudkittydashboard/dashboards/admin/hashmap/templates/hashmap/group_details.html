@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col-sm-12">
       <div class="detail">
-          <dl>
+          <dl class="dl-horizontal">
               <dt>{% trans "Id" %}</dt>
               <dd>{{ group.group_id }}</dd>
               <dt>{% trans "Name" %}</dt>
@@ -18,7 +18,7 @@
               {% if mappings.services %}
               <h4>{% trans "Services" %}</h4>
                 {% for service in mappings.services %}
-                  <dl>
+                  <dl class="dl-horizontal">
                       <dt>{% trans "Mapping ID" %}</dt>
                       <dd>{{ service.mapping_id }}</dd>
                       <dt>{% trans "Service ID" %}</dt>
@@ -33,7 +33,7 @@
               {% if mappings.fields %}
               <h4>{% trans "Fields" %}</h4>
                 {% for field in mappings.fields %}
-                  <dl>
+                  <dl class="dl-horizontal">
                       <dt>{% trans "Mapping ID" %}</dt>
                       <dd>{{ field.mapping_id }}</dd>
                       <dt>{% trans "Field ID" %}</dt>
@@ -53,7 +53,7 @@
               {% if thresholds.services %}
               <h4>{% trans "Services" %}</h4>
                 {% for service in thresholds.services %}
-                  <dl>
+                  <dl class="dl-horizontal">
                       <dt>{% trans "Service ID" %}</dt>
                       <dd>{{ service.service_id }}</dd>
                       <dt>{% trans "Level" %}</dt>
@@ -68,7 +68,7 @@
               {% if thresholds.fields %}
               <h4>{% trans "Fields" %}</h4>
                 {% for field in thresholds.fields %}
-                  <dl>
+                  <dl class="dl-horizontal">
                       <dt>{% trans "Field ID" %}</dt>
                       <dd>{{ field.field_id }}</dd>
                       <dt>{% trans "Level" %}</dt>
