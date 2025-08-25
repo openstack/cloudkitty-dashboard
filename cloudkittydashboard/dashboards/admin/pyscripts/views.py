@@ -81,7 +81,7 @@ class ScriptUpdateView(forms.ModalFormView):
 
 class ScriptDetailsView(views.APIView):
     template_name = 'admin/pyscripts/details.html'
-    page_title = _("Script Details : {{ script.name }}")
+    page_title = _("Script details: {{ script.name }}")
 
     def get_data(self, request, context, *args, **kwargs):
         script_id = kwargs.get("script_id")

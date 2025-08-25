@@ -4,7 +4,7 @@
 {% block modal-body-right %}
     <h3>{% trans "Description:" %}</h3>
     <p>
-      {% blocktrans with module_id=module_id %}
+      {% blocktrans trimmed with module_id=module_id %}
         Edit the priority for the <i>{{ module_id }}</i> module.
       {% endblocktrans %}
     </p>

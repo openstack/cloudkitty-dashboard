@@ -7,9 +7,11 @@
   <div class="span12">
 
 {% if service_period %}
-  {% blocktrans with service_period as period %}
-   <p>Usage data are collected every {{ period }} seconds.</p>
-  {% endblocktrans %}
+    <p>
+      {% blocktrans trimmed with service_period as period %}
+        Usage data is collected every {{ period }} seconds.
+      {% endblocktrans %}
+    </p>
 {% endif %}
 
   {{ tab_group.render }}
