@@ -12,6 +12,8 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.utils.translation import gettext_lazy as _
+
 PANEL_GROUP = 'rating'
-PANEL_GROUP_NAME = 'Rating'
+PANEL_GROUP_NAME = _('Rating')
 PANEL_GROUP_DASHBOARD = 'project'
