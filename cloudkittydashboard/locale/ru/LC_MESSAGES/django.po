@@ -1,0 +1,544 @@
+# Dmitriy Chubinidze <dcu995@gmail.com>, 2025. #zanata
+# Ivan Anfimov <lazekteam@gmail.com>, 2025. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: cloudkitty-dashboard VERSION\n"
+"Report-Msgid-Bugs-To: https://bugs.launchpad.net/openstack-i18n/\n"
+"POT-Creation-Date: 2025-08-11 14:31+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2025-08-25 10:12+0000\n"
+"Last-Translator: Ivan Anfimov <lazekteam@gmail.com>\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"X-Generator: Zanata 4.3.3\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#, python-format
+msgid ""
+"\n"
+"        Edit the priority for the <i>%(module_id)s</i> module.\n"
+"      "
+msgstr ""
+"\n"
+"        Изменить приоритет для модуля <i>%(module_id)s</i>.\n"
+"      "
+
+#, python-format
+msgid ""
+"\n"
+"   <p>Usage data are collected every %(period)s seconds.</p>\n"
+"  "
+msgstr ""
+"\n"
+"   <p>Данные о потреблении собираются каждые %(period)s сек..</p>\n"
+"  "
+
+msgid "$"
+msgstr "$"
+
+msgid "A field is referring to a metadata field of a resource. "
+msgstr "Поле ссылается на поле метаданных ресурса."
+
+msgid "A group is a way to group calculations of mappings."
+msgstr "Группа — это способ группировки вычисления сопоставлений."
+
+msgid "A mapping is the final object, it’s what triggers calculation."
+msgstr "Сопоставление — это конечный объект, именно он запускает расчет."
+
+msgid "A script or set of python commands to modify rating calculations."
+msgstr "Скрипт или набор команд Python для изменения расчетов оценки."
+
+msgid "A service is a way to map the rule to the type of data collected."
+msgstr ""
+"Услуга определяет, каким образом правило применяется к типу собираемых "
+"данных."
+
+msgid ""
+"A threshold entry is used to apply rating rules base on level. Its behaviour "
+"is similar to a mapping except that it applies the cost base on the level."
+msgstr ""
+"Пороговое значение используется для применения правил оценки на основе "
+"уровня. Его поведение похоже на сопоставление, за исключением того, что оно "
+"применяет базовую стоимость на основе уровня."
+
+msgid "Checksum"
+msgstr "Контрольная сумма"
+
+msgid "Configurable"
+msgstr "Настраиваемый"
+
+msgid "Cost"
+msgstr "Стоимость"
+
+msgid "Cost Per Service Per Hour"
+msgstr "Стоимость за услугу в час"
+
+msgid "Create Field"
+msgstr "Создать поле"
+
+msgid "Create Field Mapping"
+msgstr "Создать сопоставление поля"
+
+msgid "Create Field Threshold"
+msgstr "Создать порог поля"
+
+msgid "Create Group"
+msgstr "Создать группу"
+
+msgid "Create Mapping"
+msgstr "Создать сопоставление"
+
+msgid "Create Script"
+msgstr "Создать скрипт"
+
+msgid "Create Service"
+msgstr "Создать услугу"
+
+msgid "Create Service Threshold"
+msgstr "Создать порог услуги"
+
+msgid "Create a new rating script."
+msgstr "Создать новый скрипт оценки."
+
+msgid "Create field Mapping"
+msgstr "Создать сопоставление поля"
+
+msgid "Create new Field"
+msgstr "Создать новое поле"
+
+msgid "Create new Field Threshold"
+msgstr "Создать новый порог поля"
+
+msgid "Create new Group"
+msgstr "Создать новую группу"
+
+msgid "Create new Mapping"
+msgstr "Создать новое сопоставление"
+
+msgid "Create new Service"
+msgstr "Создать новую услугу"
+
+msgid "Create new Service Threshold"
+msgstr "Создать новый порог услуги"
+
+msgid "Cumulative Cost Repartition"
+msgstr "Перераспределение совокупной стоимости"
+
+msgid "Custom service"
+msgstr "Пользовательская услуга"
+
+msgid "Custom service cannot be empty."
+msgstr "Пользовательская услуга не может быть пустой."
+
+msgid "Custom services can be defined for any additional collector."
+msgstr ""
+"Пользовательские услуги могут быть определены любым дополнительным сборщиком."
+
+msgid "Data"
+msgstr "Данные"
+
+msgid "Delete Field"
+msgid_plural "Delete Fields"
+msgstr[0] "Удалить поле"
+msgstr[1] "Удалить поля"
+msgstr[2] "Удалить поля"
+
+msgid "Delete Field Threshold"
+msgid_plural "Delete Field Thresholds"
+msgstr[0] "Удалить порог поля"
+msgstr[1] "Удалить пороги поля"
+msgstr[2] "Удалить пороги поля"
+
+msgid "Delete Group"
+msgid_plural "Delete Groups"
+msgstr[0] "Удалить группу"
+msgstr[1] "Удалить группы"
+msgstr[2] "Удалить группы"
+
+msgid "Delete Mapping"
+msgid_plural "Delete Mappings"
+msgstr[0] "Удалить сопоставление"
+msgstr[1] "Удалить сопоставления"
+msgstr[2] "Удалить сопоставления"
+
+msgid "Delete PyScript"
+msgid_plural "Delete PyScripts"
+msgstr[0] "Удалить PyScript"
+msgstr[1] "Удалить PyScripts"
+msgstr[2] "Удалить PyScripts"
+
+msgid "Delete Script"
+msgstr "Удалить скрипт"
+
+msgid "Delete Service"
+msgid_plural "Delete Services"
+msgstr[0] "Удалить услугу"
+msgstr[1] "Удалить услуги"
+msgstr[2] "Удалить услуги"
+
+msgid "Delete Service Threshold"
+msgid_plural "Delete Service Thresholds"
+msgstr[0] "Удалить порог услуги"
+msgstr[1] "Удалить пороги услуги"
+msgstr[2] "Удалить пороги услуги"
+
+msgid "Deleted Field"
+msgid_plural "Deleted Fields"
+msgstr[0] "Поле удалено"
+msgstr[1] "Поля удалены"
+msgstr[2] "Поля удалены"
+
+msgid "Deleted Field Threshold"
+msgid_plural "Deleted Field Thresholds"
+msgstr[0] "Порог поля удален"
+msgstr[1] "Пороги поля удалены"
+msgstr[2] "Пороги поля удалены"
+
+msgid "Deleted Group"
+msgid_plural "Deleted Groups"
+msgstr[0] "Группа удалена"
+msgstr[1] "Группы удалены"
+msgstr[2] "Группы удалены"
+
+msgid "Deleted Mapping"
+msgid_plural "Deleted Mappings"
+msgstr[0] "Сопоставление удалено"
+msgstr[1] "Сопоставления удалены"
+msgstr[2] "Сопоставления удалены"
+
+msgid "Deleted PyScript"
+msgid_plural "Deleted PyScripts"
+msgstr[0] "PyScript удален"
+msgstr[1] "PyScripts удалены"
+msgstr[2] "PyScripts удалены"
+
+msgid "Deleted Service"
+msgid_plural "Deleted Services"
+msgstr[0] "Услуга удалена"
+msgstr[1] "Услуги удалены"
+msgstr[2] "Услуги удалены"
+
+msgid "Deleted Service Threshold"
+msgid_plural "Deleted Service Thresholds"
+msgstr[0] "Порог услуги удален"
+msgstr[1] "Пороги услуги удалены"
+msgstr[2] "Пороги услуги удалены"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Description:"
+msgstr "Описание:"
+
+msgid "Direct Input"
+msgstr "Прямой ввод"
+
+msgid "Disable Module"
+msgid_plural "Disable Modules"
+msgstr[0] "Отключить модуль"
+msgstr[1] "Отключить модули"
+msgstr[2] "Отключить модули"
+
+msgid "Disabled Module"
+msgid_plural "Disabled Modules"
+msgstr[0] "Модуль отключен"
+msgstr[1] "Модули отключены"
+msgstr[2] "Модули отключены"
+
+msgid "Edit Field Threshold"
+msgstr "Изменить порог поля"
+
+msgid "Edit Mapping"
+msgstr "Изменить сопоставление"
+
+msgid "Edit Module Priority"
+msgstr "Изменить приоритет модуля"
+
+msgid "Edit Script"
+msgstr "Изменить скрипт"
+
+msgid "Edit Service Threshold"
+msgstr "Изменить порог услуги"
+
+msgid "Edit module priority"
+msgstr "Изменить приоритет модуля"
+
+msgid "Enable Module"
+msgid_plural "Enable Modules"
+msgstr[0] "Включить модуль"
+msgstr[1] "Включить модули"
+msgstr[2] "Включить модули"
+
+msgid "Enabled"
+msgstr "Включен"
+
+msgid "Enabled Module"
+msgid_plural "Enabled Modules"
+msgstr[0] "Модуль включен"
+msgstr[1] "Модули включены"
+msgstr[2] "Модули включены"
+
+msgid "Field"
+msgstr "Поле"
+
+msgid "Field ID"
+msgstr "ID поля"
+
+msgid "Field Mappings"
+msgstr "Сопоставления поля"
+
+msgid "Field Threshold"
+msgstr "Порог поля"
+
+msgid "Field Thresholds"
+msgstr "Пороги поля"
+
+msgid "Field was successfully created"
+msgstr "Поле успешно создано"
+
+msgid "Fields"
+msgstr "Поля"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Flat"
+msgstr "Фиксированный"
+
+msgid "Group"
+msgstr "Группа"
+
+msgid "Group Details"
+msgstr "Подробности группы"
+
+msgid "Group Name"
+msgstr "Имя группы"
+
+msgid "Group was successfully created"
+msgstr "Группа была успешно создана"
+
+msgid "Groups"
+msgstr "Группы"
+
+msgid "Hashmap"
+msgstr "Хэш-карта"
+
+msgid "Hot Config"
+msgstr "Активная конфигурация"
+
+msgid "Id"
+msgstr "Id"
+
+msgid "Legend"
+msgstr "Легенда"
+
+msgid "Level"
+msgstr "Уровень"
+
+msgid "Mapping"
+msgstr "Сопоставление"
+
+msgid "Mapping ID"
+msgstr "ID сопоставления"
+
+msgid "Mappings"
+msgstr "Сопоставления"
+
+msgid "Metric Type"
+msgstr "Тип измерения"
+
+msgid "Module"
+msgstr "Модуль"
+
+msgid "Modules"
+msgstr "Модули"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Not available"
+msgstr "Недоступно"
+
+msgid "Price"
+msgstr "Цена"
+
+msgid "Priority"
+msgstr "Приоритет"
+
+msgid "Project"
+msgstr "Проект"
+
+msgid "Project Details"
+msgstr "Подробности проекта"
+
+msgid "Project ID"
+msgstr "ID проекта"
+
+msgid "Project ID:"
+msgstr "ID проекта:"
+
+msgid "Project Name"
+msgstr "Имя проекта"
+
+msgid "Project Summary"
+msgstr "Сводка по проекту"
+
+msgid "Project Total"
+msgstr "Итого по проекту"
+
+msgid "PyScript"
+msgstr "PyScript"
+
+msgid "PyScripts"
+msgstr "PyScripts"
+
+msgid "Rate"
+msgstr "Процентный"
+
+msgid "Rating"
+msgstr "Оценка"
+
+msgid "Rating Information"
+msgstr "Информация об оценке"
+
+msgid "Rating Module Details"
+msgstr "Подробности модуля оценки"
+
+msgid "Rating Modules"
+msgstr "Модули оценки"
+
+msgid "Rating Script Source"
+msgstr "Источник скрипта оценки"
+
+msgid "Rating Summary"
+msgstr "Сводка оценок"
+
+msgid "Reporting"
+msgstr "Отчетность"
+
+msgid "Res Type"
+msgstr "Тип результата"
+
+msgid "Script Data"
+msgstr "Данные скрипта"
+
+msgid "Script Details"
+msgstr "Подробности скрипта"
+
+msgid "Script Details : {{ script.name }}"
+msgstr "Подробности скрипта : {{ script.name }}"
+
+msgid "Script Details : {{ table.project_id }}"
+msgstr "Подробности скрипта : {{ table.project_id }}"
+
+msgid "Script File"
+msgstr "Файл скрипта"
+
+msgid "Script ID"
+msgstr "ID скрипта"
+
+msgid "Service"
+msgstr "Услуга"
+
+msgid "Service ID"
+msgstr "ID услуги"
+
+msgid "Service Mappings"
+msgstr "Сопоставления услуги"
+
+msgid "Service Name"
+msgstr "Имя услуги"
+
+msgid "Service Threshold"
+msgstr "Порог услуги"
+
+msgid "Service Thresholds"
+msgstr "Пороги услуги"
+
+msgid "Service type"
+msgstr "Тип услуги"
+
+msgid "Service was successfully created"
+msgstr "Услуга была успешно создана"
+
+msgid "Services"
+msgstr "Услуги"
+
+msgid "Services are provided by main collector."
+msgstr "Услуги предоставляются основным сборщиком."
+
+msgid "Successfully created script"
+msgstr "Скрипт успешно создан"
+
+msgid "Successfully updated priority"
+msgstr "Приоритет успешно обновлен"
+
+msgid "Successfully updated script"
+msgstr "Скрипт успешно обновлен"
+
+msgid "Summary"
+msgstr "Сводка"
+
+#, python-format
+msgid "There was a problem parsing the %(prefix)s: %(error)s"
+msgstr "Возникла проблема при парсинге %(prefix)s: %(error)s"
+
+msgid "Threshold ID"
+msgstr "ID порога"
+
+msgid "Thresholds"
+msgstr "Пороги"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Unable to create field."
+msgstr "Не удалось создать поле."
+
+msgid "Unable to create group."
+msgstr "Не удалось создать группу."
+
+msgid "Unable to create new service."
+msgstr "Не удалось создать новую услугу."
+
+msgid "Unable to create script."
+msgstr "Не удалось создать скрипт."
+
+msgid "Unable to retrieve price."
+msgstr "Не удалось получить цену."
+
+msgid "Unable to update priority."
+msgstr "Не удалось обновить приоритет."
+
+msgid "Unable to update script."
+msgstr "Не удалось обновить скрипт."
+
+msgid "Unit"
+msgstr "Единица"
+
+msgid "Update Field Mapping"
+msgstr "Обновить сопоставление поля"
+
+msgid "Update Field Threshold"
+msgstr "Обновить порог поля"
+
+msgid "Update Mapping"
+msgstr "Обновить сопоставление"
+
+msgid "Update Script"
+msgstr "Обновить скрипт"
+
+msgid "Update Service Threshold"
+msgstr "Обновить порог услуги"
+
+msgid "Value"
+msgstr "Значение"
+
+msgid "id"
+msgstr "id"
+
+msgid "pyscripts"
+msgstr "pyscripts"
