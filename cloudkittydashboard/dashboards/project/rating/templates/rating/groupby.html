@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load static %}
+
+{{ groupby_list|json_script:"groupby_list_config" }}
+
+<!-- For select/unselect button translations -->
+<script id="groupby_translations" type="application/json">
+{
+  "select_all": "{% trans 'Select All' %}",
+  "unselect_all": "{% trans 'Unselect All' %}"
+}
+</script>
+<link rel="stylesheet" href="{% static 'cloudkitty/css/grouping.css' %}">
+<script src="{% static 'cloudkitty/js/grouping.js' %}" type="text/javascript" charset="utf-8"></script>
+
+<form method="GET" action="?" id="groupby_checkbox" class="groupby-form">
+  <h4>{% trans "Group by:" %}</h4>
+  <div id="checkboxes"></div>
+  <button class="btn btn-primary" id="toggleAll" type="button">
+    {% trans "Select All" %}
+  </button>
+  <button class="btn btn-primary" type="submit">{% trans "Submit" %}</button>
+</form>

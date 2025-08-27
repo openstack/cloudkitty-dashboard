@@ -15,6 +15,7 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
+from django.conf import settings
 from django import forms
 
 
@@ -32,7 +33,9 @@ class DateForm(forms.Form):
 
 class CheckBoxForm(forms.Form):
     """A form for selecting fields to group by in the rating summary."""
-    checkbox_fields = ["type", "id", "user_id"]
+    checkbox_fields = getattr(settings,
+                              'OPENSTACK_CLOUDKITTY_GROUPBY_LIST',
+                              ['type'])
     for field in checkbox_fields:
         locals()[field] = forms.BooleanField(required=False)
 

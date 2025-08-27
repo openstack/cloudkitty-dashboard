@@ -12,10 +12,13 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from horizon import tables
+
+from cloudkittydashboard.utils import formatTitle
 
 
 def get_details_link(datum):
@@ -37,12 +40,36 @@ class SummaryTable(tables.DataTable):
 
 
 class TenantSummaryTable(tables.DataTable):
-    res_type = tables.Column('type', verbose_name=_("Resource Type"))
+    groupby_list = getattr(settings,
+                           'OPENSTACK_CLOUDKITTY_GROUPBY_LIST',
+                           ['type'])
+
+    # Dynamically create columns based on groupby_list
+    for field in groupby_list:
+        locals()[field] = tables.Column(
+            field, verbose_name=_(formatTitle(field)))
+
     rate = tables.Column('rate', verbose_name=_("Rate"))
+
+    def __init__(self, request, data=None, needs_form_wrapper=None, **kwargs):
+        super().__init__(request, data, needs_form_wrapper, **kwargs)
+
+        #  Hide columns based on checkbox selection
+        for field in self.groupby_list:
+            if request.GET.get(field) != 'true':
+                self.columns[field].classes = ['hidden']
 
     class Meta(object):
         name = "tenant_summary"
         verbose_name = _("Project Summary")
 
     def get_object_id(self, datum):
-        return datum.get('type')
+        #  Prevents the table from displaying the same ID for different rows
+        id_parts = []
+        for field in self.groupby_list:
+            if field in datum and datum[field]:
+                id_parts.append(str(datum[field]))
+
+        if id_parts:
+            return '_'.join(id_parts)
+        return _('No IDs found')

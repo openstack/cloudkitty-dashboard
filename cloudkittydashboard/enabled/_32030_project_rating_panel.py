@@ -12,6 +12,8 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+AUTO_DISCOVER_STATIC_FILES = True
+
 PANEL_GROUP = 'rating'
 PANEL_DASHBOARD = 'project'
 PANEL = 'rating'
