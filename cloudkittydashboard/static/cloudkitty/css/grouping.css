@@ -1,0 +1,28 @@
+.groupby-form {
+text-align: left;
+margin: 0;
+padding: 0;
+}
+
+.groupby-form h4 {
+margin: 0 0 10px 0;
+}
+
+.groupby-form #checkboxes {
+margin-bottom: 10px;
+}
+
+.groupby-form .btn {
+margin: 0 10px 10px 0;
+}
+
+.group-label {
+display: inline-block;
+margin-right: 8px;
+margin-bottom: 5px;
+font-weight: normal;
+}
+
+.group-checkbox {
+margin-right: 5px;
+}

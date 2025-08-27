@@ -74,3 +74,18 @@ Some symbols (Such as Non-ASCII) might require to use unicode value directly.
    # British Pound
    OPENSTACK_CLOUDKITTY_RATE_PREFIX = '\xA3'
    OPENSTACK_CLOUDKITTY_RATE_POSTFIX = 'GBP'
+
+
+Rating Panel Grouping List
+--------------------------
+
+You can configure the list of metrics used for grouping in the rating panels.
+
+If no list is provided, it defaults to ``['type']``.
+
+Here's an example of setting the grouping list to include
+``type``, ``id`` and ``user_id``:
+
+.. code-block:: python
+
+   OPENSTACK_CLOUDKITTY_GROUPBY_LIST = ['type', 'id', 'user_id']
