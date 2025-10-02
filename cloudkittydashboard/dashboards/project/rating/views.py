@@ -52,7 +52,7 @@ class IndexView(tables.DataTableView):
 
 def quote(request):
     pricing = 0.0
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         if request.method == 'POST':
             json_data = json.loads(request.body)
 
