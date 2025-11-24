@@ -189,8 +189,8 @@ class ServiceMappingEditView(ServiceMappingCreateView):
 class FieldMappingCreateView(forms.ModalFormView):
     form_class = hashmap_forms.CreateFieldMappingForm
     form_id = "create_field_mapping"
-    modal_header = _("Create Field Mapping")
-    page_title = _("Create field Mapping")
+    modal_header = _("Create field mapping")
+    page_title = _("Create field mapping")
     template_name = 'admin/hashmap/mapping_create.html'
     submit_url = 'horizon:admin:hashmap:field_mapping_create'
     success_url = 'horizon:admin:hashmap:field_mapping_create'

@@ -55,7 +55,7 @@ class IndexView(tables.DataTableView):
 class TenantDetailsView(tables.DataTableView):
     template_name = 'admin/rating_summary/details.html'
     table_class = sum_tables.TenantSummaryTable
-    page_title = _("Script Details : {{ table.project_id }}")
+    page_title = _("Script details: {{ table.project_id }}")
 
     def _get_cloud_total_summary(self):
         return api.cloudkittyclient(self.request).report.get_summary(
