@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cloudkitty-dashboard VERSION\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/openstack-i18n/\n"
-"POT-Creation-Date: 2025-08-07 10:33+0000\n"
+"POT-Creation-Date: 2025-11-24 11:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,34 +16,8 @@ msgstr ""
 "X-Generator: Zanata 4.3.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#, python-format
-msgid ""
-"\n"
-"        Edit the priority for the <i>%(module_id)s</i> module.\n"
-"      "
-msgstr ""
-"\n"
-"        Edit the priority for the <i>%(module_id)s</i> module.\n"
-"      "
-
-#, python-format
-msgid ""
-"\n"
-"   <p>Usage data are collected every %(period)s seconds.</p>\n"
-"  "
-msgstr ""
-"\n"
-"   <p>Usage data are collected every %(period)s seconds.</p>\n"
-"  "
-
 msgid "$"
 msgstr "$"
-
-msgid "A field is referring to a metadata field of a resource. "
-msgstr "A field is referring to a metadata field of a resource. "
-
-msgid "A group is a way to group calculations of mappings."
-msgstr "A group is a way to group calculations of mappings."
 
 msgid "A mapping is the final object, it’s what triggers calculation."
 msgstr "A mapping is the final object, it’s what triggers calculation."
@@ -76,9 +50,6 @@ msgstr "Cost Per Service Per Hour"
 msgid "Create Field"
 msgstr "Create Field"
 
-msgid "Create Field Mapping"
-msgstr "Create Field Mapping"
-
 msgid "Create Field Threshold"
 msgstr "Create Field Threshold"
 
@@ -99,9 +70,6 @@ msgstr "Create Service Threshold"
 
 msgid "Create a new rating script."
 msgstr "Create a new rating script."
-
-msgid "Create field Mapping"
-msgstr "Create field Mapping"
 
 msgid "Create new Field"
 msgstr "Create new Field"
@@ -399,12 +367,6 @@ msgstr "Script Data"
 
 msgid "Script Details"
 msgstr "Script Details"
-
-msgid "Script Details : {{ script.name }}"
-msgstr "Script Details : {{ script.name }}"
-
-msgid "Script Details : {{ table.project_id }}"
-msgstr "Script Details : {{ table.project_id }}"
 
 msgid "Script File"
 msgstr "Script File"
