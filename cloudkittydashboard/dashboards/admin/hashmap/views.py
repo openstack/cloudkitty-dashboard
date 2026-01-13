@@ -13,6 +13,7 @@
 #    under the License.
 
 
+from cloudkittyclient import exc as ck_exc
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -41,7 +42,7 @@ class IndexView(tables.DataTableView):
             try:
                 service = manager.info.get_metric(metric_name=s['name'])
                 unit = service['unit']
-            except exceptions.NotFound:
+            except (exceptions.NotFound, ck_exc.HTTPNotFound):
                 unit = "-"
 
             list_services.append({
