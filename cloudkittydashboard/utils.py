@@ -27,7 +27,7 @@ class TemplatizableDict(dict):
 
 
 def formatRate(rate: float, prefix: str, postfix: str) -> str:
-    rate = str(rate)
+    rate = "{:.2f}".format(round(rate, 2))
     if prefix:
         rate = prefix + rate
     if postfix:
