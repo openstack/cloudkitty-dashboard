@@ -13,7 +13,7 @@
 #    under the License.
 
 
-from cloudkittyclient import exc as ck_exc
+from django.conf import settings
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -21,17 +21,93 @@ from horizon import forms
 from horizon import tables
 from horizon import tabs
 from horizon import views
-from keystoneauth1 import exceptions
 
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard.dashboards.admin.hashmap import forms as hashmap_forms
 from cloudkittydashboard.dashboards.admin.hashmap \
     import tables as hashmap_tables
+from cloudkittydashboard import utils
+
+rate_prefix = getattr(settings,
+                      'OPENSTACK_CLOUDKITTY_RATE_PREFIX', None)
+rate_postfix = getattr(settings,
+                       'OPENSTACK_CLOUDKITTY_RATE_POSTFIX', None)
 
 
 class IndexView(tables.DataTableView):
     table_class = hashmap_tables.ServicesTable
     template_name = "admin/hashmap/services_list.html"
+
+    def _get_rating_rules(self):
+        """Fetch all hashmap rating rules (services, fields, and mappings)."""
+        try:
+            client = api.cloudkittyclient(self.request, version='1')
+            hashmap = client.rating.hashmap
+            rating_rules = []
+
+            # Get all services
+            services_response = hashmap.get_service()
+            services = services_response.get('services', [])
+
+            for service in services:
+                service_id = service.get('service_id')
+                service_name = service.get('name', 'Unknown')
+
+                # Get service-level mappings (no field)
+                try:
+                    service_mappings = hashmap.get_mapping(
+                        service_id=service_id)
+                    for mapping in service_mappings.get('mappings', []):
+                        cost = float(mapping.get('cost', 0))
+                        rating_rules.append({
+                            'service': service_name,
+                            'field': '-',
+                            'value': mapping.get('value') or '(all)',
+                            'type': mapping.get('type', 'flat'),
+                            'cost': cost,
+                            'cost_display': utils.formatRate(
+                                cost, rate_prefix, rate_postfix),
+                        })
+                except Exception:
+                    pass
+
+                # Get fields for this service
+                try:
+                    fields_response = hashmap.get_field(service_id=service_id)
+                    fields = fields_response.get('fields', [])
+
+                    for field in fields:
+                        field_id = field.get('field_id')
+                        field_name = field.get('name', 'Unknown')
+
+                        # Get field-level mappings
+                        try:
+                            field_mappings = hashmap.get_mapping(
+                                field_id=field_id)
+                            for mapping in field_mappings.get('mappings', []):
+                                cost = float(mapping.get('cost', 0))
+                                rating_rules.append({
+                                    'service': service_name,
+                                    'field': field_name,
+                                    'value': mapping.get('value') or '(all)',
+                                    'type': mapping.get('type', 'flat'),
+                                    'cost': cost,
+                                    'cost_display': utils.formatRate(
+                                        cost, rate_prefix, rate_postfix),
+                                })
+                        except Exception:
+                            pass
+                except Exception:
+                    pass
+
+            return rating_rules
+        except Exception:
+            return []
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['rating_rules'] = self._get_rating_rules()
+        return context
 
     def get_data(self):
         manager = api.cloudkittyclient(self.request)
@@ -42,7 +118,7 @@ class IndexView(tables.DataTableView):
             try:
                 service = manager.info.get_metric(metric_name=s['name'])
                 unit = service['unit']
-            except (exceptions.NotFound, ck_exc.HTTPNotFound):
+            except Exception:
                 unit = "-"
 
             list_services.append({
