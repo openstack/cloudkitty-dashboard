@@ -37,9 +37,12 @@ class SummaryTable(tables.DataTable):
 
 
 class TenantSummaryTable(tables.DataTable):
-    res_type = tables.Column('res_type', verbose_name=_("Res Type"))
+    res_type = tables.Column('type', verbose_name=_("Resource Type"))
     rate = tables.Column('rate', verbose_name=_("Rate"))
 
     class Meta(object):
         name = "tenant_summary"
         verbose_name = _("Project Summary")
+
+    def get_object_id(self, datum):
+        return datum.get('type')

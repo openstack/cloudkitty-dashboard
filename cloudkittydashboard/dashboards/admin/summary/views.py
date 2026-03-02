@@ -33,23 +33,28 @@ class IndexView(tables.DataTableView):
     table_class = sum_tables.SummaryTable
 
     def get_data(self):
-        summary = api.cloudkittyclient(self.request).report.get_summary(
-            groupby=['tenant_id'], all_tenants=True)['summary']
+        summary = api.cloudkittyclient(
+            self.request, version='2').summary.get_summary(
+                groupby=['project_id'],
+                response_format='object')
 
-        tenants, _ = api_keystone.tenant_list(self.request)
+        tenants, unused = api_keystone.tenant_list(self.request)
         tenants = {tenant.id: tenant.name for tenant in tenants}
-        summary.append({
-            'tenant_id': 'ALL',
-            'rate': sum([float(item['rate']) for item in summary]),
+        data = summary.get('results')
+
+        total = sum([r.get('rate') for r in data])
+        data.append({
+            'project_id': 'ALL',
+            'rate': total,
         })
-        summary = api.identify(summary, key='tenant_id')
-        for tenant in summary:
+        data = api.identify(data, key='project_id')
+        for tenant in data:
+            tenant['tenant_id'] = tenant.get('project_id')
             tenant['name'] = tenants.get(tenant.id, '-')
-        summary[-1]['name'] = 'Cloud Total'
-        for tenant in summary:
             tenant['rate'] = utils.formatRate(tenant['rate'],
                                               rate_prefix, rate_postfix)
-        return summary
+        data[-1]['name'] = _('Cloud Total')
+        return data
 
 
 class TenantDetailsView(tables.DataTableView):
@@ -57,25 +62,25 @@ class TenantDetailsView(tables.DataTableView):
     table_class = sum_tables.TenantSummaryTable
     page_title = _("Script details: {{ table.project_id }}")
 
-    def _get_cloud_total_summary(self):
-        return api.cloudkittyclient(self.request).report.get_summary(
-            groupby=['res_type'], all_tenants=True)['summary']
-
     def get_data(self):
         tenant_id = self.kwargs['project_id']
-        if tenant_id == 'ALL':
-            summary = self._get_cloud_total_summary()
-        else:
-            summary = api.cloudkittyclient(self.request).report.get_summary(
-                groupby=['res_type'], tenant_id=tenant_id)['summary']
 
-        summary.append({
-            'tenant_id': tenant_id,
-            'res_type': 'TOTAL',
-            'rate': sum([float(item['rate']) for item in summary]),
-        })
-        summary = api.identify(summary, key='res_type', name=True)
-        for item in summary:
+        if tenant_id == 'ALL':
+            summary = api.cloudkittyclient(
+                self.request, version='2').summary.get_summary(
+                groupby=['type'], response_format='object')
+        else:
+            summary = api.cloudkittyclient(
+                self.request, version='2').summary.get_summary(
+                    filters={'project_id': tenant_id},
+                    groupby=['type'], response_format='object')
+
+        data = summary.get('results')
+        total = sum([r.get('rate') for r in data])
+        data.append({'type': 'TOTAL', 'rate': total})
+
+        for item in data:
             item['rate'] = utils.formatRate(item['rate'],
                                             rate_prefix, rate_postfix)
-        return summary
+
+        return data
