@@ -13,6 +13,8 @@
 # under the License.
 #
 
+AUTO_DISCOVER_STATIC_FILES = True
+
 PANEL_GROUP = 'rating'
 PANEL_DASHBOARD = 'project'
 PANEL = 'reporting'

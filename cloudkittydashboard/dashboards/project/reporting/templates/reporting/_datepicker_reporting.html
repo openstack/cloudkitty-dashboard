@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% block trimmed %}
+<div class="input-group date">
+  {{ datepicker_input }}
+  <label class="sr-only">{{ datepicker_label }}</label>
+  <span class="input-group-addon datepicker-addon">
+    <span class="fa fa-calendar"></span>
+  </span>
+</div>
+<script>
+  $(function () {
+    $('.datepicker input').datepicker({
+      todayBtn: "linked", // Enables the today button which quickly links back to today
+      endDate: '0d', // Prevents the user from picking a date in the future
+    });
+  });
+</script>
+{% endblock %}
