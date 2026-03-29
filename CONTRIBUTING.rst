@@ -1,5 +1,5 @@
 The source repository for this project can be found at:
-  
+
    https://opendev.org/openstack/cloudkitty-dashboard
 
 Pull requests submitted through GitHub are not monitored.

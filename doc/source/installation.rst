@@ -56,14 +56,14 @@ For more details about how to add variables to Horizon settings checkout the
 Rate Pre/Postfix
 ----------------
 
-You can configure pre/postfix to rate vaules shown at the dashboard.
+You can configure pre/postfix to rate values shown at the dashboard.
 
 Here's example of setting rate currency to US Dollar.
 
 .. code-block:: python
 
    # You can choose to have prefix or postfix or both.
-   # Prefix and postfix are not mutally exclusive.
+   # Prefix and postfix are not mutually exclusive.
    OPENSTACK_CLOUDKITTY_RATE_PREFIX = '$'
    OPENSTACK_CLOUDKITTY_RATE_POSTFIX = 'USD'
 
