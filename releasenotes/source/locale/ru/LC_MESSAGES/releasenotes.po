@@ -1,15 +1,17 @@
 # Dmitriy Chubinidze <dcu995@gmail.com>, 2025. #zanata
 # Ivan Anfimov <lazekteam@gmail.com>, 2025. #zanata
+# Dmitriy Chubinidze <dcu995@gmail.com>, 2026. #zanata
+# Ivan Anfimov <lazekteam@gmail.com>, 2026. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Cloudkitty Dashboard Release Notes\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 10:48+0000\n"
+"POT-Creation-Date: 2026-03-27 09:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2025-11-19 10:58+0000\n"
-"Last-Translator: Ivan Anfimov <lazekteam@gmail.com>\n"
+"PO-Revision-Date: 2026-03-27 04:25+0000\n"
+"Last-Translator: Dmitriy Chubinidze <dcu995@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
 "X-Generator: Zanata 4.3.3\n"
@@ -58,8 +60,14 @@ msgstr "Примечания к выпуску 2025.1"
 msgid "2025.2 Series Release Notes"
 msgstr "Примечания к выпуску 2025.2"
 
+msgid "2026.1 Series Release Notes"
+msgstr "Примечания к выпуску 2026.1"
+
 msgid "21.0.0"
 msgstr "21.0.0"
+
+msgid "22.0.0.0rc1"
+msgstr "22.0.0.0rc1"
 
 msgid "8.1.0"
 msgstr "8.1.0"
@@ -206,6 +214,11 @@ msgstr "Примечания к выпуску Train"
 
 msgid "Upgrade Notes"
 msgstr "Примечания к обновлению"
+
+msgid "Upgrades the CloudKitty API from v1 to v2 in the admin/rating panel."
+msgstr ""
+"Обновлено API CloudKitty с версии 1 до версии 2 в панели администратора/"
+"оценок."
 
 msgid "Ussuri Series Release Notes"
 msgstr "Примечания к выпуску Ussuri"
