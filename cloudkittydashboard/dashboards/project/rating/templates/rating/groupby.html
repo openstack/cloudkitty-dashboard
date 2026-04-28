@@ -13,11 +13,11 @@
 <link rel="stylesheet" href="{% static 'cloudkitty/css/grouping.css' %}">
 <script src="{% static 'cloudkitty/js/grouping.js' %}" type="text/javascript" charset="utf-8"></script>
 
-<form method="GET" action="?" id="groupby_checkbox" class="groupby-form">
-  <h4>{% trans "Group by:" %}</h4>
+<form method="GET" action="?" id="groupby_checkbox" class="groupby-form groupby-inline">
+  <strong>{% trans "Group by:" %}</strong>
   <div id="checkboxes"></div>
-  <button class="btn btn-primary" id="toggleAll" type="button">
+  <button class="btn btn-primary btn-sm" id="toggleAll" type="button">
     {% trans "Select All" %}
   </button>
-  <button class="btn btn-primary" type="submit">{% trans "Submit" %}</button>
+  <button class="btn btn-primary btn-sm" type="submit">{% trans "Submit" %}</button>
 </form>

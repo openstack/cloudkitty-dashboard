@@ -26,3 +26,25 @@ font-weight: normal;
 .group-checkbox {
 margin-right: 5px;
 }
+
+.groupby-inline {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 15px;
+}
+
+.groupby-inline strong {
+white-space: nowrap;
+}
+
+.groupby-inline #checkboxes {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 0;
+}
+
+.groupby-inline .btn {
+margin: 0;
+}
