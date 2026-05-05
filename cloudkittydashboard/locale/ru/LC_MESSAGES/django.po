@@ -1,15 +1,16 @@
 # Dmitriy Chubinidze <dcu995@gmail.com>, 2025. #zanata
 # Ivan Anfimov <lazekteam@gmail.com>, 2025. #zanata
+# Dmitriy Chubinidze <dcu995@gmail.com>, 2026. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: cloudkitty-dashboard VERSION\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/openstack-i18n/\n"
-"POT-Creation-Date: 2026-04-28 10:46+0000\n"
+"POT-Creation-Date: 2026-05-04 09:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2025-11-25 08:34+0000\n"
-"Last-Translator: Ivan Anfimov <lazekteam@gmail.com>\n"
+"PO-Revision-Date: 2026-05-04 09:51+0000\n"
+"Last-Translator: Dmitriy Chubinidze <dcu995@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
 "X-Generator: Zanata 4.3.3\n"
@@ -35,6 +36,9 @@ msgstr ""
 "Разделение групп гарантирует независимость вычислений и отсутствие помех "
 "друг другу."
 
+msgid "A mapping is the final object that triggers calculation."
+msgstr "Сопоставление — это конечный объект, именно он запускает расчет."
+
 msgid "A script or set of python commands to modify rating calculations."
 msgstr "Скрипт или набор команд Python для изменения расчетов оценки."
 
@@ -51,8 +55,20 @@ msgstr ""
 "уровня. Его поведение похоже на сопоставление, за исключением того, что оно "
 "применяет базовую стоимость на основе уровня."
 
+msgid "Applied Rating Rules"
+msgstr "Примененные правила оценки"
+
+msgid "Based on current usage"
+msgstr "Исходя из текущего использования"
+
 msgid "Checksum"
 msgstr "Контрольная сумма"
+
+msgid "Click on a metric to remove it from the pie chart."
+msgstr "Нажмите на показатель, чтобы удалить его с круговой диаграммы."
+
+msgid "Cloud Total"
+msgstr "Облака всего"
 
 msgid "Configurable"
 msgstr "Настраиваемый"
@@ -62,6 +78,9 @@ msgstr "Стоимость"
 
 msgid "Cost Per Service Per Hour"
 msgstr "Стоимость услуги в час"
+
+msgid "Costs Breakdown Comparison"
+msgstr "Сравнение структуры затрат"
 
 msgid "Create Field"
 msgstr "Создать поле"
@@ -111,6 +130,15 @@ msgstr "Создать новый порог услуги"
 msgid "Cumulative Cost Repartition"
 msgstr "Перераспределение совокупной стоимости"
 
+msgid "Current Cost"
+msgstr "Текущая стоимость"
+
+msgid "Current Month"
+msgstr "Текущий месяц"
+
+msgid "Current Month Breakdown"
+msgstr "Разбивка по текущему месяцу"
+
 msgid "Custom service"
 msgstr "Пользовательская услуга"
 
@@ -123,6 +151,12 @@ msgstr ""
 
 msgid "Data"
 msgstr "Данные"
+
+msgid "Day"
+msgstr "День"
+
+msgid "Day View"
+msgstr "Просмотр по дням"
 
 msgid "Delete Field"
 msgid_plural "Delete Fields"
@@ -296,6 +330,9 @@ msgstr "Файл"
 msgid "Flat"
 msgstr "Фиксированный"
 
+msgid "Forecasted Month End"
+msgstr "Прогнозируемый конец месяца"
+
 msgid "Group"
 msgstr "Группа"
 
@@ -304,6 +341,9 @@ msgstr "Подробности группы"
 
 msgid "Group Name"
 msgstr "Имя группы"
+
+msgid "Group by:"
+msgstr "Группировать по:"
 
 msgid "Group was successfully created"
 msgstr "Группа была успешно создана"
@@ -319,6 +359,38 @@ msgstr "Активная конфигурация"
 
 msgid "Id"
 msgstr "Id"
+
+msgid "Invalid date format: Using this month as default."
+msgstr "Неверный формат даты: по умолчанию используется этот месяц."
+
+msgid ""
+"Invalid time period. The end date should be more recent than the start date. "
+"Setting the end as today."
+msgstr ""
+"Неверный временной период. Дата окончания должна быть более поздней, чем "
+"дата начала. Установлена ​​дата окончания на сегодняшний день."
+
+msgid ""
+"Invalid time period. You are requesting data from the future which may not "
+"exist."
+msgstr ""
+"Неверный временной период. Вы запрашиваете данные из будущего, которого "
+"может и не существовать."
+
+msgid "Last 3 Months"
+msgstr "Прошлые 3 месяца"
+
+msgid "Last 6 Months"
+msgstr "Прошлые 6 месяцев"
+
+msgid "Last Month"
+msgstr "Прошлый месяц"
+
+msgid "Last Week"
+msgstr "Прошлая неделя"
+
+msgid "Last Year"
+msgstr "Прошлый год"
 
 msgid "Legend"
 msgstr "Легенда"
@@ -344,11 +416,38 @@ msgstr "Модуль"
 msgid "Modules"
 msgstr "Модули"
 
+msgid "Month View"
+msgstr "Просмотр по месяцам"
+
 msgid "Name"
 msgstr "Имя"
 
+msgid "No IDs found"
+msgstr "ID не найдены"
+
+msgid "No data available"
+msgstr "Данные отсутствуют"
+
+msgid "No data available for chart"
+msgstr "Данные для диаграммы отсутствуют"
+
+msgid "No rating rules configured"
+msgstr "Правила оценки не настроены"
+
+msgid "No resources found"
+msgstr "Ресурсы не найдены"
+
 msgid "Not available"
 msgstr "Недоступно"
+
+msgid "Percentage"
+msgstr "Процент"
+
+msgid "Period Range"
+msgstr "Диапазон периодов"
+
+msgid "Preset Ranges"
+msgstr "Заданные диапазоны"
 
 msgid "Price"
 msgstr "Цена"
@@ -377,6 +476,9 @@ msgstr "Сводка по проекту"
 msgid "Project Total"
 msgstr "Итого по проекту"
 
+msgid "Projected total"
+msgstr "Прогнозируемый итог"
+
 msgid "PyScript"
 msgstr "PyScript"
 
@@ -388,6 +490,9 @@ msgstr "Процентный"
 
 msgid "Rating"
 msgstr "Оценка"
+
+msgid "Rating Dashboard"
+msgstr "Панель оценок"
 
 msgid "Rating Information"
 msgstr "Информация об оценке"
@@ -407,6 +512,9 @@ msgstr "Сводка оценок"
 msgid "Reporting"
 msgstr "Отчетность"
 
+msgid "Resource ID"
+msgstr "ID ресурса"
+
 msgid "Script Data"
 msgstr "Данные скрипта"
 
@@ -421,6 +529,12 @@ msgstr "ID скрипта"
 
 msgid "Script details: {{ script.name }}"
 msgstr "Подробности скрипта: {{ script.name }}"
+
+msgid "Select All"
+msgstr "Выбрать все"
+
+msgid "Select a period of time to view data in:"
+msgstr "Выберите период времени для просмотра данных:"
 
 msgid "Service"
 msgstr "Услуга"
@@ -452,6 +566,9 @@ msgstr "Услуги"
 msgid "Services are provided by main collector."
 msgstr "Услуги предоставляются основным сборщиком."
 
+msgid "Submit"
+msgstr "Отправить"
+
 msgid "Successfully created script"
 msgstr "Скрипт успешно создан"
 
@@ -464,15 +581,27 @@ msgstr "Скрипт успешно обновлен"
 msgid "Summary"
 msgstr "Сводка"
 
+msgid "The date should be in YYYY-MM-DD format."
+msgstr "Дата должна быть в формате ГГГГ-ММ-ДД."
+
 #, python-format
 msgid "There was a problem parsing the %(prefix)s: %(error)s"
 msgstr "Возникла проблема при парсинге %(prefix)s: %(error)s"
+
+msgid "This month"
+msgstr "В этом месяце"
 
 msgid "Threshold ID"
 msgstr "ID порога"
 
 msgid "Thresholds"
 msgstr "Пороги"
+
+msgid "Top Cost Generators"
+msgstr "Генераторы самых высоких затрат"
+
+msgid "Total spent"
+msgstr "Израсходовано всего"
 
 msgid "Type"
 msgstr "Тип"
@@ -501,6 +630,9 @@ msgstr "Не удалось обновить скрипт."
 msgid "Unit"
 msgstr "Единица"
 
+msgid "Unselect All"
+msgstr "Снять выбор со всех"
+
 msgid "Update Field Mapping"
 msgstr "Обновить сопоставление поля"
 
@@ -523,8 +655,23 @@ msgstr "Данные о потреблении собираются каждые
 msgid "Value"
 msgstr "Значение"
 
+msgid "Week View"
+msgstr "Просмотр по неделям"
+
+msgid "Year View"
+msgstr "Просмотр по годам"
+
+msgid "Yesterday"
+msgstr "Вчера"
+
 msgid "id"
 msgstr "id"
 
+msgid "of"
+msgstr "из"
+
 msgid "pyscripts"
 msgstr "pyscripts"
+
+msgid "to"
+msgstr "до"
