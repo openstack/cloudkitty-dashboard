@@ -2,13 +2,20 @@
 Installation
 ============
 
+.. note::
+
+  In the commands below, substitute "<release>" for your version of choice,
+  such as "queens" or "rocky".
+
+  If you use the development version, replace "stable/<release>" with "master".
+
 Retrieve and install CloudKitty dashboard:
 
 ::
 
     git clone https://opendev.org/openstack/cloudkitty-dashboard
     cd cloudkitty-dashboard
-    python setup.py install
+    pip install -c https://opendev.org/openstack/requirements/raw/branch/stable/<release>/upper-constraints.txt.
 
 
 Find where the python packages are installed:
