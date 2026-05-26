@@ -34,7 +34,7 @@
         'image_id': $scope.model.newInstanceSpec.source[0].id,
       }
 
-      var form_data = [{"desc": desc_form, "volume": $scope.model.newInstanceSpec.instance_count}];
+      var form_data = [{"desc": {"metadata": desc_form }, "volume": $scope.model.newInstanceSpec.instance_count}];
 
       $http.post($window.WEBROOT + 'project/rating/quote', form_data).then(function(res, status) {
         $scope.price = res.data;
