@@ -31,5 +31,7 @@ classifiers = [
 Homepage = "https://docs.openstack.org/cloudkitty-dashboard/latest/"
 Repository = "https://opendev.org/openstack/cloudkitty-dashboard"
 
-[tool.setuptools.packages.find]
-include = ["cloudkittydashboard*"]
+[tool.setuptools]
+packages = [
+    "cloudkittydashboard"
+]
