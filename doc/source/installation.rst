@@ -15,7 +15,7 @@ Retrieve and install CloudKitty dashboard:
 
     git clone https://opendev.org/openstack/cloudkitty-dashboard
     cd cloudkitty-dashboard
-    pip install -c https://opendev.org/openstack/requirements/raw/branch/stable/<release>/upper-constraints.txt.
+    pip install -c https://opendev.org/openstack/requirements/raw/branch/stable/<release>/upper-constraints.txt .
 
 
 Find where the python packages are installed:
