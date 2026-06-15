@@ -1,0 +1,12 @@
+---
+features:
+  - |
+    The project rating dashboard has been enhanced with summary cards
+    showing current month cost, forecasted month-end total, and last
+    month cost. A cost breakdown table with percentage bars and a top
+    cost generators table have also been added.
+  - |
+    The admin hashmap panel now displays all configured rating rules
+    (services, fields, and mappings) in a summary table, giving
+    administrators a quick overview of the pricing applied to resources.
+
