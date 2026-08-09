@@ -1,15 +1,13 @@
-# Andi Chandler <andi@gowling.com>, 2018. #zanata
-# Andi Chandler <andi@gowling.com>, 2019. #zanata
-# Andi Chandler <andi@gowling.com>, 2020. #zanata
+# Andi Chandler <andi@gowling.com>, 2026. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: cloudkitty-dashboard VERSION\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/openstack-i18n/\n"
-"POT-Creation-Date: 2025-11-24 11:31+0000\n"
+"POT-Creation-Date: 2026-07-28 18:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-10-03 10:01+0000\n"
+"PO-Revision-Date: 2026-08-08 09:43+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom)\n"
 "Language: en_GB\n"
@@ -19,27 +17,14 @@ msgstr ""
 msgid "$"
 msgstr "$"
 
-msgid "A mapping is the final object, it’s what triggers calculation."
-msgstr "A mapping is the final object, it’s what triggers calculation."
+msgid "Based on current usage"
+msgstr "Based on current usage"
 
-msgid "A script or set of python commands to modify rating calculations."
-msgstr "A script or set of Python commands to modify rating calculations."
+msgid "Click on a metric to remove it from the pie chart."
+msgstr "Click on a metric to remove it from the pie chart."
 
-msgid "A service is a way to map the rule to the type of data collected."
-msgstr "A service is a way to map the rule to the type of data collected."
-
-msgid ""
-"A threshold entry is used to apply rating rules base on level. Its behaviour "
-"is similar to a mapping except that it applies the cost base on the level."
-msgstr ""
-"A threshold entry is used to apply rating rules base on level. Its behaviour "
-"is similar to a mapping except that it applies the cost base on the level."
-
-msgid "Checksum"
-msgstr "Checksum"
-
-msgid "Configurable"
-msgstr "Configurable"
+msgid "Cloud Total"
+msgstr "Cloud Total"
 
 msgid "Cost"
 msgstr "Cost"
@@ -47,41 +32,14 @@ msgstr "Cost"
 msgid "Cost Per Service Per Hour"
 msgstr "Cost Per Service Per Hour"
 
-msgid "Create Field"
-msgstr "Create Field"
-
-msgid "Create Field Threshold"
-msgstr "Create Field Threshold"
-
-msgid "Create Group"
-msgstr "Create Group"
-
-msgid "Create Mapping"
-msgstr "Create Mapping"
-
-msgid "Create Script"
-msgstr "Create Script"
-
-msgid "Create Service"
-msgstr "Create Service"
-
-msgid "Create Service Threshold"
-msgstr "Create Service Threshold"
-
-msgid "Create a new rating script."
-msgstr "Create a new rating script."
-
-msgid "Create new Field"
-msgstr "Create new Field"
+msgid "Costs Breakdown Comparison"
+msgstr "Costs Breakdown Comparison"
 
 msgid "Create new Field Threshold"
 msgstr "Create new Field Threshold"
 
 msgid "Create new Group"
 msgstr "Create new Group"
-
-msgid "Create new Mapping"
-msgstr "Create new Mapping"
 
 msgid "Create new Service"
 msgstr "Create new Service"
@@ -92,6 +50,15 @@ msgstr "Create new Service Threshold"
 msgid "Cumulative Cost Repartition"
 msgstr "Cumulative Cost Repartition"
 
+msgid "Current Cost"
+msgstr "Current Cost"
+
+msgid "Current Month"
+msgstr "Current Month"
+
+msgid "Current Month Breakdown"
+msgstr "Current Month Breakdown"
+
 msgid "Custom service"
 msgstr "Custom service"
 
@@ -101,131 +68,31 @@ msgstr "Custom service cannot be empty."
 msgid "Custom services can be defined for any additional collector."
 msgstr "Custom services can be defined for any additional collector."
 
-msgid "Data"
-msgstr "Data"
+msgid "Day"
+msgstr "Day"
 
-msgid "Delete Field"
-msgid_plural "Delete Fields"
-msgstr[0] "Delete Field"
-msgstr[1] "Delete Fields"
-
-msgid "Delete Field Threshold"
-msgid_plural "Delete Field Thresholds"
-msgstr[0] "Delete Field Threshold"
-msgstr[1] "Delete Field Thresholds"
+msgid "Day View"
+msgstr "Day View"
 
 msgid "Delete Group"
 msgid_plural "Delete Groups"
 msgstr[0] "Delete Group"
 msgstr[1] "Delete Groups"
 
-msgid "Delete Mapping"
-msgid_plural "Delete Mappings"
-msgstr[0] "Delete Mapping"
-msgstr[1] "Delete Mappings"
-
-msgid "Delete PyScript"
-msgid_plural "Delete PyScripts"
-msgstr[0] "Delete PyScript"
-msgstr[1] "Delete PyScripts"
-
-msgid "Delete Script"
-msgstr "Delete Script"
-
 msgid "Delete Service"
 msgid_plural "Delete Services"
 msgstr[0] "Delete Service"
 msgstr[1] "Delete Services"
-
-msgid "Delete Service Threshold"
-msgid_plural "Delete Service Thresholds"
-msgstr[0] "Delete Service Threshold"
-msgstr[1] "Delete Service Thresholds"
-
-msgid "Deleted Field"
-msgid_plural "Deleted Fields"
-msgstr[0] "Deleted Field"
-msgstr[1] "Deleted Fields"
-
-msgid "Deleted Field Threshold"
-msgid_plural "Deleted Field Thresholds"
-msgstr[0] "Deleted Field Threshold"
-msgstr[1] "Deleted Field Thresholds"
 
 msgid "Deleted Group"
 msgid_plural "Deleted Groups"
 msgstr[0] "Deleted Group"
 msgstr[1] "Deleted Groups"
 
-msgid "Deleted Mapping"
-msgid_plural "Deleted Mappings"
-msgstr[0] "Deleted Mapping"
-msgstr[1] "Deleted Mappings"
-
-msgid "Deleted PyScript"
-msgid_plural "Deleted PyScripts"
-msgstr[0] "Deleted PyScript"
-msgstr[1] "Deleted PyScripts"
-
 msgid "Deleted Service"
 msgid_plural "Deleted Services"
 msgstr[0] "Deleted Service"
 msgstr[1] "Deleted Services"
-
-msgid "Deleted Service Threshold"
-msgid_plural "Deleted Service Thresholds"
-msgstr[0] "Deleted Service Threshold"
-msgstr[1] "Deleted Service Thresholds"
-
-msgid "Description"
-msgstr "Description"
-
-msgid "Description:"
-msgstr "Description:"
-
-msgid "Direct Input"
-msgstr "Direct Input"
-
-msgid "Disable Module"
-msgid_plural "Disable Modules"
-msgstr[0] "Disable Module"
-msgstr[1] "Disable Modules"
-
-msgid "Disabled Module"
-msgid_plural "Disabled Modules"
-msgstr[0] "Disabled Module"
-msgstr[1] "Disabled Modules"
-
-msgid "Edit Field Threshold"
-msgstr "Edit Field Threshold"
-
-msgid "Edit Mapping"
-msgstr "Edit Mapping"
-
-msgid "Edit Module Priority"
-msgstr "Edit Module Priority"
-
-msgid "Edit Script"
-msgstr "Edit Script"
-
-msgid "Edit Service Threshold"
-msgstr "Edit Service Threshold"
-
-msgid "Edit module priority"
-msgstr "Edit module priority"
-
-msgid "Enable Module"
-msgid_plural "Enable Modules"
-msgstr[0] "Enable Module"
-msgstr[1] "Enable Modules"
-
-msgid "Enabled"
-msgstr "Enabled"
-
-msgid "Enabled Module"
-msgid_plural "Enabled Modules"
-msgstr[0] "Enabled Module"
-msgstr[1] "Enabled Modules"
 
 msgid "Field"
 msgstr "Field"
@@ -233,35 +100,20 @@ msgstr "Field"
 msgid "Field ID"
 msgstr "Field ID"
 
-msgid "Field Mappings"
-msgstr "Field Mappings"
-
-msgid "Field Threshold"
-msgstr "Field Threshold"
-
-msgid "Field Thresholds"
-msgstr "Field Thresholds"
-
 msgid "Field was successfully created"
 msgstr "Field was successfully created"
-
-msgid "Fields"
-msgstr "Fields"
-
-msgid "File"
-msgstr "File"
 
 msgid "Flat"
 msgstr "Flat"
 
+msgid "Forecasted Month End"
+msgstr "Forecasted Month End"
+
 msgid "Group"
 msgstr "Group"
 
-msgid "Group Details"
-msgstr "Group Details"
-
-msgid "Group Name"
-msgstr "Group Name"
+msgid "Group by:"
+msgstr "Group by:"
 
 msgid "Group was successfully created"
 msgstr "Group was successfully created"
@@ -272,11 +124,37 @@ msgstr "Groups"
 msgid "Hashmap"
 msgstr "Hashmap"
 
-msgid "Hot Config"
-msgstr "Hot Config"
+msgid "Invalid date format: Using this month as default."
+msgstr "Invalid date format: Using this month as default."
 
-msgid "Id"
-msgstr "Id"
+msgid ""
+"Invalid time period. The end date should be more recent than the start date. "
+"Setting the end as today."
+msgstr ""
+"Invalid time period. The end date should be more recent than the start date. "
+"Setting the end as today."
+
+msgid ""
+"Invalid time period. You are requesting data from the future which may not "
+"exist."
+msgstr ""
+"Invalid time period. You are requesting data from the future which may not "
+"exist."
+
+msgid "Last 3 Months"
+msgstr "Last 3 Months"
+
+msgid "Last 6 Months"
+msgstr "Last 6 Months"
+
+msgid "Last Month"
+msgstr "Last Month"
+
+msgid "Last Week"
+msgstr "Last Week"
+
+msgid "Last Year"
+msgstr "Last Year"
 
 msgid "Legend"
 msgstr "Legend"
@@ -284,56 +162,47 @@ msgstr "Legend"
 msgid "Level"
 msgstr "Level"
 
-msgid "Mapping"
-msgstr "Mapping"
-
 msgid "Mapping ID"
 msgstr "Mapping ID"
-
-msgid "Mappings"
-msgstr "Mappings"
 
 msgid "Metric Type"
 msgstr "Metric Type"
 
-msgid "Module"
-msgstr "Module"
-
-msgid "Modules"
-msgstr "Modules"
+msgid "Month View"
+msgstr "Month View"
 
 msgid "Name"
 msgstr "Name"
 
-msgid "Not available"
-msgstr "Not available"
+msgid "No IDs found"
+msgstr "No IDs found"
 
-msgid "Price"
-msgstr "Price"
+msgid "No data available"
+msgstr "No data available"
 
-msgid "Priority"
-msgstr "Priority"
+msgid "No data available for chart"
+msgstr "No data available for chart"
 
-msgid "Project"
-msgstr "Project"
+msgid "No resources found"
+msgstr "No resources found"
 
-msgid "Project ID"
-msgstr "Project ID"
+msgid "Percentage"
+msgstr "Percentage"
+
+msgid "Period Range"
+msgstr "Period Range"
+
+msgid "Preset Ranges"
+msgstr "Preset Ranges"
+
+msgid "Project Details"
+msgstr "Project Details"
 
 msgid "Project ID:"
 msgstr "Project ID:"
 
-msgid "Project Name"
-msgstr "Project Name"
-
-msgid "Project Total"
-msgstr "Project Total"
-
-msgid "PyScript"
-msgstr "PyScript"
-
-msgid "PyScripts"
-msgstr "PyScripts"
+msgid "Projected total"
+msgstr "Projected total"
 
 msgid "Rate"
 msgstr "Rate"
@@ -341,38 +210,20 @@ msgstr "Rate"
 msgid "Rating"
 msgstr "Rating"
 
-msgid "Rating Information"
-msgstr "Rating Information"
-
-msgid "Rating Module Details"
-msgstr "Rating Module Details"
-
-msgid "Rating Modules"
-msgstr "Rating Modules"
-
-msgid "Rating Script Source"
-msgstr "Rating Script Source"
-
-msgid "Rating Summary"
-msgstr "Rating Summary"
+msgid "Rating Dashboard"
+msgstr "Rating Dashboard"
 
 msgid "Reporting"
 msgstr "Reporting"
 
-msgid "Res Type"
-msgstr "Res Type"
+msgid "Resource ID"
+msgstr "Resource ID"
 
-msgid "Script Data"
-msgstr "Script Data"
+msgid "Select All"
+msgstr "Select All"
 
-msgid "Script Details"
-msgstr "Script Details"
-
-msgid "Script File"
-msgstr "Script File"
-
-msgid "Script ID"
-msgstr "Script ID"
+msgid "Select a period of time to view data in:"
+msgstr "Select a period of time to view data in:"
 
 msgid "Service"
 msgstr "Service"
@@ -380,17 +231,8 @@ msgstr "Service"
 msgid "Service ID"
 msgstr "Service ID"
 
-msgid "Service Mappings"
-msgstr "Service Mappings"
-
 msgid "Service Name"
 msgstr "Service Name"
-
-msgid "Service Threshold"
-msgstr "Service Threshold"
-
-msgid "Service Thresholds"
-msgstr "Service Thresholds"
 
 msgid "Service type"
 msgstr "Service type"
@@ -404,27 +246,23 @@ msgstr "Services"
 msgid "Services are provided by main collector."
 msgstr "Services are provided by main collector."
 
-msgid "Successfully created script"
-msgstr "Successfully created script"
+msgid "Submit"
+msgstr "Submit"
 
-msgid "Successfully updated priority"
-msgstr "Successfully updated priority"
+msgid "The date should be in YYYY-MM-DD format."
+msgstr "The date should be in YYYY-MM-DD format."
 
-msgid "Successfully updated script"
-msgstr "Successfully updated script"
-
-msgid "Summary"
-msgstr "Summary"
-
-#, python-format
-msgid "There was a problem parsing the %(prefix)s: %(error)s"
-msgstr "There was a problem parsing the %(prefix)s: %(error)s"
+msgid "This month"
+msgstr "This month"
 
 msgid "Threshold ID"
 msgstr "Threshold ID"
 
-msgid "Thresholds"
-msgstr "Thresholds"
+msgid "Top Cost Generators"
+msgstr "Top Cost Generators"
+
+msgid "Total spent"
+msgstr "Total spent"
 
 msgid "Type"
 msgstr "Type"
@@ -438,41 +276,29 @@ msgstr "Unable to create group."
 msgid "Unable to create new service."
 msgstr "Unable to create new service."
 
-msgid "Unable to create script."
-msgstr "Unable to create script."
-
 msgid "Unable to retrieve price."
 msgstr "Unable to retrieve price."
-
-msgid "Unable to update priority."
-msgstr "Unable to update priority."
-
-msgid "Unable to update script."
-msgstr "Unable to update script."
 
 msgid "Unit"
 msgstr "Unit"
 
-msgid "Update Field Mapping"
-msgstr "Update Field Mapping"
-
-msgid "Update Field Threshold"
-msgstr "Update Field Threshold"
-
-msgid "Update Mapping"
-msgstr "Update Mapping"
-
-msgid "Update Script"
-msgstr "Update Script"
-
-msgid "Update Service Threshold"
-msgstr "Update Service Threshold"
+msgid "Unselect All"
+msgstr "Unselect All"
 
 msgid "Value"
 msgstr "Value"
 
-msgid "id"
-msgstr "id"
+msgid "Week View"
+msgstr "Week View"
 
-msgid "pyscripts"
-msgstr "pyscripts"
+msgid "Year View"
+msgstr "Year View"
+
+msgid "Yesterday"
+msgstr "Yesterday"
+
+msgid "of"
+msgstr "of"
+
+msgid "to"
+msgstr "to"
