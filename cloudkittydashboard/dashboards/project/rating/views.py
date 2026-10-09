@@ -22,6 +22,7 @@ from django import http
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from horizon import exceptions
+from horizon import views as horizon_views
 
 from cloudkittydashboard.api import cloudkitty as api
 from cloudkittydashboard import utils
@@ -32,7 +33,8 @@ rate_postfix = getattr(settings,
                        'OPENSTACK_CLOUDKITTY_RATE_POSTFIX', None)
 
 
-class IndexView(generic.TemplateView):
+class IndexView(horizon_views.PageTitleMixin, generic.TemplateView):
+    page_title = _("Rating Dashboard")
     template_name = 'project/rating/index.html'
 
     def _get_month_dates(self, year, month):
