@@ -188,5 +188,6 @@ class ReportingTabs(tabs.TabGroup):
 
 
 class IndexView(tabs.TabbedTableView):
+    page_title = _("Reporting")
     tab_group_class = ReportingTabs
     template_name = 'project/reporting/index.html'
