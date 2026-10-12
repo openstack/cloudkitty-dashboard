@@ -1,0 +1,5 @@
+---
+features:
+  - |
+    The ``Price`` step of the ``Launch Instance`` wizard now shows an itemized
+    estimate of the instance and the new volume, with a total.

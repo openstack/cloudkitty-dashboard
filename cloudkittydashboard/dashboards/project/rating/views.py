@@ -16,6 +16,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
 import json
+import math
 
 from django.conf import settings
 from django import http
@@ -179,4 +180,99 @@ def quote(request):
                                   _('Unable to retrieve price.'))
 
     return http.HttpResponse(json.dumps(pricing),
+                             content_type='application/json')
+
+
+QUOTATION_MAX_ITEMS = 10
+
+
+def _quotation_services():
+    """Map the item kinds sent by the launch wizard to HashMap services."""
+    return {
+        'instance': getattr(
+            settings, 'CLOUDKITTY_QUOTATION_SERVICE', 'instance'),
+        'volume': getattr(
+            settings, 'CLOUDKITTY_QUOTATION_VOLUME_SERVICE', 'volume.size'),
+    }
+
+
+def _prepare_volume_description(desc):
+    """Pick the volume type identifier used by the HashMap field mapping."""
+    metadata = dict(desc.get('metadata') or {})
+    use = getattr(settings, 'CLOUDKITTY_QUOTATION_VOLUME_TYPE', 'id')
+    type_id = metadata.pop('volume_type_id', '')
+    type_name = metadata.pop('volume_type_name', '')
+    metadata['volume_type'] = type_name if use == 'name' else type_id
+    return dict(desc, metadata=metadata)
+
+
+def quote_details(request):
+    """Return an itemized quotation for the launch instance wizard."""
+    result = {
+        'items': [],
+        'total': 0.0,
+        'total_display': utils.formatRate(0.0, rate_prefix, rate_postfix),
+        'partial': False,
+        'period': getattr(settings, 'CLOUDKITTY_QUOTATION_PERIOD', 'hour'),
+    }
+    is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
+    if is_ajax and request.method == 'POST':
+        try:
+            items = json.loads(request.body)
+        except ValueError:
+            return http.HttpResponseBadRequest()
+        if not isinstance(items, list):
+            return http.HttpResponseBadRequest()
+
+        services = _quotation_services()
+        client = api.cloudkittyclient(request)
+        total = 0.0
+        for item in items[:QUOTATION_MAX_ITEMS]:
+            if not isinstance(item, dict):
+                continue
+            kind = item.get('kind')
+            if kind not in services:
+                continue
+            try:
+                quantity = float(item.get('volume', 1))
+            except (TypeError, ValueError):
+                continue
+            if not math.isfinite(quantity) or quantity < 0:
+                continue
+            desc = item.get('desc')
+            if not isinstance(desc, dict):
+                desc = {}
+            if kind == 'volume':
+                desc = _prepare_volume_description(desc)
+
+            price = None
+            try:
+                price = float(client.rating.get_quotation(
+                    res_data=[{'service': services[kind],
+                               'desc': desc,
+                               'volume': quantity}]))
+            except Exception:
+                exceptions.handle(request, _('Unable to retrieve price.'))
+
+            if price is None:
+                result['partial'] = True
+            else:
+                total += price
+            result['items'].append({
+                'kind': kind,
+                'name': str(item.get('name') or '')[:255],
+                'quantity': int(quantity) if quantity.is_integer()
+                else quantity,
+                'unit': 'GiB' if kind == 'volume' else '',
+                'price': price,
+                'price_display': (
+                    utils.formatRate(price, rate_prefix, rate_postfix)
+                    if price is not None else ''),
+            })
+
+        result['total'] = total
+        result['total_display'] = utils.formatRate(
+            total, rate_prefix, rate_postfix)
+
+    return http.HttpResponse(json.dumps(result),
                              content_type='application/json')
