@@ -18,5 +18,6 @@ from cloudkittydashboard.dashboards.project.rating import views
 
 urlpatterns = [
     re_path(r'^$', views.IndexView.as_view(), name='index'),
-    re_path(r'^quote$', views.quote, name='quote')
+    re_path(r'^quote$', views.quote, name='quote'),
+    re_path(r'^quote/details$', views.quote_details, name='quote_details'),
 ]
