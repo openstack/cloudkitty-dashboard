@@ -1,6 +1,11 @@
 <div class="ck" ng-controller="CloudkittyStepController as ctrl">
   <h3 translate>Price</h3>
 
+  <div class="alert alert-info" ng-if="!ctrl.hasFlavor">
+    <span class="fa fa-info-circle"></span>
+    <translate>Select a flavor to see the estimated price.</translate>
+  </div>
+
   <div class="alert alert-danger" ng-if="ctrl.error">
     <span class="fa fa-exclamation-circle"></span>
     <translate>Unable to retrieve the price.</translate>
