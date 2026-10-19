@@ -1,0 +1,55 @@
+# Andi Chandler <andi@gowling.com>, 2026. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: cloudkitty-dashboard VERSION\n"
+"Report-Msgid-Bugs-To: https://bugs.launchpad.net/openstack-i18n/\n"
+"POT-Creation-Date: 2026-10-16 15:03+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2026-10-18 04:39+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>\n"
+"Language-Team: English (United Kingdom)\n"
+"Language: en_GB\n"
+"X-Generator: Zanata 4.3.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgid "Calculating the price..."
+msgstr "Calculating the price..."
+
+msgid "Estimated price for the instance(s) you are launching."
+msgstr "Estimated price for the instance(s) you are launching."
+
+msgid "Instance"
+msgstr "Instance"
+
+msgid "Item"
+msgstr "Item"
+
+msgid "Price"
+msgstr "Price"
+
+#, python-brace-format
+msgid "Price per {$ ctrl.quote.period $}"
+msgstr "Price per {$ ctrl.quote.period $}"
+
+msgid "Quantity"
+msgstr "Quantity"
+
+msgid "Select a flavor to see the estimated price."
+msgstr "Select a flavour to see the estimated price."
+
+msgid "The total does not include items whose price is unavailable."
+msgstr "The total does not include items whose price is unavailable."
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Unable to retrieve the price."
+msgstr "Unable to retrieve the price."
+
+msgid "Volume"
+msgstr "Volume"
+
+msgid "unavailable"
+msgstr "unavailable"
